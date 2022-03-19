@@ -1,0 +1,13 @@
+﻿<Application x:Class="BTQuickie.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="OnStartup">
+    
+    <Application.Resources>
+
+        <!-- Sizes -->
+        
+        <!-- Styles -->
+        
+    </Application.Resources>
+</Application>
