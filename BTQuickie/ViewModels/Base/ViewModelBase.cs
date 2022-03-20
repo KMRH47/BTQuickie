@@ -1,15 +1,19 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using Prism.Mvvm;
 
 namespace BTQuickie.ViewModels.Base
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : BindableBase
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        private bool isBusy;
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public bool IsBusy
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => this.isBusy;
+            set
+            {
+                this.isBusy = value;
+                RaisePropertyChanged();
+            }
         }
     }
 }

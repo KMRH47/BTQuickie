@@ -1,11 +1,39 @@
 ﻿<Application x:Class="BTQuickie.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:t="clr-namespace:System;assembly=mscorlib"
+             xmlns:converters="clr-namespace:BTQuickie.Converters"
              Startup="OnStartup">
     
     <Application.Resources>
 
+        <!-- Colors -->
+        <!-- Gray  -->
+        <Brush x:Key="Gray50"> #F9FAFB</Brush>
+        <Brush x:Key="Gray100">#F3F4F6</Brush>
+        <Brush x:Key="Gray200">#E5E7EB</Brush>
+        <Brush x:Key="Gray300">#D1D5DB</Brush>
+        <Brush x:Key="Gray400">#9CA3AF</Brush>
+        <Brush x:Key="Gray500">#6B7280</Brush>
+        <Brush x:Key="Gray600">#4B5563</Brush>
+        <Brush x:Key="Gray700">#374151</Brush>
+        <Brush x:Key="Gray800">#1F2937</Brush>
+        <Brush x:Key="Gray900">#111827</Brush>
+        
         <!-- Sizes -->
+        <Thickness x:Key="ThicknessXSmall">10</Thickness>
+        <Thickness x:Key="ThicknessSmall">25</Thickness>
+        <Thickness x:Key="ThicknessMedium">50</Thickness>
+        <Thickness x:Key="ThicknessLarge">70</Thickness>
+        
+        <!-- Strings -->
+        <t:String x:Key="UnknownDeviceString">Unknown Device</t:String>
+        
+        <!-- Converters -->
+        <converters:VisibilityBooleanConverter x:Key="VisibilityBooleanConverter"/>
+        <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter"/>
+        
+        
         
         <!-- Styles -->
         

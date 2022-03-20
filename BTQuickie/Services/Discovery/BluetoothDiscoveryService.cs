@@ -1,30 +1,22 @@
-﻿using System.Diagnostics;
-using InTheHand.Net.Bluetooth;
+﻿using System.Collections.Generic;
 using InTheHand.Net.Sockets;
 
 namespace BTQuickie.Services.Discovery
 {
     public class BluetoothDiscoveryService : IBluetoothDiscoveryService
     {
-        private readonly BluetoothListener bluetoothListener;
-        
-        public BluetoothDiscoveryService()
-        {
-            this.bluetoothListener = new BluetoothListener(BluetoothService.UPnpIPL2Cap);
-        }
+        private readonly BluetoothClient bluetoothClient = new();
+        //    private readonly BluetoothListener bluetoothListener = new(BluetoothService.SerialPort);
 
-        public void Start()
+        public IReadOnlyCollection<BluetoothDeviceInfo> DiscoverDevices()
         {
-            Debug.WriteLine($"Starting Bluetooth discovery...");
-            this.bluetoothListener.Start();
+            return this.bluetoothClient.DiscoverDevices();
         }
 
         public void Stop()
         {
-            Debug.WriteLine($"Stopping Bluetooth discovery...");
-            this.bluetoothListener.Stop();
         }
 
-        public bool IsActive => this.bluetoothListener.Active;
+        public bool Connected => this.bluetoothClient.Connected;
     }
 }

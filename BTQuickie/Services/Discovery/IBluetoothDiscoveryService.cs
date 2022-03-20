@@ -1,9 +1,12 @@
-﻿namespace BTQuickie.Services.Discovery
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using InTheHand.Net.Sockets;
+
+namespace BTQuickie.Services.Discovery
 {
     public interface IBluetoothDiscoveryService
     {
-        void Start();
-        void Stop();
-        bool IsActive { get; }
+        IReadOnlyCollection<BluetoothDeviceInfo>  DiscoverDevices();
+        bool Connected { get; }
     }
 }
