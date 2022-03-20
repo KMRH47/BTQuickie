@@ -1,8 +1,8 @@
-﻿using Prism.Mvvm;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BTQuickie.ViewModels.Base
 {
-    public class ViewModelBase : BindableBase
+    public class ViewModelBase : ObservableObject
     {
         private bool isBusy;
 
@@ -12,7 +12,7 @@ namespace BTQuickie.ViewModels.Base
             set
             {
                 this.isBusy = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
     }

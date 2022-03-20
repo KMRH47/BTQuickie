@@ -8,20 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
       <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
       <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.27" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-      <PackageReference Include="Prism.Core" Version="8.1.97" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Update="Resources\AppResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\AppResources.en.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.en.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>

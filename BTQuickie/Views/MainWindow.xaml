@@ -6,32 +6,35 @@
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:resources="clr-namespace:BTQuickie.Resources"
         mc:Ignorable="d"
-        Title="Bluetooth Devices"
+        Title="{x:Static resources:AppResources.Title}"
         Height="350"
         Width="250">
 
-    <!-- Outer Grid -->
-    <Grid>
+    <!-- Main Grid -->
+    <Grid Style="{StaticResource MainGridStyle}">
 
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Asd -->
+        <!-- Content Grid -->
         <Grid Grid.Row="0">
 
             <!-- Device List -->
-            <ListView ItemsSource="{Binding Devices}"
+            <ListView x:Name="ListView"
+                      ItemsSource="{Binding Devices}"
                       SelectedItem="{Binding SelectedDevice}"
-                      Visibility="{Binding IsBusy, Converter={StaticResource InvertedVisibilityBooleanConverter}}">
+                      Background="{StaticResource Gray600}"
+                      Visibility="{Binding IsBusy,
+                        Converter={StaticResource InvertedVisibilityBooleanConverter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <Label
                                 Content="{Binding DeviceName, 
-                                TargetNullValue={x:Static resources:AppResources.UnknownDevice}, 
-                                FallbackValue={x:Static resources:AppResources.UnknownDevice}}" />
+                                    TargetNullValue={x:Static resources:AppResources.UnknownDevice}, 
+                                    FallbackValue={x:Static resources:AppResources.UnknownDevice}}" />
                             <Label Content="{Binding DeviceAddress}" />
                         </StackPanel>
                     </DataTemplate>
@@ -43,13 +46,14 @@
                                       Spin="True"
                                       Foreground="{StaticResource Gray800}"
                                       Margin="{StaticResource ThicknessLarge}"
-                                      Visibility="{Binding IsBusy, Converter={StaticResource VisibilityBooleanConverter}}" />
+                                      Visibility="{Binding IsBusy,
+                                        Converter={StaticResource VisibilityBooleanConverter}}" />
         </Grid>
 
         <!-- Button (Discover Devices) -->
         <Button Grid.Row="1"
                 Command="{Binding DiscoverDevicesCommand}"
-                Content="Find Bluetooth Devices... "
-                Background="Ivory" />
+                Content="{x:Static resources:AppResources.FindBluetoothDevices}"
+                Background="{StaticResource Gray700}" />
     </Grid>
 </Window>

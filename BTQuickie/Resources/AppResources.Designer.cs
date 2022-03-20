@@ -29,7 +29,7 @@ namespace BTQuickie.Resources {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public AppResources() {
+        internal AppResources() {
         }
         
         /// <summary>
@@ -57,6 +57,24 @@ namespace BTQuickie.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find Bluetooth devices.
+        /// </summary>
+        public static string FindBluetoothDevices {
+            get {
+                return ResourceManager.GetString("FindBluetoothDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BTQuickie.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
         

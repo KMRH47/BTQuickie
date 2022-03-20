@@ -4,7 +4,7 @@
              xmlns:t="clr-namespace:System;assembly=mscorlib"
              xmlns:converters="clr-namespace:BTQuickie.Converters"
              Startup="OnStartup">
-    
+
     <Application.Resources>
 
         <!-- Colors -->
@@ -19,23 +19,45 @@
         <Brush x:Key="Gray700">#374151</Brush>
         <Brush x:Key="Gray800">#1F2937</Brush>
         <Brush x:Key="Gray900">#111827</Brush>
-        
+
         <!-- Sizes -->
+        <!-- Thickness -->
         <Thickness x:Key="ThicknessXSmall">10</Thickness>
         <Thickness x:Key="ThicknessSmall">25</Thickness>
         <Thickness x:Key="ThicknessMedium">50</Thickness>
         <Thickness x:Key="ThicknessLarge">70</Thickness>
-        
+
+        <!-- Font Size -->
+        <t:Double x:Key="FontSizeXSmall">8</t:Double>
+        <t:Double x:Key="FontSizeSmall">11</t:Double>
+        <t:Double x:Key="FontSizeMedium">14</t:Double>
+        <t:Double x:Key="FontSizeLarge">22</t:Double>
+        <t:Double x:Key="FontSizeXLarge">36</t:Double>
+
         <!-- Strings -->
         <t:String x:Key="UnknownDeviceString">Unknown Device</t:String>
-        
+
         <!-- Converters -->
-        <converters:VisibilityBooleanConverter x:Key="VisibilityBooleanConverter"/>
-        <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter"/>
-        
-        
-        
+        <converters:VisibilityBooleanConverter x:Key="VisibilityBooleanConverter" />
+        <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter" />
+
         <!-- Styles -->
         
+        <!-- Grid -->
+        <Style TargetType="Grid" x:Key="MainGridStyle">
+            <Setter Property="Background"
+                    Value="{StaticResource Gray700}" />
+        </Style>
+        <!-- Label -->
+        <Style TargetType="Label">
+            <Setter Property="Foreground"
+                    Value="{StaticResource Gray200}" />
+        </Style>
+        <!-- Button -->
+        <Style TargetType="Button">
+            <Setter Property="Foreground"
+                    Value="{StaticResource Gray200}" />
+        </Style>
+
     </Application.Resources>
 </Application>

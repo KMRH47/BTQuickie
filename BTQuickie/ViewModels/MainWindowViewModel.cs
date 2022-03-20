@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using BTQuickie.Services.Discovery;
 using BTQuickie.ViewModels.Base;
+using CommunityToolkit.Mvvm.Input;
+using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
-using Prism.Commands;
 
 namespace BTQuickie.ViewModels
 {
@@ -19,9 +21,14 @@ namespace BTQuickie.ViewModels
         public MainWindowViewModel(IBluetoothDiscoveryService bluetoothDiscoveryService)
         {
             this.bluetoothDiscoveryService = bluetoothDiscoveryService;
+            this.Devices = new List<BluetoothDeviceInfo>(bluetoothDiscoveryService.PairedDevices());
         }
 
-        public ICommand DiscoverDevicesCommand => new DelegateCommand(DiscoverBluetoothDevices, CanDiscoverBluetoothDevices);
+        public ICommand DiscoverDevicesCommand =>
+            new RelayCommand(OnDiscoverBluetoothDevices, CanDiscoverBluetoothDevices);
+
+        public ICommand ConnectToDeviceCommand =>
+            new AsyncRelayCommand<BluetoothDeviceInfo>(OnConnectToDevice);
 
         public BluetoothDeviceInfo SelectedDevice
         {
@@ -29,8 +36,10 @@ namespace BTQuickie.ViewModels
             set
             {
                 this.selectedDevice = value;
-                Debug.WriteLine($"Selected: {value.DeviceName}");
-                RaisePropertyChanged();
+                base.IsBusy = true;
+                _ = OnConnectToDevice(value);
+                base.IsBusy = false;
+                OnPropertyChanged();
             }
         }
 
@@ -40,11 +49,22 @@ namespace BTQuickie.ViewModels
             set
             {
                 this.devices = value;
-                RaisePropertyChanged();
+                OnPropertyChanged();
             }
         }
 
-        private void DiscoverBluetoothDevices()
+        private async Task OnConnectToDevice(BluetoothDeviceInfo? deviceInfo)
+        {
+            if (deviceInfo is null)
+            {
+                Debug.WriteLine($"{nameof(BluetoothDeviceInfo)} is null.");
+                return;
+            }
+
+            await this.bluetoothDiscoveryService.ConnectAsync(deviceInfo.DeviceAddress, BluetoothService.GenericAudio);
+        }
+
+        private void OnDiscoverBluetoothDevices()
         {
             try
             {
@@ -54,8 +74,10 @@ namespace BTQuickie.ViewModels
                 {
                     base.IsBusy = true;
 
-                    Devices= this.bluetoothDiscoveryService.DiscoverDevices();
-                    
+                    List<BluetoothDeviceInfo> devices = new(Devices);
+                    devices.AddRange(this.bluetoothDiscoveryService.DiscoverDevices());
+                    Devices = devices;
+
                     base.IsBusy = false;
                 }).Start();
             }
