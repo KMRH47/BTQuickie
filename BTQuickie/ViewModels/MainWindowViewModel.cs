@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using BTQuickie.Services.Discovery;
+using BTQuickie.ViewModels.Base;
 using Prism.Commands;
 
 namespace BTQuickie.ViewModels
@@ -10,9 +11,9 @@ namespace BTQuickie.ViewModels
     {
         private readonly IBluetoothDiscoveryService bluetoothDiscoveryService;
 
+        
         public MainWindowViewModel(IBluetoothDiscoveryService bluetoothDiscoveryService)
         {
-            Debug.WriteLine($"Test: {bluetoothDiscoveryService}");
             this.bluetoothDiscoveryService = bluetoothDiscoveryService;
         }
 

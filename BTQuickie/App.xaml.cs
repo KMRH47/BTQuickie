@@ -22,7 +22,6 @@ namespace BTQuickie
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            Debug.Write("OnStartup");
             (MainWindow = this.serviceProvider.GetService<MainWindow>())?.Show();
         }
     }

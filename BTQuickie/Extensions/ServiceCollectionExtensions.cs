@@ -1,5 +1,6 @@
 ﻿using BTQuickie.Services.Discovery;
 using BTQuickie.ViewModels;
+using BTQuickie.ViewModels.Base;
 using BTQuickie.Views;
 using Microsoft.Extensions.DependencyInjection;
 
