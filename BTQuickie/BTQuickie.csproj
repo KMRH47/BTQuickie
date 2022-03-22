@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+      <PackageReference Include="Expression.Blend.Sdk.WPF" Version="1.0.1" />
       <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
       <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.27" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

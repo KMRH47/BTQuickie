@@ -1,47 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BTQuickie.Services.Discovery;
+using BTQuickie.Models;
+using BTQuickie.Services.Bluetooth;
 using BTQuickie.ViewModels.Base;
 using CommunityToolkit.Mvvm.Input;
-using InTheHand.Net.Bluetooth;
-using InTheHand.Net.Sockets;
 
 namespace BTQuickie.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly IBluetoothDiscoveryService bluetoothDiscoveryService;
+        private readonly IBluetoothService bluetoothService;
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
-        private BluetoothDeviceInfo selectedDevice;
+        private int connectTimeoutMs = 5000;
+        private bool showPairedDevices = true;
 
-        public MainWindowViewModel(IBluetoothDiscoveryService bluetoothDiscoveryService)
+        public MainWindowViewModel(IBluetoothService bluetoothService)
         {
-            this.bluetoothDiscoveryService = bluetoothDiscoveryService;
-            this.Devices = new List<BluetoothDeviceInfo>(bluetoothDiscoveryService.PairedDevices());
+            this.bluetoothService = bluetoothService;
+            this.devices = new List<BluetoothDeviceInfo>(this.bluetoothService.PairedDevices());
         }
 
         public ICommand DiscoverDevicesCommand =>
-            new RelayCommand(OnDiscoverBluetoothDevices, CanDiscoverBluetoothDevices);
+            new AsyncRelayCommand(OnDiscoverBluetoothDevices, CanDiscoverBluetoothDevices);
 
         public ICommand ConnectToDeviceCommand =>
-            new AsyncRelayCommand<BluetoothDeviceInfo>(OnConnectToDevice);
-
-        public BluetoothDeviceInfo SelectedDevice
-        {
-            get => this.selectedDevice;
-            set
-            {
-                this.selectedDevice = value;
-                base.IsBusy = true;
-                _ = OnConnectToDevice(value);
-                base.IsBusy = false;
-                OnPropertyChanged();
-            }
-        }
+            new AsyncRelayCommand<string>(OnConnectToDevice);
 
         public IReadOnlyCollection<BluetoothDeviceInfo> Devices
         {
@@ -53,38 +39,34 @@ namespace BTQuickie.ViewModels
             }
         }
 
-        private async Task OnConnectToDevice(BluetoothDeviceInfo? deviceInfo)
+        private async Task OnConnectToDevice(string? deviceAddress)
         {
-            if (deviceInfo is null)
+            if (deviceAddress is null or "")
             {
-                Debug.WriteLine($"{nameof(BluetoothDeviceInfo)} is null.");
                 return;
             }
 
-            await this.bluetoothDiscoveryService.ConnectAsync(deviceInfo.DeviceAddress, BluetoothService.GenericAudio);
+            base.IsBusy = true;
+
+            await Task.Run(() =>
+                    this.bluetoothService.Connect(this.bluetoothService.ParseBluetoothAddress(deviceAddress),
+                        this.bluetoothService.GuidSerialPort()))
+                .WaitAsync(TimeSpan.FromMilliseconds(this.connectTimeoutMs));
+
+            base.IsBusy = false;
         }
 
-        private void OnDiscoverBluetoothDevices()
+        private async Task OnDiscoverBluetoothDevices()
         {
-            try
-            {
-                Debug.WriteLine($"Looking for devices...");
+            base.IsBusy = true;
 
-                new Thread(() =>
-                {
-                    base.IsBusy = true;
+            List<BluetoothDeviceInfo> devices = new(Devices);
+            IReadOnlyCollection<BluetoothDeviceInfo> discoveredDevices =
+                await Task.Run(() => _ = this.bluetoothService.DiscoverDevices());
+            devices.AddRange(discoveredDevices);
+            Devices = devices.Distinct().ToList();
 
-                    List<BluetoothDeviceInfo> devices = new(Devices);
-                    devices.AddRange(this.bluetoothDiscoveryService.DiscoverDevices());
-                    Devices = devices;
-
-                    base.IsBusy = false;
-                }).Start();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine($"EXCEPTION!\n{e.StackTrace}");
-            }
+            base.IsBusy = false;
         }
 
         private bool CanDiscoverBluetoothDevices()

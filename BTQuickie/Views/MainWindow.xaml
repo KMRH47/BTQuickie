@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:resources="clr-namespace:BTQuickie.Resources"
+        x:Name="MainWindowViewModel"
         mc:Ignorable="d"
         Title="{x:Static resources:AppResources.Title}"
         Height="350"
@@ -23,19 +24,31 @@
 
             <!-- Device List -->
             <ListView x:Name="ListView"
+                      SelectionMode="Single"
                       ItemsSource="{Binding Devices}"
-                      SelectedItem="{Binding SelectedDevice}"
                       Background="{StaticResource Gray600}"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
+
+                            <StackPanel.InputBindings>
+                                <MouseBinding Gesture="LeftClick"
+                                              Command="{Binding DataContext.ConnectToDeviceCommand,
+                                                Source={x:Reference MainWindowViewModel}}"
+                                              CommandParameter="{Binding Address}" />
+                            </StackPanel.InputBindings>
+
+                            <!-- Name -->
                             <Label
-                                Content="{Binding DeviceName, 
+                                Content="{Binding Name, 
                                     TargetNullValue={x:Static resources:AppResources.UnknownDevice}, 
                                     FallbackValue={x:Static resources:AppResources.UnknownDevice}}" />
-                            <Label Content="{Binding DeviceAddress}" />
+
+                            <!-- Address -->
+                            <Label Content="{Binding Address}" />
+
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
