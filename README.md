@@ -1,5 +1,7 @@
 # BTQuickie
 
+!!ONLY WORKS WITH PAIRED DEVICES RIGHT NOW!!
+
 Quickly access bluetooth devices on Windows 11!
 
 **Windows + K** no longer enables you to connect to your favorite BT devices with ease... But this mini-app aims to solve the problem!
