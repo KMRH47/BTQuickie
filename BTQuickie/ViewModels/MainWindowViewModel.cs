@@ -60,11 +60,7 @@ namespace BTQuickie.ViewModels
         {
             base.IsBusy = true;
 
-            List<BluetoothDeviceInfo> devices = new(Devices);
-            IReadOnlyCollection<BluetoothDeviceInfo> discoveredDevices =
-                await Task.Run(() => _ = this.bluetoothService.DiscoverDevices());
-            devices.AddRange(discoveredDevices);
-            Devices = devices.Distinct().ToList();
+            Devices = await Task.Run(() => _ = this.bluetoothService.DiscoverDevices());
 
             base.IsBusy = false;
         }
