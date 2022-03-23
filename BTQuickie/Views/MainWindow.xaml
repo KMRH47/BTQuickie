@@ -13,6 +13,8 @@
 
     <Window.Resources>
 
+        <!-- Styles -->
+
         <!-- List View Item -->
         <Style TargetType="ListViewItem"
                x:Key="ListViewStyle">

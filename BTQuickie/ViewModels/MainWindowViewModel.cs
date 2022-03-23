@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using BTQuickie.Models;
@@ -39,21 +40,32 @@ namespace BTQuickie.ViewModels
             }
         }
 
+        public bool IsConnected { get; set; }
+
         private async Task OnConnectToDevice(string? deviceAddress)
         {
-            if (deviceAddress is null or "")
+            try
             {
-                return;
+                if (deviceAddress is null or "")
+                {
+                    return;
+                }
+
+                base.IsBusy = true;
+
+                await Task.Run(() =>
+                        this.bluetoothService.Connect(deviceAddress,
+                            this.bluetoothService.GuidSerialPort()))
+                    .WaitAsync(TimeSpan.FromMilliseconds(this.connectTimeoutMs));
             }
-
-            base.IsBusy = true;
-
-            await Task.Run(() =>
-                    this.bluetoothService.Connect(deviceAddress,
-                        this.bluetoothService.GuidSerialPort()))
-                .WaitAsync(TimeSpan.FromMilliseconds(this.connectTimeoutMs));
-
-            base.IsBusy = false;
+            catch (SocketException e)
+            {
+                Debug.WriteLine($"{e.Message}\n{e.StackTrace}");
+            }
+            finally
+            {
+                base.IsBusy = false;
+            }
         }
 
         private async Task OnDiscoverBluetoothDevices()

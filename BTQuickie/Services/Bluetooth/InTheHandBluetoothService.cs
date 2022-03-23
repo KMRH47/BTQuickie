@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using BluetoothDeviceInfoLocal = BTQuickie.Models.BluetoothDeviceInfo;
 using InTheHand.Net;
