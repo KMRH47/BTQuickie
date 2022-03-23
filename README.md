@@ -8,6 +8,7 @@ Quickly access bluetooth devices on Windows 11!
 
 **Planned additions:**
 
+- Shortcut for quick access
 - Run as tray icon
 - Pop-up like style when clicking icon
 - Stylish and intuitive animations
