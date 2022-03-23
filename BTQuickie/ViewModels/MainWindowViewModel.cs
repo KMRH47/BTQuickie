@@ -49,7 +49,7 @@ namespace BTQuickie.ViewModels
             base.IsBusy = true;
 
             await Task.Run(() =>
-                    this.bluetoothService.Connect(this.bluetoothService.ParseBluetoothAddress(deviceAddress),
+                    this.bluetoothService.Connect(deviceAddress,
                         this.bluetoothService.GuidSerialPort()))
                 .WaitAsync(TimeSpan.FromMilliseconds(this.connectTimeoutMs));
 

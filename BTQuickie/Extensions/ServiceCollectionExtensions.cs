@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection ConfigureServices(this IServiceCollection services)
     {
         return services
-            .AddScoped<IBluetoothService, BluetoothService>();
+            .AddScoped<IBluetoothService, InTheHandBluetoothService>();
     }
 
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)

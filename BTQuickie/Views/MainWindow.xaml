@@ -5,11 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:resources="clr-namespace:BTQuickie.Resources"
+        Title="{x:Static resources:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
-        Title="{x:Static resources:AppResources.Title}"
         Height="350"
         Width="250">
+
+    <Window.Resources>
+
+        <!-- List View Item -->
+        <Style TargetType="ListViewItem"
+               x:Key="ListViewStyle">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+        </Style>
+
+    </Window.Resources>
 
     <!-- Main Grid -->
     <Grid Style="{StaticResource MainGridStyle}">
@@ -23,16 +34,16 @@
         <Grid Grid.Row="0">
 
             <!-- Device List -->
-            <ListView x:Name="ListView"
-                      SelectionMode="Single"
+            <ListView SelectionMode="Single"
+                      ItemContainerStyle="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding Devices}"
                       Background="{StaticResource Gray600}"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
 
+                        <StackPanel>
                             <StackPanel.InputBindings>
                                 <MouseBinding Gesture="LeftClick"
                                               Command="{Binding DataContext.ConnectToDeviceCommand,
@@ -48,8 +59,8 @@
 
                             <!-- Address -->
                             <Label Content="{Binding Address}" />
-
                         </StackPanel>
+
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -59,7 +70,7 @@
                                       Spin="True"
                                       Foreground="{StaticResource Gray800}"
                                       Margin="{StaticResource ThicknessLarge}"
-                                      Visibility="{Binding IsBusy,
+                                      Visibility="{Binding IsBusy, 
                                         Converter={StaticResource VisibilityBooleanConverter}}" />
         </Grid>
 
