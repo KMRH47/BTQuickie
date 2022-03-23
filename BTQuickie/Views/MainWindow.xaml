@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:resources="clr-namespace:BTQuickie.Resources"
-        x:Name="MainWindowViewModel"
+        x:Name="this"
         mc:Ignorable="d"
         Title="{x:Static resources:AppResources.Title}"
         Height="350"
@@ -36,7 +36,7 @@
                             <StackPanel.InputBindings>
                                 <MouseBinding Gesture="LeftClick"
                                               Command="{Binding DataContext.ConnectToDeviceCommand,
-                                                Source={x:Reference MainWindowViewModel}}"
+                                                Source={x:Reference this}}"
                                               CommandParameter="{Binding Address}" />
                             </StackPanel.InputBindings>
 
