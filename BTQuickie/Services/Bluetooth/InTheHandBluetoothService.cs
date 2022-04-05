@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using BluetoothDeviceInfoLocal = BTQuickie.Models.BluetoothDeviceInfo;
 using InTheHand.Net;
@@ -12,7 +11,12 @@ namespace BTQuickie.Services.Bluetooth
 {
     public class InTheHandBluetoothService : IBluetoothService
     {
-        private readonly BluetoothClient bluetoothClient = new() {InquiryLength = TimeSpan.FromSeconds(3)};
+        private BluetoothClient bluetoothClient;
+
+        public InTheHandBluetoothService()
+        {
+            this.bluetoothClient = CreateClient();
+        }
 
         public Guid GuidSerialPort()
         {
@@ -23,6 +27,12 @@ namespace BTQuickie.Services.Bluetooth
         {
             IReadOnlyCollection<BluetoothDeviceInfo>? discoveredDevices = this.bluetoothClient.DiscoverDevices();
             return MapModel(discoveredDevices);
+        }
+        
+        public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices()
+        {
+            IEnumerable<BluetoothDeviceInfo>? pairedDevices = this.bluetoothClient.PairedDevices;
+            return MapModel(pairedDevices);
         }
 
         public void Connect(string address, Guid serviceGuid)
@@ -39,16 +49,11 @@ namespace BTQuickie.Services.Bluetooth
         {
             BluetoothSecurity.PairRequest(BluetoothAddress.Parse(address), pin);
         }
-
-        public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices()
-        {
-            IEnumerable<BluetoothDeviceInfo>? pairedDevices = this.bluetoothClient.PairedDevices;
-            return MapModel(pairedDevices);
-        }
-
-        public void Dispose()
+      
+        public void Disconnect()
         {
             this.bluetoothClient.Dispose();
+            this.bluetoothClient = CreateClient();
         }
 
         public bool Connected => this.bluetoothClient.Connected;
@@ -58,5 +63,7 @@ namespace BTQuickie.Services.Bluetooth
             return devices.Select(deviceInfo =>
                 new BluetoothDeviceInfoLocal(deviceInfo.DeviceName, deviceInfo.DeviceAddress.ToString())).ToList();
         }
+        
+        private BluetoothClient CreateClient() => new() {InquiryLength = TimeSpan.FromSeconds(3)};
     }
 }

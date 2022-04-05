@@ -10,4 +10,5 @@ public class BluetoothDeviceInfo
 
     public string Name { get; }
     public string Address { get; }
+    public bool Connected { get; private set; }
 }

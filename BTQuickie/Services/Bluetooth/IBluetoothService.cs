@@ -13,7 +13,7 @@ namespace BTQuickie.Services.Bluetooth
         Task ConnectAsync(string address, Guid serviceGuid);
         void PairRequest(string address, string pin);
         IEnumerable<BluetoothDeviceInfoLocal> PairedDevices();
-        void Dispose();
+        void Disconnect();
         bool Connected { get; }
     }
 }
