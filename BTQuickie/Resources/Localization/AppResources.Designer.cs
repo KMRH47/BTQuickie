@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTQuickie.Resources {
+namespace BTQuickie.Resources.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BTQuickie.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BTQuickie.Resources.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BTQuickie.Resources.Localization.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace BTQuickie.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnect.
+        /// </summary>
+        public static string Disconnect {
+            get {
+                return ResourceManager.GetString("Disconnect", resourceCulture);
             }
         }
         

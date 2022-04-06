@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BTQuickie.Resources {
+namespace BTQuickie.Resources.Localization {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BTQuickie.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BTQuickie.Resources.AppResources.en", typeof(AppResources_en).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BTQuickie.Resources.Localization.AppResources.en", typeof(AppResources_en).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

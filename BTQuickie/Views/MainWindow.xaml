@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
-        xmlns:resources="clr-namespace:BTQuickie.Resources"
-        Title="{x:Static resources:AppResources.Title}"
+        xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+        Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
         Height="350"
@@ -93,21 +93,54 @@
     <Grid Style="{StaticResource MainGridStyle}">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Content Grid -->
-        <Grid Grid.Row="0">
+        <!-- Top Section -->
+        <Grid Grid.Row="0"
+              Visibility="{Binding ConnectedBluetoothDeviceInfo.Name,
+                        Converter={StaticResource StringToVisibilityConverter}}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Connected Bluetooth Device Info  -->
+            <Border Grid.Column="0" BorderThickness="{StaticResource ThicknessXMicro}" BorderBrush="{StaticResource Emerald500}">
+                <StackPanel>
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}" />
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Disconnect Button -->
+            <Button Grid.Column="1"
+                    BorderThickness="0"
+                    Padding="{StaticResource ThicknessMicro}"
+                    Background="{StaticResource Gray600}"
+                    Command="{Binding DisconnectCommand}"
+                    Content="{x:Static localization:AppResources.Disconnect}" />
+        </Grid>
+
+        <!-- Middle Section -->
+        <Grid Grid.Row="1">
 
             <!-- Device List -->
-            <ListView SelectionMode="Single"
+            <ListView TabIndex="0"
+                      BorderBrush="Transparent"
+                      BorderThickness="0"
+                      SelectionMode="Single"
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       ItemsSource="{Binding Devices}"
                       Background="{StaticResource Gray600}"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}">
+
                 <ListView.ItemTemplate>
+
                     <DataTemplate>
 
                         <StackPanel>
@@ -115,19 +148,19 @@
                             <!-- Command Bindings -->
                             <StackPanel.InputBindings>
 
-                                <!-- Left Click -->
+                                <!-- Left Double Click -->
                                 <MouseBinding Gesture="LeftDoubleClick"
-                                              Command="{Binding DataContext.ConnectDisconnectCommand,
+                                              Command="{Binding DataContext.ConnectCommand,
                                                 Source={x:Reference this}}"
-                                              CommandParameter="{Binding Address}" />
+                                              CommandParameter="{Binding .}" />
 
                             </StackPanel.InputBindings>
 
                             <!-- Name -->
                             <Label
                                 Content="{Binding Name, 
-                                    TargetNullValue={x:Static resources:AppResources.UnknownDevice}, 
-                                    FallbackValue={x:Static resources:AppResources.UnknownDevice}}" />
+                                    TargetNullValue={x:Static localization:AppResources.UnknownDevice}, 
+                                    FallbackValue={x:Static localization:AppResources.UnknownDevice}}" />
 
                             <!-- Address -->
                             <Label Content="{Binding Address}" />
@@ -135,7 +168,9 @@
                         </StackPanel>
 
                     </DataTemplate>
+
                 </ListView.ItemTemplate>
+
             </ListView>
 
             <!-- Spinner -->
@@ -148,9 +183,10 @@
         </Grid>
 
         <!-- Button (Discover Devices) -->
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
+                TabIndex="1"
                 Command="{Binding DiscoverDevicesCommand}"
-                Content="{x:Static resources:AppResources.FindBluetoothDevices}"
+                Content="{x:Static localization:AppResources.FindBluetoothDevices}"
                 Background="{StaticResource Gray700}" />
     </Grid>
 </Window>

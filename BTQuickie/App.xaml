@@ -19,9 +19,13 @@
         <Brush x:Key="Gray700">#374151</Brush>
         <Brush x:Key="Gray800">#1F2937</Brush>
         <Brush x:Key="Gray900">#111827</Brush>
+        <!-- Emerald -->
+        <Brush x:Key="Emerald500">#10B981</Brush>
 
         <!-- Sizes -->
         <!-- Thickness -->
+        <Thickness x:Key="ThicknessXMicro">1</Thickness>
+        <Thickness x:Key="ThicknessMicro">5</Thickness>
         <Thickness x:Key="ThicknessXSmall">10</Thickness>
         <Thickness x:Key="ThicknessSmall">25</Thickness>
         <Thickness x:Key="ThicknessMedium">50</Thickness>
@@ -40,6 +44,7 @@
         <!-- Converters -->
         <converters:VisibilityBooleanConverter x:Key="VisibilityBooleanConverter" />
         <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
 
         <!-- Styles -->
         

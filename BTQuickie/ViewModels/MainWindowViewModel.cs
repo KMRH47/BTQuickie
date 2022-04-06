@@ -14,20 +14,22 @@ namespace BTQuickie.ViewModels
     {
         private readonly IBluetoothService bluetoothService;
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
+        private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
         private int connectTimeoutMs = 5000;
         private bool showPairedDevices = true;
-        private bool isConnected;
 
         public MainWindowViewModel(IBluetoothService bluetoothService)
         {
             this.bluetoothService = bluetoothService;
+            this.connectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
             this.devices = new List<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
         }
 
         public IAsyncRelayCommand DiscoverDevicesCommand =>
             new AsyncRelayCommand(OnDiscoverBluetoothDevices, CanDiscoverBluetoothDevices);
         
-        public IAsyncRelayCommand ConnectDisconnectCommand => new AsyncRelayCommand<string>(ConnectDisconnect);
+        public IAsyncRelayCommand ConnectCommand => new AsyncRelayCommand<BluetoothDeviceInfo>(Connect);
+        public IRelayCommand DisconnectCommand => new RelayCommand(Disconnect);
         
         public IReadOnlyCollection<BluetoothDeviceInfo> Devices
         {
@@ -39,40 +41,33 @@ namespace BTQuickie.ViewModels
             }
         }
 
-        public bool IsConnected
+        public BluetoothDeviceInfo ConnectedBluetoothDeviceInfo
         {
-            get => this.isConnected;
+            get => this.connectedBluetoothDeviceInfo;
             set
             {
-                this.isConnected = value;
+                this.connectedBluetoothDeviceInfo = value;
                 OnPropertyChanged();
             }
         }
 
-        private async Task ConnectDisconnect(string? deviceAddress)
+        private async Task Connect(BluetoothDeviceInfo? bluetoothDeviceInfo)
         {
             try
             {
-                if (string.IsNullOrEmpty(deviceAddress))
+                if (bluetoothDeviceInfo is null)
                 {
                     return;
                 }
-
-                if (this.bluetoothService.Connected)
-                {
-                    this.bluetoothService.Disconnect();
-                    IsConnected = false;
-                    return;
-                }
-
+                
                 base.IsBusy = true;
 
                 await Task.Run(() =>
-                        this.bluetoothService.Connect(deviceAddress,
+                        this.bluetoothService.Connect(bluetoothDeviceInfo.Address,
                             this.bluetoothService.GuidSerialPort()))
                     .WaitAsync(TimeSpan.FromMilliseconds(this.connectTimeoutMs));
 
-                IsConnected = true;
+                ConnectedBluetoothDeviceInfo = bluetoothDeviceInfo;
             }
             catch (SocketException e)
             {
@@ -84,8 +79,15 @@ namespace BTQuickie.ViewModels
             }
         }
 
-        private void ToggleContextMenu()
+        private void Disconnect()
         {
+            if (!this.bluetoothService.Connected)
+            {
+                return;
+            }
+            
+            this.bluetoothService.Disconnect();
+            ConnectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
         }
 
         private async Task OnDiscoverBluetoothDevices()

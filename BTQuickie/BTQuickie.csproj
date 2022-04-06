@@ -18,23 +18,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\AppResources.resx">
+      <EmbeddedResource Update="Resources\Localization\AppResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\AppResources.en.resx">
+      <EmbeddedResource Update="Resources\Localization\AppResources.en.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AppResources.en.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\AppResources.Designer.cs">
+      <Compile Update="Resources\Localization\AppResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AppResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\AppResources.en.Designer.cs">
+      <Compile Update="Resources\Localization\AppResources.en.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AppResources.en.resx</DependentUpon>
