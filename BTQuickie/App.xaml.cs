@@ -22,7 +22,14 @@ namespace BTQuickie
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            (MainWindow = this.serviceProvider.GetService<MainWindow>())?.Show();
+            MainWindow = this.serviceProvider.GetService<MainWindow>();
+        }
+
+        protected override void OnDeactivated(EventArgs e)
+        {
+            base.OnDeactivated(e);
+
+            MainWindow?.Hide();
         }
     }
 }

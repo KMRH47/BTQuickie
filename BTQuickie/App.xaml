@@ -46,6 +46,8 @@
         <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
 
+        <ImageSource x:Key="Icon">Resources/Icons/exported_small.ico</ImageSource>
+        
         <!-- Styles -->
         
         <!-- Grid -->

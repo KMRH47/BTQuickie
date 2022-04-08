@@ -1,4 +1,5 @@
-﻿using BTQuickie.Services.Bluetooth;
+﻿using BTQuickie.Services.Application;
+using BTQuickie.Services.Bluetooth;
 using BTQuickie.ViewModels;
 using BTQuickie.ViewModels.Base;
 using BTQuickie.Views;
@@ -11,7 +12,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection ConfigureServices(this IServiceCollection services)
     {
         return services
-            .AddScoped<IBluetoothService, InTheHandBluetoothService>();
+            .AddScoped<IBluetoothService, InTheHandBluetoothService>()
+            .AddScoped<IAppContextProvider, AppContextProvider>();
     }
 
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)

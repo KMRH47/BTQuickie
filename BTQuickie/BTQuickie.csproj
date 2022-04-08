@@ -15,6 +15,7 @@
       <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.27" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="TrayIcon" Version="1.0.7.2" />
     </ItemGroup>
 
     <ItemGroup>

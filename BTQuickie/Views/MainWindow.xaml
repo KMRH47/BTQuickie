@@ -5,11 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+        xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
         Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
         Height="350"
         Width="250">
+
+    <!-- Tray Icon -->
+    <trayIcon:TrayIconHandlers.TrayIcons>
+        <trayIcon:TrayIcon Title="{x:Static localization:AppResources.Title}"
+                           IconSource="{StaticResource Icon}"
+                           ClickCommand="{Binding ToggleWindowVisibleCommand}"
+                           NotificationServiceMemberPath="NotificationService"/>
+    </trayIcon:TrayIconHandlers.TrayIcons>
 
     <Window.Resources>
 
@@ -89,6 +98,7 @@
 
     </Window.Resources>
 
+
     <!-- Main Grid -->
     <Grid Style="{StaticResource MainGridStyle}">
 
@@ -109,7 +119,9 @@
             </Grid.ColumnDefinitions>
 
             <!-- Connected Bluetooth Device Info  -->
-            <Border Grid.Column="0" BorderThickness="{StaticResource ThicknessXMicro}" BorderBrush="{StaticResource Emerald500}">
+            <Border Grid.Column="0"
+                    BorderThickness="{StaticResource ThicknessXMicro}"
+                    BorderBrush="{StaticResource Emerald500}">
                 <StackPanel>
                     <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}" />
                     <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}" />
