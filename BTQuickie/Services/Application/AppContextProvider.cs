@@ -1,4 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Input;
+using Point = System.Drawing.Point;
 
 namespace BTQuickie.Services.Application;
 
@@ -20,18 +23,25 @@ public class AppContextProvider : IAppContextProvider
         {
             return;
         }
-        
+
         System.Windows.Application.Current.MainWindow.Close();
     }
 
     public void Show()
     {
-        if (System.Windows.Application.Current.MainWindow is null)
+        Window? mainWindow = System.Windows.Application.Current.MainWindow;
+
+        if (mainWindow is null)
         {
             return;
         }
-        
-        System.Windows.Application.Current.MainWindow.Show();
-        System.Windows.Application.Current.MainWindow.Activate();
+
+        mainWindow.Show();
+        mainWindow.Activate();
+        mainWindow.Topmost = true;
+
+        Point mousePos = Control.MousePosition;
+        mainWindow.Left = mousePos.X - (mainWindow.Width/2);
+        mainWindow.Top = mousePos.Y - mainWindow.Height;
     }
 }

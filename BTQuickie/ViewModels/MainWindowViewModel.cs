@@ -18,7 +18,6 @@ namespace BTQuickie.ViewModels
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
         private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
         private int connectTimeoutMs = 5000;
-        private bool showPairedDevices = true;
 
         public MainWindowViewModel(IBluetoothService bluetoothService, IAppContextProvider appContextProvider)
         {
@@ -34,6 +33,7 @@ namespace BTQuickie.ViewModels
         public IAsyncRelayCommand ConnectCommand => new AsyncRelayCommand<BluetoothDeviceInfo>(Connect);
         public IRelayCommand DisconnectCommand => new RelayCommand(Disconnect);
         public IRelayCommand ToggleWindowVisibleCommand => new RelayCommand(ToggleWindowVisible);
+        public IRelayCommand ExitCommand => new RelayCommand(Exit);
 
         public IReadOnlyCollection<BluetoothDeviceInfo> Devices
         {
@@ -92,6 +92,11 @@ namespace BTQuickie.ViewModels
 
             this.bluetoothService.Disconnect();
             ConnectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
+        }
+        private void Exit()
+        {
+            this.bluetoothService.Disconnect();
+            this.appContextProvider.Close();
         }
 
         private async Task OnDiscoverBluetoothDevices()

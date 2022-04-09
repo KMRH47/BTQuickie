@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using BTQuickie.Extensions;
 using BTQuickie.Views;
 using Microsoft.Extensions.DependencyInjection;
+using NullSoftware.ToolKit;
 
 namespace BTQuickie
 {
@@ -28,7 +30,6 @@ namespace BTQuickie
         protected override void OnDeactivated(EventArgs e)
         {
             base.OnDeactivated(e);
-
             MainWindow?.Hide();
         }
     }

@@ -6,6 +6,8 @@
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
         xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
         Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
@@ -15,9 +17,10 @@
     <!-- Tray Icon -->
     <trayIcon:TrayIconHandlers.TrayIcons>
         <trayIcon:TrayIcon Title="{x:Static localization:AppResources.Title}"
-                           IconSource="{StaticResource Icon}"
+                           IconSource="{StaticResource TrayIconSource}"
                            ClickCommand="{Binding ToggleWindowVisibleCommand}"
-                           NotificationServiceMemberPath="NotificationService"/>
+                           ClickCommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                           NotificationServiceMemberPath="NotificationService" />
     </trayIcon:TrayIconHandlers.TrayIcons>
 
     <Window.Resources>

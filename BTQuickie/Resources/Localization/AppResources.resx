@@ -30,4 +30,7 @@
     <data name="Disconnect" xml:space="preserve">
         <value>Disconnect</value>
     </data>
+    <data name="Exit" xml:space="preserve">
+        <value>Exit</value>
+    </data>
 </root>
