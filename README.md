@@ -11,7 +11,7 @@ Quickly access bluetooth devices on Windows 11!
 * Click the primary mouse button on the tray icon for a quick overview of devices
 * Automatically returns to tray if focus is lost
 * Close application by clicking the X like you normally would
-* No context menu on when secondary-clicking the tray icon
+* No context menu when secondary-clicking the tray icon
 
 ## Current Flaws
 
