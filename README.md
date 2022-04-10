@@ -6,6 +6,7 @@ Quickly access bluetooth devices on Windows 11!
 
 ## Current Flaws
 
+* **Keyboard shortcuts not implemented yet!**
 * Disconnect doesn't work properly
 * Can only establish connection to some bluetooth devices 
 * The time it takes to connect to a bluetooth device is slightly faster using Windows' built-in bluetooth interface
