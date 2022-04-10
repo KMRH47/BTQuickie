@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Point = System.Drawing.Point;
 
 namespace BTQuickie.Services.Application;
 
-public class AppContextProvider : IAppContextProvider
+public class MainWindowContextProvider : IMainWindowContextProvider
 {
     public void Minimize()
     {

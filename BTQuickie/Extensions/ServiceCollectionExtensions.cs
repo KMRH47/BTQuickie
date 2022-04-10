@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
     {
         return services
             .AddScoped<IBluetoothService, InTheHandBluetoothService>()
-            .AddScoped<IAppContextProvider, AppContextProvider>();
+            .AddScoped<IMainWindowContextProvider, MainWindowContextProvider>();
     }
 
     public static IServiceCollection ConfigureViewModels(this IServiceCollection services)

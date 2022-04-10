@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using BTQuickie.Extensions;
 using BTQuickie.Views;
 using Microsoft.Extensions.DependencyInjection;
-using NullSoftware.ToolKit;
 
 namespace BTQuickie
 {

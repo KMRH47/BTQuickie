@@ -1,6 +1,6 @@
 ﻿namespace BTQuickie.Services.Application;
 
-public interface IAppContextProvider
+public interface IMainWindowContextProvider
 {
     void Minimize();
     void Close();

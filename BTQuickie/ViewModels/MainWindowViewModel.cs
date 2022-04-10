@@ -14,12 +14,12 @@ namespace BTQuickie.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly IBluetoothService bluetoothService;
-        private readonly IAppContextProvider appContextProvider;
+        private readonly IMainWindowContextProvider appContextProvider;
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
         private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
         private int connectTimeoutMs = 5000;
 
-        public MainWindowViewModel(IBluetoothService bluetoothService, IAppContextProvider appContextProvider)
+        public MainWindowViewModel(IBluetoothService bluetoothService, IMainWindowContextProvider appContextProvider)
         {
             this.bluetoothService = bluetoothService;
             this.appContextProvider = appContextProvider;
