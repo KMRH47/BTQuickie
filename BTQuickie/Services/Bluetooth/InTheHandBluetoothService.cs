@@ -17,6 +17,8 @@ namespace BTQuickie.Services.Bluetooth
         {
             this.bluetoothClient = CreateClient();
         }
+        
+        public bool Connected => this.bluetoothClient.Connected;
 
         public Guid GuidSerialPort()
         {
@@ -55,8 +57,6 @@ namespace BTQuickie.Services.Bluetooth
             this.bluetoothClient.Dispose();
             this.bluetoothClient = CreateClient();
         }
-
-        public bool Connected => this.bluetoothClient.Connected;
 
         private static IReadOnlyCollection<BluetoothDeviceInfoLocal> MapModel(IEnumerable<BluetoothDeviceInfo> devices)
         {

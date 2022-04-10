@@ -22,6 +22,14 @@ namespace BTQuickie
         private void OnStartup(object sender, StartupEventArgs e)
         {
             MainWindow = this.serviceProvider.GetService<MainWindow>();
+
+            if (MainWindow is null)
+            {
+                throw new NullReferenceException($"{nameof(MainWindow)} is not registered to the service provider.");
+            }
+            
+            MainWindow.Show();
+            MainWindow.HideMinimizeAndMaximizeButtons();
         }
 
         protected override void OnDeactivated(EventArgs e)

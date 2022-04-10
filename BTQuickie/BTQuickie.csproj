@@ -5,16 +5,20 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\Icons\exported_small.ico</ApplicationIcon>
+        <Company>KMRH47</Company>
+        <AssemblyVersion>0.1</AssemblyVersion>
+        <FileVersion>0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-      <PackageReference Include="Expression.Blend.Sdk.WPF" Version="1.0.1" />
       <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
       <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.27" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
       <PackageReference Include="TrayIcon" Version="1.0.7.2" />
+        
     </ItemGroup>
 
     <ItemGroup>
@@ -39,10 +43,6 @@
     <ItemGroup>
       <None Remove="Resources\Icons\exported_small.ico" />
       <Resource Include="Resources\Icons\exported_small.ico" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\TrayIcon\TrayIcon\TrayIcon.csproj" />
     </ItemGroup>
 
 </Project>
