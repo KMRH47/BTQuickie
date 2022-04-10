@@ -1,15 +1,6 @@
 ﻿namespace BTQuickie.Models;
 
-public class BluetoothDeviceInfo
+public record struct BluetoothDeviceInfo(string Name, string Address)
 {
-    public BluetoothDeviceInfo(string name, string address)
-    {
-        Name = name;
-        Address = address;
-    }
-
-    public string Name { get; }
-    public string Address { get; }
-
     public static BluetoothDeviceInfo Empty() => new(string.Empty, string.Empty);
 }

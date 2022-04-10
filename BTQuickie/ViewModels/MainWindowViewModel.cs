@@ -55,15 +55,10 @@ namespace BTQuickie.ViewModels
             }
         }
 
-        private async Task Connect(BluetoothDeviceInfo? bluetoothDeviceInfo)
+        private async Task Connect(BluetoothDeviceInfo bluetoothDeviceInfo)
         {
             try
             {
-                if (bluetoothDeviceInfo is null)
-                {
-                    return;
-                }
-
                 base.IsBusy = true;
 
                 await Task.Run(() =>

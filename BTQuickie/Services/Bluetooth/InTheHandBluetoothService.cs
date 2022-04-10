@@ -28,7 +28,7 @@ namespace BTQuickie.Services.Bluetooth
             IReadOnlyCollection<BluetoothDeviceInfo>? discoveredDevices = this.bluetoothClient.DiscoverDevices();
             return MapModel(discoveredDevices);
         }
-        
+
         public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices()
         {
             IEnumerable<BluetoothDeviceInfo>? pairedDevices = this.bluetoothClient.PairedDevices;
@@ -49,7 +49,7 @@ namespace BTQuickie.Services.Bluetooth
         {
             BluetoothSecurity.PairRequest(BluetoothAddress.Parse(address), pin);
         }
-      
+
         public void Disconnect()
         {
             this.bluetoothClient.Dispose();
@@ -60,10 +60,13 @@ namespace BTQuickie.Services.Bluetooth
 
         private static IReadOnlyCollection<BluetoothDeviceInfoLocal> MapModel(IEnumerable<BluetoothDeviceInfo> devices)
         {
-            return devices.Select(deviceInfo =>
-                new BluetoothDeviceInfoLocal(deviceInfo.DeviceName, deviceInfo.DeviceAddress.ToString())).ToList();
+            return devices.Select(bluetoothDeviceInfo =>
+                    new BluetoothDeviceInfoLocal(
+                        bluetoothDeviceInfo.DeviceName,
+                        bluetoothDeviceInfo.DeviceAddress.ToString()))
+                .ToList();
         }
-        
+
         private BluetoothClient CreateClient() => new() {InquiryLength = TimeSpan.FromSeconds(3)};
     }
 }
