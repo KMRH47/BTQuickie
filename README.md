@@ -4,15 +4,6 @@ Quickly access bluetooth devices on Windows 11!
 
 **Windows + K** no longer enables you to connect to your favorite BT devices with ease... But this mini-app aims to solve the problem!
 
-## Current Behavior
-
-* Opens minmized in tray
-* Always minimizes to tray when clicking '_'
-* Click the primary mouse button on the tray icon for a quick overview of devices
-* Automatically returns to tray if focus is lost
-* Close application by clicking the X like you normally would
-* No context menu when secondary-clicking the tray icon
-
 ## Current Flaws
 
 * Disconnect doesn't work properly
