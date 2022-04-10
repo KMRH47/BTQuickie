@@ -1,5 +1,5 @@
-﻿using BTQuickie.Services.Application;
-using BTQuickie.Services.Bluetooth;
+﻿using BTQuickie.Services.Bluetooth;
+using BTQuickie.Services.MainWindow;
 using BTQuickie.ViewModels;
 using BTQuickie.ViewModels.Base;
 using BTQuickie.Views;

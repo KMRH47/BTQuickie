@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using BTQuickie.Models;
-using BTQuickie.Services.Application;
 using BTQuickie.Services.Bluetooth;
+using BTQuickie.Services.MainWindow;
 using BTQuickie.ViewModels.Base;
 using CommunityToolkit.Mvvm.Input;
 

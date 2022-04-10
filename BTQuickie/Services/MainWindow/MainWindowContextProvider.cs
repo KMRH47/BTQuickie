@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
 
-namespace BTQuickie.Services.Application;
+namespace BTQuickie.Services.MainWindow;
 
 public class MainWindowContextProvider : IMainWindowContextProvider
 {

@@ -1,4 +1,4 @@
-﻿namespace BTQuickie.Services.Application;
+﻿namespace BTQuickie.Services.MainWindow;
 
 public interface IMainWindowContextProvider
 {
