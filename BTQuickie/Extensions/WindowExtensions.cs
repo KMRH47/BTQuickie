@@ -19,8 +19,6 @@ internal static class WindowExtensions
     private static HwndSource? _windowHandleSource;
     private static Window? _window;
     private static KeyBinding? _keyBinding;
-    private static ICommand? _command;
-    private static object? _commandParameter;
 
     [DllImport("user32.dll")]
     private static extern int GetWindowLong(
@@ -51,7 +49,7 @@ internal static class WindowExtensions
     /// <br/>
     /// Thanks to the unknown MSDN user and to Matt for sharing the code (time saved successfully).
     /// </summary>
-    internal static void HideMinimizeAndMaximizeButtons(this Window window)
+    public static void HideMinimizeAndMaximizeButtons(this Window window)
     {
         IntPtr windowHandle = new WindowInteropHelper(window).Handle;
         int currentStyle = GetWindowLong(windowHandle, GWL_STYLE);
@@ -66,36 +64,6 @@ internal static class WindowExtensions
         window.SourceInitialized += RegisterHotKey;
     }
 
-    private static void RegisterHotKey(object? sender, EventArgs e)
-    {
-        if (_window is null)
-        {
-            return;
-        }
-        
-        if (_keyBinding is null)
-        {
-            return;
-        }
-        
-        WindowInteropHelper windowInteropHelper = new(_window);
-        uint key = (uint)KeyInterop.VirtualKeyFromKey(_keyBinding.Key);
-        uint modifiers = (uint)_keyBinding.Modifiers;
-        _command = _keyBinding.Command;
-        _commandParameter = _keyBinding.CommandParameter;
-        
-        _windowHandleSource = HwndSource.FromHwnd(windowInteropHelper.Handle) ?? throw new InvalidOperationException();
-        _windowHandleSource.AddHook(WindowHandleHook);
-        
-        bool hotkeyRegisterError = !RegisterHotKey(windowInteropHelper.Handle, HOTKEY_ID, modifiers, key);
-
-        if (hotkeyRegisterError)
-        {
-            Debug.WriteLine($"Hotkey couldn't be registered...");
-        }
-    }
-
-
     public static void UnregisterHotkey(this Window window)
     {
         if (_windowHandleSource is null)
@@ -103,10 +71,43 @@ internal static class WindowExtensions
             return;
         }
 
-        _command = null;
+        _keyBinding = null;
         _windowHandleSource.RemoveHook(WindowHandleHook);
         WindowInteropHelper windowInteropHelper = new(window);
         UnregisterHotKey(windowInteropHelper.Handle, HOTKEY_ID);
+    }
+
+    public static void ShowMinimal(this Window window)
+    {
+        window.Show();
+        HideMinimizeAndMaximizeButtons(window);
+    }
+
+    private static void RegisterHotKey(object? sender, EventArgs e)
+    {
+        if (_window is null)
+        {
+            return;
+        }
+
+        if (_keyBinding is null)
+        {
+            return;
+        }
+
+        WindowInteropHelper windowInteropHelper = new(_window);
+        uint key = (uint) KeyInterop.VirtualKeyFromKey(_keyBinding.Key);
+        uint modifiers = (uint) _keyBinding.Modifiers;
+
+        _windowHandleSource = HwndSource.FromHwnd(windowInteropHelper.Handle) ?? throw new InvalidOperationException();
+        _windowHandleSource.AddHook(WindowHandleHook);
+
+        bool hotkeyRegisterError = !RegisterHotKey(windowInteropHelper.Handle, HOTKEY_ID, modifiers, key);
+
+        if (hotkeyRegisterError)
+        {
+            Debug.WriteLine($"Hotkey couldn't be registered...");
+        }
     }
 
     private static IntPtr WindowHandleHook(
@@ -128,7 +129,7 @@ internal static class WindowExtensions
             return IntPtr.Zero;
         }
 
-        _command?.Execute(_commandParameter);
+        _keyBinding?.Command?.Execute(_keyBinding.CommandParameter);
         isHandled = true;
 
         return IntPtr.Zero;

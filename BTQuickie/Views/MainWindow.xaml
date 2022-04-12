@@ -8,6 +8,7 @@
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
         xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
         ShowInTaskbar="False"
+        Visibility="Hidden"
         WindowStartupLocation="CenterOwner"
         Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
@@ -127,7 +128,7 @@
         <!-- Top Section -->
         <Grid Grid.Row="0"
               Visibility="{Binding ConnectedBluetoothDeviceInfo.Name,
-                        Converter={StaticResource StringToVisibilityConverter}}">
+                Converter={StaticResource StringToVisibilityConverter}}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -152,7 +153,6 @@
                     Command="{Binding DisconnectCommand}"
                     Content="{x:Static localization:AppResources.Disconnect}" />
         </Grid>
-
 
         <!-- Middle Section -->
         <Grid Grid.Row="1">
@@ -180,11 +180,9 @@
 
                                 <!-- Left Double Click -->
                                 <MouseBinding Gesture="LeftDoubleClick"
-                                              Command="{Binding DataContext.ConnectCommand,
+                                              Command="{Binding DataContext.ConnectCommand, 
                                                 Source={x:Reference this}}"
                                               CommandParameter="{Binding .}" />
-                                
-                                <KeyBinding Key="Enter"/>
 
                             </StackPanel.InputBindings>
 
@@ -221,4 +219,5 @@
                 Content="{x:Static localization:AppResources.FindBluetoothDevices}"
                 Background="{StaticResource Gray700}" />
     </Grid>
+
 </Window>

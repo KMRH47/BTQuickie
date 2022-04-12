@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
+using BTQuickie.Extensions;
 using Point = System.Drawing.Point;
 
 namespace BTQuickie.Services.MainWindow;
@@ -36,7 +36,7 @@ public class MainWindowContextProvider : IMainWindowContextProvider
             return;
         }
 
-        mainWindow.Show();
+        mainWindow.ShowMinimal();
         mainWindow.Activate();
         mainWindow.Topmost = true;
 
