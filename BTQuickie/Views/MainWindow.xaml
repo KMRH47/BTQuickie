@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors="clr-namespace:BTQuickie.Behaviors"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
         xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
@@ -19,8 +20,14 @@
         <trayIcon:TrayIcon Title="{x:Static localization:AppResources.Title}"
                            IconSource="{StaticResource TrayIconSource}"
                            ClickCommand="{Binding ToggleWindowVisibleCommand}"
-                           ClickCommandParameter="{Binding RelativeSource={RelativeSource Self}}"
-                           NotificationServiceMemberPath="NotificationService" />
+                           NotificationServiceMemberPath="NotificationService">
+            <trayIcon:TrayIcon.InputBindings>
+                <KeyBinding Key="K"
+                            Modifiers="Windows+Shift"
+                            Command="{Binding ToggleWindowVisibleCommand}"
+                            behaviors:GlobalHotkeyBehavior.Register="True" />
+            </trayIcon:TrayIcon.InputBindings>
+        </trayIcon:TrayIcon>
     </trayIcon:TrayIconHandlers.TrayIcons>
 
     <Window.Resources>
@@ -47,6 +54,12 @@
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
                         <ControlTemplate.Triggers>
+                            <Trigger Property="Selector.IsFocused"
+                                     Value="True">
+                                <Setter Property="BorderBrush"
+                                        TargetName="Bd"
+                                        Value="{StaticResource Gray900}" />
+                            </Trigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver"
@@ -140,6 +153,7 @@
                     Content="{x:Static localization:AppResources.Disconnect}" />
         </Grid>
 
+
         <!-- Middle Section -->
         <Grid Grid.Row="1">
 
@@ -152,7 +166,8 @@
                       ItemsSource="{Binding Devices}"
                       Background="{StaticResource Gray600}"
                       Visibility="{Binding IsBusy,
-                        Converter={StaticResource InvertedVisibilityBooleanConverter}}">
+                        Converter={StaticResource InvertedVisibilityBooleanConverter}}"
+                      behaviors:ForceFocusBehavior.Focus="True">
 
                 <ListView.ItemTemplate>
 
@@ -168,6 +183,8 @@
                                               Command="{Binding DataContext.ConnectCommand,
                                                 Source={x:Reference this}}"
                                               CommandParameter="{Binding .}" />
+                                
+                                <KeyBinding Key="Enter"/>
 
                             </StackPanel.InputBindings>
 

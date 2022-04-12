@@ -18,6 +18,7 @@ namespace BTQuickie
                 .ConfigureViewModels()
                 .BuildServiceProvider();
         }
+        
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
