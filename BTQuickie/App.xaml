@@ -47,11 +47,12 @@
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
 
         <ImageSource x:Key="TrayIconSource">Resources/Icons/exported_small.ico</ImageSource>
-        
+
         <!-- Styles -->
-        
+
         <!-- Grid -->
-        <Style TargetType="Grid" x:Key="MainGridStyle">
+        <Style TargetType="Grid"
+               x:Key="MainGridStyle">
             <Setter Property="Background"
                     Value="{StaticResource Gray700}" />
         </Style>

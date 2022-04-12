@@ -18,7 +18,6 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
       <PackageReference Include="TrayIcon" Version="1.0.7.2" />
-        
     </ItemGroup>
 
     <ItemGroup>
