@@ -18,10 +18,13 @@
 
     <!-- Tray Icon -->
     <trayIcon:TrayIconHandlers.TrayIcons>
-        <trayIcon:TrayIcon Title="{x:Static localization:AppResources.Title}"
-                           IconSource="{StaticResource TrayIconSource}"
-                           ClickCommand="{Binding ShowWindowCommand}"
-                           NotificationServiceMemberPath="NotificationService">
+        <trayIcon:TrayIcon
+            Title="{Binding ConnectedBluetoothDeviceInfo.Name, 
+                Converter={StaticResource EmptyStringToParameterConverter},
+                ConverterParameter={x:Static localization:AppResources.Title}}"
+            IconSource="{StaticResource TrayIconSource}"
+            ClickCommand="{Binding ShowWindowCommand}"
+            NotificationServiceMemberPath="NotificationService">
 
             <!-- Input Bindings -->
             <trayIcon:TrayIcon.InputBindings>

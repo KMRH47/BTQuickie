@@ -45,6 +45,7 @@
         <converters:VisibilityBooleanConverter x:Key="VisibilityBooleanConverter" />
         <converters:InvertedVisibilityBooleanConverter x:Key="InvertedVisibilityBooleanConverter" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <converters:EmptyStringToParameterConverter x:Key="EmptyStringToParameterConverter" />
 
         <ImageSource x:Key="TrayIconSource">Resources/Icons/exported_small.ico</ImageSource>
 
