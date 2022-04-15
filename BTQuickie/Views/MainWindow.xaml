@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:behaviors="clr-namespace:BTQuickie.Behaviors"
+        xmlns:customBehaviors="clr-namespace:BTQuickie.Behaviors"
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
         xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
+        Visibility="{Binding IsWindowVisible, Converter={StaticResource VisibilityBooleanConverter}}"
         ShowInTaskbar="False"
-        Visibility="Hidden"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="Manual"
         Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
@@ -20,13 +20,18 @@
     <trayIcon:TrayIconHandlers.TrayIcons>
         <trayIcon:TrayIcon Title="{x:Static localization:AppResources.Title}"
                            IconSource="{StaticResource TrayIconSource}"
-                           ClickCommand="{Binding ToggleWindowVisibleCommand}"
+                           ClickCommand="{Binding ShowWindowCommand}"
                            NotificationServiceMemberPath="NotificationService">
+
+            <!-- Input Bindings -->
             <trayIcon:TrayIcon.InputBindings>
+
+                <!-- WIN + SHIFT + K -->
                 <KeyBinding Key="K"
                             Modifiers="Windows+Shift"
-                            Command="{Binding ToggleWindowVisibleCommand}"
-                            behaviors:GlobalHotkeyBehavior.Register="True" />
+                            Command="{Binding ShowWindowCommand}"
+                            customBehaviors:GlobalHotkeyBehavior.Register="True" />
+
             </trayIcon:TrayIcon.InputBindings>
         </trayIcon:TrayIcon>
     </trayIcon:TrayIconHandlers.TrayIcons>
@@ -115,7 +120,6 @@
 
     </Window.Resources>
 
-
     <!-- Main Grid -->
     <Grid Style="{StaticResource MainGridStyle}">
 
@@ -165,9 +169,23 @@
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       ItemsSource="{Binding Devices}"
                       Background="{StaticResource Gray600}"
+                      SelectedItem="{Binding SelectedBluetoothDeviceInfo}"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}"
-                      behaviors:ForceFocusBehavior.Focus="True">
+                      customBehaviors:ForceFocusBehavior.Focus="True">
+
+                <!-- Keyboard Input Command Bindings -->
+                <ListView.InputBindings>
+
+                    <!-- Enter -->
+                    <KeyBinding Key="Enter"
+                                Command="{Binding ConnectCommand}"
+                                CommandParameter="{Binding SelectedBluetoothDeviceInfo}" />
+                    <!-- Esc -->
+                    <KeyBinding Key="Escape"
+                                Command="{Binding HideWindowCommand}" />
+
+                </ListView.InputBindings>
 
                 <ListView.ItemTemplate>
 
@@ -175,11 +193,17 @@
 
                         <StackPanel>
 
-                            <!-- Command Bindings -->
+                            <!-- Mouse Input Command Bindings -->
                             <StackPanel.InputBindings>
 
                                 <!-- Left Double Click -->
                                 <MouseBinding Gesture="LeftDoubleClick"
+                                              Command="{Binding DataContext.ConnectCommand, 
+                                                Source={x:Reference this}}"
+                                              CommandParameter="{Binding .}" />
+
+                                <!-- Right Double Click -->
+                                <MouseBinding Gesture="RightDoubleClick"
                                               Command="{Binding DataContext.ConnectCommand, 
                                                 Source={x:Reference this}}"
                                               CommandParameter="{Binding .}" />
@@ -196,11 +220,8 @@
                             <Label Content="{Binding Address}" />
 
                         </StackPanel>
-
                     </DataTemplate>
-
                 </ListView.ItemTemplate>
-
             </ListView>
 
             <!-- Spinner -->

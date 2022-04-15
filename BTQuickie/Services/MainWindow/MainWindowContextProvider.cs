@@ -1,7 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Forms;
+﻿using System;
+using System.Windows;
 using BTQuickie.Extensions;
-using Point = System.Drawing.Point;
 
 namespace BTQuickie.Services.MainWindow;
 
@@ -9,39 +8,26 @@ public class MainWindowContextProvider : IMainWindowContextProvider
 {
     public void Minimize()
     {
-        if (System.Windows.Application.Current.MainWindow is null)
-        {
-            return;
-        }
-
-        System.Windows.Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        MainWindow.WindowState = WindowState.Minimized;
     }
 
     public void Close()
     {
-        if (System.Windows.Application.Current.MainWindow is null)
-        {
-            return;
-        }
-
-        System.Windows.Application.Current.MainWindow.Close();
+        MainWindow.Close();
     }
 
     public void Show()
-    {
-        Window? mainWindow = System.Windows.Application.Current.MainWindow;
-
-        if (mainWindow is null)
-        {
-            return;
-        }
-
-        mainWindow.ShowMinimal();
-        mainWindow.Activate();
-        mainWindow.Topmost = true;
-
-        Point mousePos = Control.MousePosition;
-        mainWindow.Left = mousePos.X - (mainWindow.Width/2);
-        mainWindow.Top = mousePos.Y - mainWindow.Height;
+    {     
+        MainWindow.ShowBottomRightCorner();
     }
+
+    public void Hide()
+    {
+        MainWindow.Hide();
+    }
+
+    private static Window MainWindow =>
+        Application.Current.MainWindow is null
+            ? throw new NullReferenceException($"{nameof(MainWindow)} is null.")
+            : Application.Current.MainWindow;
 }

@@ -16,6 +16,7 @@ namespace BTQuickie.ViewModels
         private readonly IBluetoothService bluetoothService;
         private readonly IMainWindowContextProvider mainWindowContextProvider;
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
+        private BluetoothDeviceInfo selectedBluetoothDeviceInfo;
         private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
         private int connectTimeoutMs = 5000;
 
@@ -33,7 +34,8 @@ namespace BTQuickie.ViewModels
 
         public IAsyncRelayCommand ConnectCommand => new AsyncRelayCommand<BluetoothDeviceInfo>(Connect);
         public IRelayCommand DisconnectCommand => new RelayCommand(Disconnect);
-        public IRelayCommand ToggleWindowVisibleCommand => new RelayCommand(ToggleWindowVisible);
+        public IRelayCommand ShowWindowCommand => new RelayCommand(ShowWindow);
+        public IRelayCommand HideWindowCommand => new RelayCommand(HideWindow);
         public IRelayCommand ExitCommand => new RelayCommand(Exit);
 
         public IReadOnlyCollection<BluetoothDeviceInfo> Devices
@@ -42,6 +44,16 @@ namespace BTQuickie.ViewModels
             set
             {
                 this.devices = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public BluetoothDeviceInfo SelectedBluetoothDeviceInfo
+        {
+            get => this.selectedBluetoothDeviceInfo;
+            set
+            {
+                this.selectedBluetoothDeviceInfo = value;
                 OnPropertyChanged();
             }
         }
@@ -61,7 +73,7 @@ namespace BTQuickie.ViewModels
             try
             {
                 base.IsBusy = true;
-                
+
                 await Task.Run(() =>
                         this.bluetoothService.Connect(bluetoothDeviceInfo.Address,
                             this.bluetoothService.GuidSerialPort()))
@@ -85,7 +97,7 @@ namespace BTQuickie.ViewModels
             {
                 return;
             }
-            
+
             this.bluetoothService.Disconnect();
             ConnectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
         }
@@ -99,8 +111,8 @@ namespace BTQuickie.ViewModels
         private async Task DiscoverBluetoothDevices()
         {
             base.IsBusy = true;
-            
-            Devices = await Task.Run(() => _ = this.bluetoothService.DiscoverDevices());
+
+            Devices = await Task.Run(this.bluetoothService.DiscoverDevices);
 
             base.IsBusy = false;
         }
@@ -110,9 +122,14 @@ namespace BTQuickie.ViewModels
             return !base.IsBusy;
         }
 
-        private void ToggleWindowVisible()
+        private void ShowWindow()
         {
             this.mainWindowContextProvider.Show();
+        }
+
+        private void HideWindow()
+        {
+            this.mainWindowContextProvider.Hide();
         }
     }
 }

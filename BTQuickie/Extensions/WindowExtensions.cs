@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using Cursor = System.Windows.Forms.Cursor;
 
 namespace BTQuickie.Extensions;
 
@@ -77,7 +80,28 @@ internal static class WindowExtensions
         UnregisterHotKey(windowInteropHelper.Handle, HOTKEY_ID);
     }
 
-    public static void ShowMinimal(this Window window)
+    public static void ShowBottomRightCorner(this Window window)
+    {
+        Screen currentScreen = Screen.FromPoint(Cursor.Position);
+        Rectangle screenBounds = currentScreen.WorkingArea;
+
+        window.Left = screenBounds.Width + screenBounds.X - window.Width;
+        window.Top = screenBounds.Height + screenBounds.Y - window.Height;
+        window.ShowMinimal();
+        window.Activate();
+        window.Topmost = true;
+    }
+
+    public static void EnsureRendered(this Window window)
+    {
+        WindowInteropHelper helper = new(window);
+        helper.EnsureHandle();
+    }
+
+    /// <summary>
+    /// Shows window without a minimize and maximize button.
+    /// </summary>
+    private static void ShowMinimal(this Window window)
     {
         window.Show();
         HideMinimizeAndMaximizeButtons(window);

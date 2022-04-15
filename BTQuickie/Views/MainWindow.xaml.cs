@@ -1,5 +1,4 @@
-﻿using System;
-using BTQuickie.ViewModels;
+﻿using BTQuickie.ViewModels;
 
 namespace BTQuickie.Views
 {
