@@ -12,8 +12,8 @@ Quickly access bluetooth devices on Windows 11!
 
 ## Current Goals
 
+*  Fix all flaws
 *  Ability to change default keybinding (WIN+SHIFT+K)
-*  More compatible bluetooth devices
 
 
 ## Third-party packages
