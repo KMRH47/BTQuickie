@@ -7,17 +7,19 @@
         xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
         xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
         xmlns:trayIcon="https://github.com/nullsoftware/TrayIcon"
-        Visibility="{Binding IsWindowVisible, Converter={StaticResource VisibilityBooleanConverter}}"
-        ShowInTaskbar="False"
-        WindowStartupLocation="Manual"
-        Title="{x:Static localization:AppResources.Title}"
         x:Name="this"
         mc:Ignorable="d"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual"
         Height="350"
-        Width="250">
+        Width="250"
+        Visibility="{Binding IsWindowVisible, 
+            Converter={StaticResource VisibilityBooleanConverter}}"
+        Title="{x:Static localization:AppResources.Title}">
 
     <!-- Tray Icon -->
     <trayIcon:TrayIconHandlers.TrayIcons>
+
         <trayIcon:TrayIcon
             Title="{Binding ConnectedBluetoothDeviceInfo.Name, 
                 Converter={StaticResource EmptyStringToParameterConverter},
@@ -44,77 +46,81 @@
         <!-- Styles -->
 
         <!-- List View -->
-        <!-- Item Container -->
+        <!-- Item -->
         <Style x:Key="ListViewItemContainerStyle"
                TargetType="{x:Type ListViewItem}">
+
             <Setter Property="HorizontalContentAlignment"
                     Value="Stretch" />
+
             <Setter Property="Template">
+
                 <Setter.Value>
+
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
+
                         <Border x:Name="Bd"
+                                BorderThickness="0"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
                                 Background="{TemplateBinding Background}"
                                 Padding="{TemplateBinding Padding}"
                                 SnapsToDevicePixels="true">
+
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Border>
+
+                        <!-- Triggers -->
                         <ControlTemplate.Triggers>
-                            <Trigger Property="Selector.IsFocused"
+
+                            <!-- TRIGGER: Mouse Over -->
+                            <Trigger Property="IsMouseOver"
                                      Value="True">
-                                <Setter Property="BorderBrush"
-                                        TargetName="Bd"
-                                        Value="{StaticResource Gray900}" />
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver"
-                                               Value="True" />
-                                </MultiTrigger.Conditions>
+
+                                <!-- Background Color -->
                                 <Setter Property="Background"
                                         TargetName="Bd"
                                         Value="{StaticResource Gray700}" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="Bd"
-                                        Value="{StaticResource Gray900}" />
-                            </MultiTrigger>
+
+                            </Trigger>
+
+                            <!-- TRIGGER: Selected AND Selection Active -->
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
+                                    
+                                    <Condition Property="IsSelected"
+                                               Value="True" />
+                                    
+                                    <Condition Property="Selector.IsSelectionActive"
+                                               Value="True" />
+                                
+                                </MultiTrigger.Conditions>
+
+                                <!-- Background Color -->
+                                <Setter Property="Background"
+                                        TargetName="Bd"
+                                        Value="{StaticResource Gray800}" />
+                                
+                            </MultiTrigger>
+
+                            <!-- TRIGGER: Selected & Selection Inactive -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    
+                                    <Condition Property="IsSelected"
+                                               Value="True" />
+                                    
                                     <Condition Property="Selector.IsSelectionActive"
                                                Value="False" />
-                                    <Condition Property="IsSelected"
-                                               Value="True" />
+                                    
                                 </MultiTrigger.Conditions>
+                                
+                                <!-- Background Color -->
                                 <Setter Property="Background"
-                                        TargetName="Bd"
-                                        Value="Transparent" />
-                                <Setter Property="BorderBrush"
-                                        TargetName="Bd"
-                                        Value="{StaticResource Gray300}" />
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Selector.IsSelectionActive"
-                                               Value="True" />
-                                    <Condition Property="IsSelected"
-                                               Value="True" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background"
-                                        TargetName="Bd"
-                                        Value="{StaticResource Gray500}" />
-                                <Setter Property="BorderBrush"
                                         TargetName="Bd"
                                         Value="{StaticResource Gray700}" />
                             </MultiTrigger>
-                            <Trigger Property="IsEnabled"
-                                     Value="False">
-                                <Setter Property="TextElement.Foreground"
-                                        TargetName="Bd"
-                                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
