@@ -10,7 +10,6 @@ namespace BTQuickie.Behaviors;
 
 public class GlobalHotkeyBehavior
 {
-    // Used for registering hotkeys
     private const int HOTKEY_ID = 9000;
     private static HwndSource? _windowHandleSource;
     private static KeyBinding? _keyBinding;
@@ -26,6 +25,15 @@ public class GlobalHotkeyBehavior
     private static extern bool UnregisterHotKey(
         IntPtr windowHandle,
         int hotkeyId);
+    
+    public static readonly DependencyProperty RegisterProperty =
+        DependencyProperty.RegisterAttached(
+            "Register",
+            typeof(bool),
+            typeof(GlobalHotkeyBehavior),
+            new PropertyMetadata(
+                false,
+                RegisterPropertyChanged));
 
     [AttachedPropertyBrowsableForType(typeof(KeyBinding))]
     public static bool GetRegister(KeyBinding binding)
@@ -37,15 +45,6 @@ public class GlobalHotkeyBehavior
     {
         binding.SetValue(RegisterProperty, value);
     }
-
-    public static readonly DependencyProperty RegisterProperty =
-        DependencyProperty.RegisterAttached(
-            "Register",
-            typeof(bool),
-            typeof(GlobalHotkeyBehavior),
-            new PropertyMetadata(
-                false,
-                RegisterPropertyChanged));
 
     private static void RegisterPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
     {
