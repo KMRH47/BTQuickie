@@ -26,7 +26,6 @@ internal static class WindowExtensions
         int index,
         int value);
 
-    
     /// <summary>
     /// This method and its associated code originates from a user on the MSDN forums.<br/>
     /// <a href="https://stackoverflow.com/a/339635/12186984"> Shared by StackOverflow user: Matt Hamilton</a><br/>
@@ -60,11 +59,12 @@ internal static class WindowExtensions
     }
 
     /// <summary>
-    /// Shows window without a minimize and maximize button.
+    /// Shows window without the minimize and maximize button.
     /// </summary>
     private static void ShowMinimal(this Window window)
     {
-        window.Show();
+        EnsureRendered(window);
         HideMinimizeAndMaximizeButtons(window);
+        window.Show();
     }
 }

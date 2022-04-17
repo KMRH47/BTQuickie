@@ -19,7 +19,6 @@ namespace BTQuickie
                 .BuildServiceProvider();
         }
         
-
         private void OnStartup(object sender, StartupEventArgs e)
         {
             MainWindow = this.serviceProvider.GetService<MainWindow>();

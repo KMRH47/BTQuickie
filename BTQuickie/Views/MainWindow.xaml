@@ -181,7 +181,7 @@
                       SelectedItem="{Binding SelectedBluetoothDeviceInfo}"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}"
-                      customBehaviors:ForceFocusBehavior.Focus="True">
+                      customBehaviors:FocusBehavior.IsForced="True">
 
                 <!-- Keyboard Input Command Bindings -->
                 <ListView.InputBindings>

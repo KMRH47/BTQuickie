@@ -4,23 +4,27 @@ using System.Windows.Input;
 
 namespace BTQuickie.Behaviors;
 
-public class ForceFocusBehavior
+public class FocusBehavior
 {
-    public static readonly DependencyProperty FocusProperty =
+   
+    public static readonly DependencyProperty IsForcedProperty =
         DependencyProperty.RegisterAttached(
-            "Focus",
+            "IsForced",
             typeof(bool),
-            typeof(ForceFocusBehavior),
+            typeof(FocusBehavior),
             new PropertyMetadata(false, OnFocusFirstPropertyChanged));
 
-    public static bool GetFocus(Control control)
+    public static bool GetIsForced(Control control)
     {
-        return (bool) control.GetValue(FocusProperty);
+        return (bool) control.GetValue(IsForcedProperty);
     }
 
-    public static void SetFocus(Control control, bool value)
+    /// <summary>
+    /// Forces focus on this element when its parent window is shown.
+    /// </summary>
+    public static void SetIsForced(Control control, bool value)
     {
-        control.SetValue(FocusProperty, value);
+        control.SetValue(IsForcedProperty, value);
     }
 
     private static void OnFocusFirstPropertyChanged(DependencyObject dependencyObject,
