@@ -26,20 +26,6 @@ internal static class WindowExtensions
         int index,
         int value);
 
-    /// <summary>
-    /// This method and its associated code originates from a user on the MSDN forums.<br/>
-    /// <a href="https://stackoverflow.com/a/339635/12186984"> Shared by StackOverflow user: Matt Hamilton</a><br/>
-    /// <br/>
-    /// Thanks to the unknown MSDN user and to Matt for sharing the code (time saved successfully).
-    /// </summary>
-    public static void HideMinimizeAndMaximizeButtons(this Window window)
-    {
-        IntPtr windowHandle = new WindowInteropHelper(window).Handle;
-        int currentStyle = GetWindowLong(windowHandle, GWL_STYLE);
-
-        SetWindowLong(windowHandle, GWL_STYLE, currentStyle & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX);
-    }
-
     public static void ShowBottomRightCorner(this Window window)
     {
         Screen currentScreen = Screen.FromPoint(Cursor.Position);
@@ -66,5 +52,19 @@ internal static class WindowExtensions
         EnsureRendered(window);
         HideMinimizeAndMaximizeButtons(window);
         window.Show();
+    }
+    
+    /// <summary>
+    /// This method and its associated code originates from a user on the MSDN forums.<br/>
+    /// <a href="https://stackoverflow.com/a/339635/12186984"> Shared by StackOverflow user: Matt Hamilton</a><br/>
+    /// <br/>
+    /// Thanks to the unknown MSDN user and to Matt for sharing the code (time saved successfully).
+    /// </summary>
+    private static void HideMinimizeAndMaximizeButtons(this Window window)
+    {
+        IntPtr windowHandle = new WindowInteropHelper(window).Handle;
+        int currentStyle = GetWindowLong(windowHandle, GWL_STYLE);
+
+        SetWindowLong(windowHandle, GWL_STYLE, currentStyle & ~WS_MAXIMIZEBOX & ~WS_MINIMIZEBOX);
     }
 }

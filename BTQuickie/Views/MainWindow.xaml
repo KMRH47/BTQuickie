@@ -88,34 +88,34 @@
                             <!-- TRIGGER: Selected AND Selection Active -->
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    
+
                                     <Condition Property="IsSelected"
                                                Value="True" />
-                                    
+
                                     <Condition Property="Selector.IsSelectionActive"
                                                Value="True" />
-                                
+
                                 </MultiTrigger.Conditions>
 
                                 <!-- Background Color -->
                                 <Setter Property="Background"
                                         TargetName="Bd"
                                         Value="{StaticResource Gray800}" />
-                                
+
                             </MultiTrigger>
 
                             <!-- TRIGGER: Selected & Selection Inactive -->
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    
+
                                     <Condition Property="IsSelected"
                                                Value="True" />
-                                    
+
                                     <Condition Property="Selector.IsSelectionActive"
                                                Value="False" />
-                                    
+
                                 </MultiTrigger.Conditions>
-                                
+
                                 <!-- Background Color -->
                                 <Setter Property="Background"
                                         TargetName="Bd"
@@ -179,9 +179,11 @@
                       ItemsSource="{Binding Devices}"
                       Background="{StaticResource Gray600}"
                       SelectedItem="{Binding SelectedBluetoothDeviceInfo}"
+                      Focusable="True"
+                      customBehaviors:FocusBehavior.IsFocused="True"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}"
-                      customBehaviors:FocusBehavior.IsForced="True">
+                    >
 
                 <!-- Keyboard Input Command Bindings -->
                 <ListView.InputBindings>
@@ -200,7 +202,7 @@
 
                     <DataTemplate>
 
-                        <StackPanel>
+                        <StackPanel >
 
                             <!-- Mouse Input Command Bindings -->
                             <StackPanel.InputBindings>
@@ -220,7 +222,7 @@
                             </StackPanel.InputBindings>
 
                             <!-- Name -->
-                            <Label
+                            <Label 
                                 Content="{Binding Name, 
                                     TargetNullValue={x:Static localization:AppResources.UnknownDevice}, 
                                     FallbackValue={x:Static localization:AppResources.UnknownDevice}}" />

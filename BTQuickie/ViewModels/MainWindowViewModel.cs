@@ -73,6 +73,11 @@ namespace BTQuickie.ViewModels
             try
             {
                 base.IsBusy = true;
+                
+                if (ConnectedBluetoothDeviceInfo == bluetoothDeviceInfo)
+                {
+                    return;
+                }
 
                 await Task.Run(() =>
                         this.bluetoothService.Connect(bluetoothDeviceInfo.Address,
