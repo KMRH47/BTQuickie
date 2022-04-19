@@ -37,11 +37,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Resources\Icons" />
+      <None Remove="Resources\Icons\exported_small.ico" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\Icons\exported_small.ico" />
       <Resource Include="Resources\Icons\exported_small.ico" />
     </ItemGroup>
 
