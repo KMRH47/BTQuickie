@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Cursor = System.Windows.Forms.Cursor;
 
 namespace BTQuickie.Extensions;
@@ -14,7 +15,7 @@ internal static class WindowExtensions
     private const int GWL_STYLE = -16;
     private const int WS_MAXIMIZEBOX = 0x10000;
     private const int WS_MINIMIZEBOX = 0x20000;
-   
+
     [DllImport("user32.dll")]
     private static extern int GetWindowLong(
         IntPtr windowHandle,
@@ -30,9 +31,15 @@ internal static class WindowExtensions
     {
         Screen currentScreen = Screen.FromPoint(Cursor.Position);
         Rectangle screenBounds = currentScreen.WorkingArea;
+        DpiScale dpiScale = VisualTreeHelper.GetDpi(window);
 
-        window.Left = screenBounds.Width + screenBounds.X - window.Width;
-        window.Top = screenBounds.Height + screenBounds.Y - window.Height;
+        int screenX = screenBounds.Width + screenBounds.X;
+        int screenY = screenBounds.Height + screenBounds.Y;
+        int scaledWidth = (int) Math.Round(screenX / dpiScale.DpiScaleX);
+        int scaledHeight = (int) Math.Round(screenY / dpiScale.DpiScaleY);
+
+        window.Left = scaledWidth - window.Width;
+        window.Top = scaledHeight - window.Height;
         window.ShowMinimal();
         window.Activate();
         window.Topmost = true;
@@ -53,7 +60,7 @@ internal static class WindowExtensions
         HideMinimizeAndMaximizeButtons(window);
         window.Show();
     }
-    
+
     /// <summary>
     /// This method and its associated code originates from a user on the MSDN forums.<br/>
     /// <a href="https://stackoverflow.com/a/339635/12186984"> Shared by StackOverflow user: Matt Hamilton</a><br/>
