@@ -1,5 +1,9 @@
 # BTQuickie
 
+Quickly access bluetooth devices on Windows 11!
+
+**Windows + K** no longer enables you to connect to your favorite BT devices with ease... But this mini-app aims to solve the problem!
+
 ### Update 25/04/2022
 
 Still working on it! Next update includes:
@@ -7,10 +11,6 @@ Still working on it! Next update includes:
 - A Context menu when right-clicking the taskbar icon (exit via context menu)
 - Settings view...
 - And the ability to change the default keybind!
-
-Quickly access bluetooth devices on Windows 11!
-
-**Windows + K** no longer enables you to connect to your favorite BT devices with ease... But this mini-app aims to solve the problem!
 
 ## Current Flaws
 
@@ -22,7 +22,6 @@ Quickly access bluetooth devices on Windows 11!
 
 *  Fix all flaws
 *  Ability to change default keybinding (WIN+SHIFT+K)
-
 
 ## Third-party packages
 
