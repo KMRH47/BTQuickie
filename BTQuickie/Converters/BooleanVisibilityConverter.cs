@@ -5,16 +5,16 @@ using System.Windows.Data;
 
 namespace BTQuickie.Converters;
 
-public class InvertedVisibilityBooleanConverter : IValueConverter
+public class BooleanVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not bool isVisible)
         {
-            return Visibility.Hidden;
+            return Visibility.Visible;
         }
 
-        return isVisible ? Visibility.Hidden : Visibility.Visible;
+        return isVisible ? Visibility.Visible : Visibility.Hidden;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,0 +1,185 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
+                    xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+                    xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
+                    xmlns:device="clr-namespace:BTQuickie.Models.Device"
+                    x:Class="BTQuickie.Resources.Styles.Views.MainViewResources">
+
+    <!-- List View -->
+    <!-- Item Container -->
+    <Style x:Key="ListViewItemContainerStyle"
+           TargetType="ListViewItem">
+
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+
+        <Setter Property="Template">
+
+            <Setter.Value>
+
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+
+                    <Border x:Name="Bd"
+                            BorderThickness="0"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+
+                    <!-- Triggers -->
+                    <ControlTemplate.Triggers>
+
+                        <!-- TRIGGER: Mouse Over -->
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+
+                            <!-- Background Color -->
+                            <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="{StaticResource BrushGray700}" />
+
+                        </Trigger>
+
+                        <!-- TRIGGER: Selected AND Selection Active -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+
+                                <Condition Property="IsSelected"
+                                           Value="True" />
+
+                                <Condition Property="Selector.IsSelectionActive"
+                                           Value="True" />
+
+                            </MultiTrigger.Conditions>
+
+                            <!-- Background Color -->
+                            <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="{StaticResource BrushGray800}" />
+
+                        </MultiTrigger>
+
+                        <!-- TRIGGER: Selected & Selection Inactive -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+
+                                <Condition Property="IsSelected"
+                                           Value="True" />
+
+                                <Condition Property="Selector.IsSelectionActive"
+                                           Value="False" />
+
+                            </MultiTrigger.Conditions>
+
+                            <!-- Background Color -->
+                            <Setter Property="Background"
+                                    TargetName="Bd"
+                                    Value="{StaticResource BrushGray700}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- List View -->
+    <Style x:Key="ListViewStyle"
+           TargetType="ListView">
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="TabIndex"
+                Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="SelectionMode"
+                Value="Single" />
+        <Setter Property="ItemContainerStyle"
+                Value="{StaticResource ListViewItemContainerStyle}" />
+        <Setter Property="Background"
+                Value="{StaticResource BrushGray600}" />
+        <Setter Property="Focusable"
+                Value="True" />
+    </Style>
+
+    <!-- Spinner -->
+    <Style x:Key="SpinnerStyle"
+           TargetType="fontAwesome:ImageAwesome">
+        <Setter Property="Spin"
+                Value="True" />
+        <Setter Property="Foreground"
+                Value="{StaticResource BrushGray800}" />
+        <Setter Property="Margin"
+                Value="{StaticResource ThicknessLarge}" />
+    </Style>
+
+    <!-- Button -->
+    <!-- Disconnect Button -->
+    <Style x:Key="DisconnectButtonStyle"
+           TargetType="Button">
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Foreground"
+                Value="{StaticResource BrushGray50}" />
+        <Setter Property="Padding"
+                Value="{StaticResource ThicknessMicro}" />
+        <Setter Property="Background"
+                Value="{StaticResource BrushGray600}" />
+    </Style>
+
+    <!-- Bluetooth Device Info Template -->
+    <DataTemplate x:Key="BluetoothDeviceInfoTemplate"
+                  DataType="viewModels:MainViewModel">
+
+        <!-- ContentPresenter Wrapper For Managing Different Binding Contexts -->
+        <ContentPresenter>
+
+            <!-- Mouse Input Command Bindings -->
+            <ContentPresenter.InputBindings>
+
+                <!-- Left Double Click -->
+                <MouseBinding Gesture="LeftDoubleClick"
+                              Command="{Binding 
+                                RelativeSource={RelativeSource 
+                                    AncestorType={x:Type Window}}, 
+                                        Path=DataContext.ConnectCommand}"
+                              CommandParameter="{Binding .}" />
+
+                <!-- Right Double Click -->
+                <MouseBinding Gesture="RightDoubleClick"
+                              Command="{Binding 
+                                RelativeSource={RelativeSource 
+                                    AncestorType={x:Type Window}}, 
+                                        Path=DataContext.ConnectCommand}"
+                              CommandParameter="{Binding .}" />
+
+            </ContentPresenter.InputBindings>
+
+            <!-- Item Template -->
+            <ContentPresenter.ContentTemplate>
+
+                <!-- BluetoothDeviceInfo Template -->
+                <DataTemplate DataType="{x:Type device:BluetoothDeviceInfo}">
+
+                    <StackPanel>
+
+                        <!-- Name -->
+                        <Label
+                            Content="{Binding Name, 
+                                TargetNullValue={x:Static localization:AppResources.UnknownDevice}, 
+                                FallbackValue={x:Static localization:AppResources.UnknownDevice}}" />
+
+                        <!-- Address -->
+                        <Label Content="{Binding Address}" />
+
+                    </StackPanel>
+                </DataTemplate>
+            </ContentPresenter.ContentTemplate>
+        </ContentPresenter>
+    </DataTemplate>
+
+</ResourceDictionary>

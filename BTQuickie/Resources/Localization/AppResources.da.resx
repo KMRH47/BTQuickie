@@ -26,4 +26,22 @@
     <data name="Disconnect" xml:space="preserve">
         <value>Afbryd</value>
     </data>
+    <data name="Settings" xml:space="preserve">
+        <value>Indstillinger</value>
+    </data>
+    <data name="SettingsDiscoveryTime" xml:space="preserve">
+        <value>Bluetooth søgetid (ms)</value>
+    </data>
+    <data name="HotkeySetterTitle" xml:space="preserve">
+        <value>Sæt genvejstast</value>
+    </data>
+    <data name="Hotkey" xml:space="preserve">
+        <value>Genvejstast</value>
+    </data>
+    <data name="HotkeyBound" xml:space="preserve">
+        <value>Sat!</value>
+    </data>
+    <data name="Keymap" xml:space="preserve">
+        <value>Tastaturgenveje</value>
+    </data>
 </root>

@@ -88,6 +88,60 @@ namespace BTQuickie.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hotkey.
+        /// </summary>
+        public static string Hotkey {
+            get {
+                return ResourceManager.GetString("Hotkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully bound!.
+        /// </summary>
+        public static string HotkeyBound {
+            get {
+                return ResourceManager.GetString("HotkeyBound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set hotkey.
+        /// </summary>
+        public static string HotkeySetterTitle {
+            get {
+                return ResourceManager.GetString("HotkeySetterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keymap.
+        /// </summary>
+        public static string Keymap {
+            get {
+                return ResourceManager.GetString("Keymap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth discovery time (ms).
+        /// </summary>
+        public static string SettingsDiscoveryTime {
+            get {
+                return ResourceManager.GetString("SettingsDiscoveryTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BTQuickie.
         /// </summary>
         public static string Title {
@@ -97,7 +151,7 @@ namespace BTQuickie.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown Device.
+        ///   Looks up a localized string similar to Unknown device.
         /// </summary>
         public static string UnknownDevice {
             get {

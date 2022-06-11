@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="UnknownDevice" xml:space="preserve">
-        <value>Unknown Device</value>
+        <value>Unknown device</value>
     </data>
     <data name="FindBluetoothDevices" xml:space="preserve">
         <value>Find Bluetooth devices</value>
@@ -32,5 +32,23 @@
     </data>
     <data name="Exit" xml:space="preserve">
         <value>Exit</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>Settings</value>
+    </data>
+    <data name="SettingsDiscoveryTime" xml:space="preserve">
+        <value>Bluetooth discovery time (ms)</value>
+    </data>
+    <data name="HotkeySetterTitle" xml:space="preserve">
+        <value>Set hotkey</value>
+    </data>
+    <data name="Hotkey" xml:space="preserve">
+        <value>Hotkey</value>
+    </data>
+    <data name="HotkeyBound" xml:space="preserve">
+        <value>Successfully bound!</value>
+    </data>
+    <data name="Keymap" xml:space="preserve">
+        <value>Keymap</value>
     </data>
 </root>

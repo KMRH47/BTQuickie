@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Threading;
 
 namespace BTQuickie.Behaviors;
 
@@ -12,8 +13,10 @@ public class GlobalHotkeyBehavior
 {
     private const int HOTKEY_ID = 9000;
     private static HwndSource? _windowHandleSource;
-    private static KeyBinding? _keyBinding;
-    
+    private static KeyBinding _keyBinding = new();
+    private static Key _key;
+    private static ModifierKeys _modifierKeys;
+
     [DllImport("User32.dll")]
     private static extern bool RegisterHotKey(
         IntPtr windowHandle,
@@ -25,7 +28,7 @@ public class GlobalHotkeyBehavior
     private static extern bool UnregisterHotKey(
         IntPtr windowHandle,
         int hotkeyId);
-    
+
     public static readonly DependencyProperty RegisterProperty =
         DependencyProperty.RegisterAttached(
             "Register",
@@ -60,34 +63,28 @@ public class GlobalHotkeyBehavior
             return;
         }
 
-        bool oldValue = (bool) e.OldValue;
-        bool newValue = (bool) e.NewValue;
-
-        Window window = Application.Current.MainWindow!;
-
-        if (oldValue && !newValue)
-        {
-           UnregisterHotkey(window);
-        }
-        else if (newValue && !oldValue)
-        {
-            _keyBinding = keyBinding;
-            window.SourceInitialized += RegisterHotKey;
-        }
+        _keyBinding = keyBinding;
+        keyBinding.Changed += KeyBindingOnChanged;
+        KeyBindingOnChanged(keyBinding, EventArgs.Empty);
     }
 
-    private static void RegisterHotKey(object? sender, EventArgs e)
+    private static void KeyBindingOnChanged(object? sender, EventArgs e)
     {
-        if (sender is not Window window)
+        if (_key == _keyBinding.Key && _modifierKeys == _keyBinding.Modifiers)
         {
             return;
         }
 
-        if (_keyBinding is null)
-        {
-            return;
-        }
+        _key = _keyBinding.Key;
+        _modifierKeys = _keyBinding.Modifiers;
 
+        Window window = Application.Current.MainWindow!;
+        OnUnregisterHotkey(window);
+        OnRegisterHotKey(window);
+    }
+
+    private static void OnRegisterHotKey(Window window)
+    {
         WindowInteropHelper windowInteropHelper = new(window);
         uint key = (uint) KeyInterop.VirtualKeyFromKey(_keyBinding.Key);
         uint modifiers = (uint) _keyBinding.Modifiers;
@@ -102,15 +99,14 @@ public class GlobalHotkeyBehavior
             Debug.WriteLine($"Hotkey couldn't be registered...");
         }
     }
-    
-    private static void UnregisterHotkey(Window window)
+
+    private static void OnUnregisterHotkey(Window window)
     {
         if (_windowHandleSource is null)
         {
             return;
         }
 
-        _keyBinding = null;
         _windowHandleSource.RemoveHook(WindowHandleHook);
         WindowInteropHelper windowInteropHelper = new(window);
         UnregisterHotKey(windowInteropHelper.Handle, HOTKEY_ID);
@@ -135,7 +131,13 @@ public class GlobalHotkeyBehavior
             return IntPtr.Zero;
         }
 
-        _keyBinding?.Command?.Execute(_keyBinding.CommandParameter);
+        if (Keyboard.FocusedElement is not null)
+        {
+            return IntPtr.Zero;
+        }
+
+        _keyBinding.Command.Execute(_keyBinding.CommandParameter);
+
         isHandled = true;
 
         return IntPtr.Zero;

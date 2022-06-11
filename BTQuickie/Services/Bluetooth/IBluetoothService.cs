@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BluetoothDeviceInfoLocal = BTQuickie.Models.BluetoothDeviceInfo;
+using BluetoothDeviceInfoLocal = BTQuickie.Models.Device.BluetoothDeviceInfo;
 
 namespace BTQuickie.Services.Bluetooth
 {

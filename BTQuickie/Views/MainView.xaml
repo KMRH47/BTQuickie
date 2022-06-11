@@ -1,0 +1,101 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:customBehaviors="clr-namespace:BTQuickie.Behaviors"
+        xmlns:fontAwesome="http://schemas.fontawesome.io/icons/"
+        xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+        xmlns:resources="clr-namespace:BTQuickie.Resources.Styles.Views"
+        xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
+        x:Class="BTQuickie.Views.MainView"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+        Title="{x:Static localization:AppResources.Title}"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual"
+        Height="500"
+        Width="350">
+
+    <!-- Resources -->
+    <Window.Resources>
+        <resources:MainViewResources/>
+    </Window.Resources>
+
+    <!-- Main Grid -->
+    <Grid Style="{StaticResource MainGridStyle}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Section -->
+        <Grid Grid.Row="0"
+              Visibility="{Binding ConnectedBluetoothDeviceInfo.Name,
+                Converter={StaticResource StringToVisibilityConverter}}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Connected Bluetooth Device Info  -->
+            <Border Grid.Column="0"
+                    BorderThickness="{StaticResource ThicknessXMicro}"
+                    BorderBrush="{StaticResource BrushEmerald500}">
+                <StackPanel>
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}"/>
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Disconnect Button -->
+            <Button Grid.Column="1"
+                    Style="{StaticResource DisconnectButtonStyle}"
+                    Command="{Binding DisconnectCommand}"
+                    Content="{x:Static localization:AppResources.Disconnect}"/>
+        </Grid>
+
+        <!-- Middle Section -->
+        <Grid Grid.Row="1">
+
+            <!-- Device List -->
+            <ListView Style="{StaticResource ListViewStyle}"
+                      ItemsSource="{Binding Devices}"
+                      ItemTemplate="{StaticResource BluetoothDeviceInfoTemplate}"
+                      SelectedItem="{Binding SelectedBluetoothDeviceInfo}"
+                      customBehaviors:FocusBehavior.IsFocused="True"
+                      Visibility="{Binding IsBusy,
+                        Converter={StaticResource InvertedVisibilityBooleanConverter}}">
+
+                <!-- Keyboard Input Command Bindings -->
+                <ListView.InputBindings>
+
+                    <!-- Enter -->
+                    <KeyBinding Key="Enter"
+                                Command="{Binding ConnectCommand}"
+                                CommandParameter="{Binding SelectedBluetoothDeviceInfo}"/>
+                    <!-- Esc -->
+                    <KeyBinding Key="Escape"
+                                Command="{Binding HideWindowCommand}"/>
+
+                </ListView.InputBindings>
+            </ListView>
+
+            <!-- Spinner -->
+            <fontAwesome:ImageAwesome Style="{StaticResource SpinnerStyle}"
+                                      Icon="BluetoothB"
+                                      Visibility="{Binding IsBusy, 
+                                        Converter={StaticResource VisibilityBooleanConverter}}"/>
+        </Grid>
+
+        <!-- Button (Discover Devices) -->
+        <Button Grid.Row="2"
+                TabIndex="1"
+                Height="35"
+                Command="{Binding DiscoverDevicesCommand}"
+                Content="{x:Static localization:AppResources.FindBluetoothDevices}"
+                Background="{StaticResource BrushGray700}"/>
+    </Grid>
+</Window>

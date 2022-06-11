@@ -1,0 +1,54 @@
+﻿<Window x:Class="BTQuickie.Views.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:behaviors="clr-namespace:BTQuickie.Behaviors"
+        xmlns:controls="clr-namespace:BTQuickie.Controls"
+        xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+        xmlns:resources="clr-namespace:BTQuickie.Resources.Styles.Views"
+        xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
+        d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
+        mc:Ignorable="d"
+        Closing="SettingsView_OnClosing"
+        Background="{StaticResource BrushGray600}"
+        WindowStartupLocation="CenterScreen"
+        Title="{x:Static localization:AppResources.Title}"
+        Height="500"
+        Width="300">
+
+    <!-- Resources -->
+    <Window.Resources>
+        <resources:SettingsViewResources/>
+    </Window.Resources>
+
+    <!-- Content -->
+    <StackPanel Style="{StaticResource MainStackPanelStyle}">
+
+        <!-- "Discovery Timeout (ms)" -->
+        <Label
+            Content="{Binding 
+                        Source={x:Static localization:AppResources.SettingsDiscoveryTime}, 
+                        StringFormat='{}{0} (ms)'}"/>
+        <!-- Discovery Timeout Input -->
+        <TextBox Text="{Binding DiscoveryTimeMs, 
+                        UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"
+                 Foreground="Black"
+                 MaxLength="4"
+                 behaviors:NumericTextBoxBehavior.IsNumericInput="True"/>
+
+        <!-- Keymap -->
+        <!-- "Keymap" -->
+        <Label Margin="{StaticResource ElementSpacing}"
+               Content="{x:Static localization:AppResources.Keymap}"/>
+        <!-- Hotkey selector (drop-down) -->
+        <ComboBox SelectedIndex="0"
+                  SelectedItem="{Binding SelectedHotkey, Mode=TwoWay}"
+                  ItemsSource="{Binding Keymap}"
+                  ItemTemplate="{StaticResource KeymapComboBoxTemplate}"/>
+        <!-- Hotkey Setter Control -->
+        <controls:HotkeySetter Hotkey="{Binding BoundHotkey, Mode=OneWayToSource}"
+                               Margin="{StaticResource ElementSpacing}"/>
+    </StackPanel>
+</Window>

@@ -1,4 +1,4 @@
-﻿namespace BTQuickie.Models;
+﻿namespace BTQuickie.Models.Device;
 
 public record struct BluetoothDeviceInfo(string Name, string Address)
 {

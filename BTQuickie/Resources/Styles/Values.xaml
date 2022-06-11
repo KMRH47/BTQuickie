@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:t="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Thickness -->
+    <Thickness x:Key="ThicknessXMicro">1</Thickness>
+    <Thickness x:Key="ThicknessMicro">5</Thickness>
+    <Thickness x:Key="ThicknessXSmall">10</Thickness>
+    <Thickness x:Key="ThicknessSmall">25</Thickness>
+    <Thickness x:Key="ThicknessMedium">50</Thickness>
+    <Thickness x:Key="ThicknessLarge">70</Thickness>
+
+    <!-- Font Size -->
+    <t:Double x:Key="FontSizeXSmall">8</t:Double>
+    <t:Double x:Key="FontSizeSmall">11</t:Double>
+    <t:Double x:Key="FontSizeMedium">14</t:Double>
+    <t:Double x:Key="FontSizeLarge">22</t:Double>
+    <t:Double x:Key="FontSizeXLarge">36</t:Double>
+
+</ResourceDictionary>

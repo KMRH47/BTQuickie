@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
+                    xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
+                    mc:Ignorable="d"
+                    x:Class="BTQuickie.Resources.Styles.Views.TaskbarIconViewResources">
+
+    <!-- Context Menu -->
+    <ContextMenu x:Key="ContextMenu"
+                 d:DataContext="{d:DesignInstance viewModels:TaskbarIconViewModel}">
+        
+        <!-- Settings -->
+        <MenuItem Header="{x:Static localization:AppResources.Settings}"
+                  Command="{Binding OpenSettingsCommand}" />
+        
+        <!-- Exit -->
+        <MenuItem Header="{x:Static localization:AppResources.Exit}"
+                  Command="{Binding ExitCommand}" />
+    </ContextMenu>
+
+</ResourceDictionary>

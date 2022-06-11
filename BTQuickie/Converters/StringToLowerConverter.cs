@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace BTQuickie.Converters;
 
-public class VisibilityBooleanConverter : IValueConverter
+public class StringToLowerConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (value is not bool isVisible)
+        if (value is string text)
         {
-            return Visibility.Visible;
+            return text.ToLower();
         }
 
-        return isVisible ? Visibility.Visible : Visibility.Hidden;
+        throw new ArgumentException($"Argument '{nameof(value)}' must be a string.");;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
