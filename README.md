@@ -10,7 +10,7 @@ Quickly access bluetooth devices on Windows 11!
 * Can only establish connection to some bluetooth devices 
 * The time it takes to connect to a bluetooth device is slightly faster using Windows' built-in bluetooth interface
 
-## Third-party packages
+## Package Dependencies
 
 **Big thanks to all the amazing people sharing their code for free, you're my idols!**
 
@@ -22,7 +22,7 @@ And of course, Microsoft.* !
 
 ___
 
-#### Dropped third-party packages (thanks for sharing!)<br/>
+#### Discontinued dependencies (thanks for sharing!)<br/>
 <a href="https://github.com/nullsoftware/TrayIcon">TrayIcon</a><br/>
 
 <3
