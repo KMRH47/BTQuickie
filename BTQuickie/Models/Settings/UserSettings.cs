@@ -5,6 +5,6 @@ namespace BTQuickie.Models.Settings;
 
 public class UserSettings
 {
-    public ObservableCollection<HotkeyInfo> Keymap { get; set; } 
-    public DiscoveryInfo DiscoveryInfo { get; set; }
+    public ObservableCollection<HotkeyInfo> Keymap { get; init; } 
+    public DiscoveryInfo DiscoveryInfo { get; init; }
 }
