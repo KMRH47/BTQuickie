@@ -20,8 +20,9 @@ Quickly access bluetooth devices on Windows 11!
 <a href="https://github.com/charri/Font-Awesome-WPF/">FontAwesome.WPF</a> <br/>
 And of course, Microsoft.* !
 
-*Dropped NuGet packages (thanks for sharing!)*
+___
 
+#### Dropped third-party packages (thanks for sharing!)<br/>
 <a href="https://github.com/nullsoftware/TrayIcon">TrayIcon</a><br/>
 
 <3
