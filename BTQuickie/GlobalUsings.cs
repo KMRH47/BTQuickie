@@ -1,0 +1,1 @@
+﻿global using WindowsInterop = TerraFX.Interop.Windows;

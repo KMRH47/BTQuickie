@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using BTQuickie.Helpers;
@@ -9,27 +8,6 @@ namespace BTQuickie.Extensions;
 
 internal static class WindowExtensions
 {
-    /// <summary>Retrieves the window styles.</summary>
-    private const int GWL_STYLE = -16;
-
-    /// <summary>The maximize button.</summary>
-    private const int WS_MAXIMIZEBOX = 0x10000;
-
-    /// <summary>The minimize button.</summary>
-    private const int WS_MINIMIZEBOX = 0x20000;
-
-    /// <summary>
-    /// Unmanaged function call <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a>.
-    /// </summary>
-    [DllImport("user32.dll")]
-    private static extern int GetWindowLong(IntPtr windowHandle, int index);
-
-    /// <summary>
-    /// Unmanaged function call <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a>.
-    /// </summary>
-    [DllImport("user32.dll")]
-    private static extern int SetWindowLong(IntPtr windowHandle, int index, int value);
-
     public static void ShowBottomRightCorner(this Window window)
     {
         (double width, double height) =
@@ -46,7 +24,7 @@ internal static class WindowExtensions
     /// </summary>
     public static void ShowMinimal(this Window window)
     {
-        SetWindowStyle(window, ~WS_MAXIMIZEBOX, ~WS_MINIMIZEBOX);
+        SetWindowStyle(window, ~WindowsInterop.WS.WS_MAXIMIZEBOX, ~WindowsInterop.WS.WS_MINIMIZEBOX);
         ShowTopmostAndActivate(window);
     }
 
@@ -76,8 +54,8 @@ internal static class WindowExtensions
     private static void SetWindowStyle(this Window window, params int[] styles)
     {
         IntPtr windowHandle = new WindowInteropHelper(window).Handle;
-        int currentStyle = GetWindowLong(windowHandle, GWL_STYLE);
+        int currentStyle = WindowsInterop.Windows.GetWindowLongA((WindowsInterop.HWND)windowHandle, WindowsInterop.GWL.GWL_STYLE);
         int newStyle = styles.Aggregate(currentStyle, (current, style) => current & style);
-        SetWindowLong(windowHandle, GWL_STYLE, newStyle);
+        WindowsInterop.Windows.SetWindowLongA((WindowsInterop.HWND)windowHandle, WindowsInterop.GWL.GWL_STYLE, newStyle);
     }
 }

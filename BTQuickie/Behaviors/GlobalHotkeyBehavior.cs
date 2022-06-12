@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Threading;
 
 namespace BTQuickie.Behaviors;
 
@@ -16,18 +14,6 @@ public class GlobalHotkeyBehavior
     private static KeyBinding _keyBinding = new();
     private static Key _key;
     private static ModifierKeys _modifierKeys;
-
-    [DllImport("User32.dll")]
-    private static extern bool RegisterHotKey(
-        IntPtr windowHandle,
-        int hotkeyId,
-        uint fsModifiers,
-        uint virtualKey);
-
-    [DllImport("User32.dll")]
-    private static extern bool UnregisterHotKey(
-        IntPtr windowHandle,
-        int hotkeyId);
 
     public static readonly DependencyProperty RegisterProperty =
         DependencyProperty.RegisterAttached(
@@ -48,14 +34,14 @@ public class GlobalHotkeyBehavior
     {
         binding.SetValue(RegisterProperty, value);
     }
-
+    
     private static void RegisterPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
     {
         if (dependencyObject is not KeyBinding keyBinding)
         {
             return;
         }
-
+        
         bool isDesignMode = DesignerProperties.GetIsInDesignMode(dependencyObject);
 
         if (isDesignMode)
@@ -70,6 +56,7 @@ public class GlobalHotkeyBehavior
 
     private static void KeyBindingOnChanged(object? sender, EventArgs e)
     {
+        
         if (_key == _keyBinding.Key && _modifierKeys == _keyBinding.Modifiers)
         {
             return;
@@ -92,7 +79,7 @@ public class GlobalHotkeyBehavior
         _windowHandleSource = HwndSource.FromHwnd(windowInteropHelper.Handle) ?? throw new InvalidOperationException();
         _windowHandleSource.AddHook(WindowHandleHook);
 
-        bool hotkeyRegisterError = !RegisterHotKey(windowInteropHelper.Handle, HOTKEY_ID, modifiers, key);
+        bool hotkeyRegisterError = !WindowsInterop.Windows.RegisterHotKey((WindowsInterop.HWND)windowInteropHelper.Handle, HOTKEY_ID, modifiers, key);
 
         if (hotkeyRegisterError)
         {
@@ -109,7 +96,7 @@ public class GlobalHotkeyBehavior
 
         _windowHandleSource.RemoveHook(WindowHandleHook);
         WindowInteropHelper windowInteropHelper = new(window);
-        UnregisterHotKey(windowInteropHelper.Handle, HOTKEY_ID);
+        WindowsInterop.Windows.UnregisterHotKey((WindowsInterop.HWND)windowInteropHelper.Handle, HOTKEY_ID);
     }
 
     private static IntPtr WindowHandleHook(
