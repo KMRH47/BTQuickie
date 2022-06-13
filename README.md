@@ -9,6 +9,10 @@ Quickly access bluetooth devices on Windows 11!
 * Disconnect doesn't work properly
 * Can only establish connection to some bluetooth devices 
 * The time it takes to connect to a bluetooth device is slightly faster using Windows' built-in bluetooth interface
+* Paired devices disappear if a BT discovery is initiated
+* When connecting to a devices, the keyboard focus is lost (alt+tab until fixed)
+
+Please don't heistate to post issues as this app can be somewhat unsatisfactory in its current state. 😊
 
 ## Dependencies
 
