@@ -10,7 +10,7 @@ Quickly access bluetooth devices on Windows 11!
 * Can only establish connection to some bluetooth devices 
 * The time it takes to connect to a bluetooth device is slightly faster using Windows' built-in bluetooth interface
 * Paired devices disappear if a BT discovery is initiated
-* When connecting to a devices, the keyboard focus is lost (alt+tab until fixed)
+* When connecting to a devices, the keyboard focus is lost (press TAB once to re-focus)
 
 Please don't heistate to post issues as this app can be somewhat unsatisfactory in its current state. 😊
 
