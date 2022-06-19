@@ -17,6 +17,12 @@ public class SettingsViewModel : ViewModelBase
     }
 
     public ObservableCollection<HotkeyInfo> Keymap => this.applicationSettingsProvider.UserSettings.Keymap;
+    
+    public bool LaunchOnStartup
+    {
+        get => this.applicationSettingsProvider.UserSettings.LaunchOnStartup;
+        set => this.applicationSettingsProvider.UserSettings.LaunchOnStartup = value;
+    }
 
     public int DiscoveryTimeMs
     {

@@ -44,4 +44,7 @@
     <data name="Keymap" xml:space="preserve">
         <value>Tastaturgenveje</value>
     </data>
+    <data name="LaunchOnStartup" xml:space="preserve">
+        <value>Kør ved opstart</value>
+    </data>
 </root>

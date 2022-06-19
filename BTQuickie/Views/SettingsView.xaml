@@ -25,9 +25,29 @@
     <!-- Content -->
     <StackPanel Style="{StaticResource MainStackPanelStyle}">
 
-        <!-- "Discovery Timeout (ms)" -->
-        <Label
-            Content="{Binding 
+        <!-- Launch on Startup -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!-- "Launch on Startup" -->
+            <Label Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   Content="{x:Static localization:AppResources.LaunchOnStartup}"/>
+            <CheckBox Grid.Column="1"
+                      IsChecked="{Binding LaunchOnStartup}"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!-- Separator-->
+        <Separator/>
+
+        <!-- "Bluetooth discovery Timeout (ms)" -->
+        <Label HorizontalContentAlignment="Left"
+               Content="{Binding 
                         Source={x:Static localization:AppResources.SettingsDiscoveryTime}, 
                         StringFormat='{}{0} (ms)'}"/>
         <!-- Discovery Timeout Input -->
@@ -36,11 +56,12 @@
                  VerticalContentAlignment="Center"
                  Foreground="Black"
                  MaxLength="4"
+                 Margin="{StaticResource ElementSpacing}"
                  behaviors:NumericTextBoxBehavior.IsNumericInput="True"/>
 
         <!-- Keymap -->
         <!-- "Keymap" -->
-        <Label Margin="{StaticResource ElementSpacing}"
+        <Label HorizontalContentAlignment="Left"
                Content="{x:Static localization:AppResources.Keymap}"/>
         <!-- Hotkey selector (drop-down) -->
         <ComboBox SelectedIndex="0"
@@ -48,7 +69,6 @@
                   ItemsSource="{Binding Keymap}"
                   ItemTemplate="{StaticResource KeymapComboBoxTemplate}"/>
         <!-- Hotkey Setter Control -->
-        <controls:HotkeySetter Hotkey="{Binding BoundHotkey, Mode=OneWayToSource}"
-                               Margin="{StaticResource ElementSpacing}"/>
+        <controls:HotkeySetter Hotkey="{Binding BoundHotkey, Mode=OneWayToSource}"/>
     </StackPanel>
 </Window>

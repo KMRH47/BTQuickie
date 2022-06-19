@@ -5,8 +5,7 @@
 
 
     <!-- Values -->
-
-    <Thickness x:Key="ElementSpacing">0,10,0,0</Thickness>
+    <Thickness x:Key="ElementSpacing">0,0,0,10</Thickness>
 
     <!-- Styles -->
 
@@ -27,8 +26,17 @@
         <Setter Property="VerticalContentAlignment"
                 Value="Center"/>
         <Setter Property="HorizontalContentAlignment"
-                Value="Center"/>
+                Value="Center"/> 
     </Style>
+    
+    <!-- Separator -->
+    <Style TargetType="Separator">
+        <Setter Property="Background"
+                Value="{StaticResource  BrushGray500}"/>
+        <Setter Property="Margin"
+                Value="{StaticResource ElementSpacing}"/>
+    </Style>
+
 
     <!-- ComboBox (drop-down) Keymap Template -->
     <DataTemplate x:Key="KeymapComboBoxTemplate"
