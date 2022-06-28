@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using ShellLink;
+using ShellLink.Structures;
 
 namespace BTQuickie.Helpers;
 
@@ -9,8 +11,9 @@ public static class ShellLinkHelper
     private const string ShellLinkExtension = "lnk";
     private static readonly string ApplicationName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
     private static readonly string StartupPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-    private static readonly string ExePath = Environment.GetCommandLineArgs()[0].Replace("dll", "exe");
-
+    private static readonly string ApplicationDir = Environment.GetCommandLineArgs()[0]
+                                                               .Replace($"\\{ApplicationName}.dll", "");
+    private static readonly string ExePath = $"{ApplicationDir}\\{ApplicationName}.exe";
 
     /// <summary>
     /// Creates a shortcut (.lnk) file in the startup folder with a name identical to the process name.<br/>
@@ -24,10 +27,12 @@ public static class ShellLinkHelper
         {
             return;
         }
-        
+
         string shortcutPath = Path.Combine(StartupPath, $"{ApplicationName}.{ShellLinkExtension}");
-        ShellLink.Shortcut.CreateShortcut(ExePath)
-                 .WriteToFile(shortcutPath);
+        Shortcut shortcut = Shortcut.CreateShortcut(ExePath);
+        StringData stringData = new() {WorkingDir = ApplicationDir};
+        shortcut.StringData = stringData;
+        shortcut.WriteToFile(shortcutPath);
     }
 
     /// <summary>
@@ -42,7 +47,7 @@ public static class ShellLinkHelper
         {
             return;
         }
-        
+
         string[] files = Directory.GetFiles(StartupPath, $"{ApplicationName}*.*");
         string shortcutPath = files.First(s => s.Contains(ShellLinkExtension));
         File.Delete(shortcutPath);
