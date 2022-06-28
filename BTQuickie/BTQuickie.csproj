@@ -14,12 +14,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
       <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-      <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.46" />
-      <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.29" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.3.22175.4" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0-preview.3.22175.4" />
+      <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.53" />
+      <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.30" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.5.22301.12" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0-preview.5.22301.12" />
       <PackageReference Include="securifybv.ShellLink" Version="0.1.0" />
     </ItemGroup>
 
