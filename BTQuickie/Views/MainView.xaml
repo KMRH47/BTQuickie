@@ -94,7 +94,7 @@
         <Button Grid.Row="2"
                 TabIndex="1"
                 Height="35"
-                Command="{Binding DiscoverDevicesCommand}"
+                Command="{Binding DiscoverBluetoothDevicesCommand}"
                 Content="{x:Static localization:AppResources.FindBluetoothDevices}"
                 Background="{StaticResource BrushGray700}"/>
     </Grid>

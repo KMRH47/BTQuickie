@@ -7,18 +7,25 @@ using BTQuickie.Models.Device;
 using BTQuickie.Services.Application;
 using BTQuickie.Services.Bluetooth;
 using BTQuickie.ViewModels.Base;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BTQuickie.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
         private readonly IApplicationContextProvider applicationContextProvider;
         private readonly IBluetoothService bluetoothService;
+        
+        [ObservableProperty]
         private IReadOnlyCollection<BluetoothDeviceInfo> devices;
+        
+        [ObservableProperty]
         private BluetoothDeviceInfo selectedBluetoothDeviceInfo;
+        
+        [ObservableProperty]
         private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
-
+     
         public MainViewModel(IBluetoothService bluetoothService, IApplicationContextProvider applicationContextProvider)
         {
             this.applicationContextProvider = applicationContextProvider;
@@ -27,43 +34,7 @@ namespace BTQuickie.ViewModels
             this.devices = new ObservableCollection<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
         }
 
-        public IAsyncRelayCommand DiscoverDevicesCommand =>
-            new AsyncRelayCommand(DiscoverBluetoothDevicesAsync, CanDiscoverBluetoothDevices);
-
-        public IAsyncRelayCommand ConnectCommand => new AsyncRelayCommand<BluetoothDeviceInfo>(ConnectAsync);
-        public IRelayCommand DisconnectCommand => new RelayCommand(Disconnect);
-        public IRelayCommand HideWindowCommand => new RelayCommand(HideWindow);
-
-        public BluetoothDeviceInfo SelectedBluetoothDeviceInfo
-        {
-            get => this.selectedBluetoothDeviceInfo;
-            set
-            {
-                this.selectedBluetoothDeviceInfo = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public IReadOnlyCollection<BluetoothDeviceInfo> Devices
-        {
-            get => this.devices;
-            private set
-            {
-                this.devices = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public BluetoothDeviceInfo ConnectedBluetoothDeviceInfo
-        {
-            get => this.connectedBluetoothDeviceInfo;
-            private set
-            {
-                this.connectedBluetoothDeviceInfo = value;
-                OnPropertyChanged();
-            }
-        }
-
+        [RelayCommand]
         private async Task ConnectAsync(BluetoothDeviceInfo bluetoothDeviceInfo)
         {
             try
@@ -89,7 +60,18 @@ namespace BTQuickie.ViewModels
                 base.IsBusy = false;
             }
         }
+        
+        [RelayCommand(CanExecute = nameof(CanDiscoverBluetoothDevices))]
+        private async Task DiscoverBluetoothDevicesAsync()
+        {
+            base.IsBusy = true;
 
+            Devices = await Task.Run(this.bluetoothService.DiscoverDevices);
+
+            base.IsBusy = false;
+        }
+
+        [RelayCommand]
         private void Disconnect()
         {
             if (!this.bluetoothService.Connected)
@@ -100,24 +82,16 @@ namespace BTQuickie.ViewModels
             this.bluetoothService.Disconnect();
             ConnectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
         }
-
-        private async Task DiscoverBluetoothDevicesAsync()
+        
+        [RelayCommand]
+        private void HideWindow()
         {
-            base.IsBusy = true;
-
-            Devices = await Task.Run(this.bluetoothService.DiscoverDevices);
-
-            base.IsBusy = false;
+            this.applicationContextProvider.HideMainWindow();
         }
 
         private bool CanDiscoverBluetoothDevices()
         {
             return !base.IsBusy;
-        }
-
-        private void HideWindow()
-        {
-            this.applicationContextProvider.HideMainWindow();
         }
     }
 }

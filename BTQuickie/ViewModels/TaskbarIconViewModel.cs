@@ -9,7 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace BTQuickie.ViewModels;
 
-public class TaskbarIconViewModel : ViewModelBase
+public partial class TaskbarIconViewModel : ViewModelBase
 {
     private readonly IApplicationContextProvider applicationContextProvider;
     private readonly UserSettings userSettings;
@@ -23,10 +23,6 @@ public class TaskbarIconViewModel : ViewModelBase
         this.userSettings = userSettings;;
     }
 
-    public IRelayCommand OpenSettingsCommand => new RelayCommand(OpenSettings);
-    public IRelayCommand ShowWindowCommand => new RelayCommand(ShowWindow);
-    public IRelayCommand ExitCommand => new RelayCommand(Exit);
-
     public HotkeyInfo ShowBluetoothDevicesHotKey => this.userSettings.Keymap.First(hotkey => hotkey.Id is 0);
 
     private void OnKeymapChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -39,16 +35,19 @@ public class TaskbarIconViewModel : ViewModelBase
         OnPropertyChanged(nameof(ShowBluetoothDevicesHotKey));
     }
 
+    [RelayCommand]
     private void ShowWindow()
     {
         this.applicationContextProvider.ShowMainWindow();
     }
 
+    [RelayCommand]
     private void OpenSettings()
     {
         this.applicationContextProvider.OpenWindow(nameof(SettingsViewModel));
     }
 
+    [RelayCommand]
     private void Exit()
     {
         this.applicationContextProvider.Exit();

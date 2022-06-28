@@ -3,13 +3,16 @@ using System.ComponentModel;
 using BTQuickie.Models.Hotkey;
 using BTQuickie.Services.Settings;
 using BTQuickie.ViewModels.Base;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BTQuickie.ViewModels;
 
-public class SettingsViewModel : ViewModelBase
+public partial class SettingsViewModel : ViewModelBase
 {
     private readonly IApplicationSettingsProvider applicationSettingsProvider;
-    private HotkeyInfo? selectedHotkey;
+    
+    [ObservableProperty]
+    private HotkeyInfo selectedHotkey = HotkeyInfo.Empty;
 
     public SettingsViewModel(IApplicationSettingsProvider applicationSettingsProvider)
     {
@@ -52,16 +55,6 @@ public class SettingsViewModel : ViewModelBase
             Keymap.Remove(SelectedHotkey);
             Keymap.Add(hotkey);
             SelectedHotkey = hotkey;
-            OnPropertyChanged();
-        }
-    }
-
-    public HotkeyInfo SelectedHotkey
-    {
-        get => this.selectedHotkey!;
-        set
-        {
-            this.selectedHotkey = value;
             OnPropertyChanged();
         }
     }
