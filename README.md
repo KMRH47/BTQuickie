@@ -1,6 +1,7 @@
 # BTQuickie
 
 Windows + K** no longer enables you to connect to your favorite BT devices with ease... But this mini-app aims to solve the problem!
+
 **Requires you to pair your device first using Windows' native Bluetooth settings, as BTQuickie only lists paired devices.**
 
 Please don't heistate to post issues as this app can be somewhat unsatisfactory in its current state. 😊
