@@ -1,4 +1,10 @@
-# BTQuickie
+# Deprecated
+
+Windows 11 now has an intutive UI for connecting to bluetooth devices, so this tool is basically useless.
+
+**Original README below**
+
+## BTQuickie
 
 Windows 11 no longer allows its useres to quickly access Bluetooth devices using **Windows + K**, but this mini-app aims to solve the problem!
 
@@ -6,7 +12,7 @@ Windows 11 no longer allows its useres to quickly access Bluetooth devices using
 
 Please don't heistate to post issues as this app can be somewhat unsatisfactory in its current state. 😊
 
-## Dependencies
+### Dependencies
 
 **Big thanks to all the amazing people sharing their code for free, you're my idols!**
 
