@@ -4,7 +4,6 @@
                     xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
                     xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
                     xmlns:device="clr-namespace:BTQuickie.Models.Device"
-                    xmlns:behaviors="clr-namespace:BTQuickie.Behaviors"
                     x:Class="BTQuickie.Resources.Styles.Views.MainViewResources">
 
     <!-- List View -->
@@ -122,7 +121,7 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              From="1.0" To="0.3"
                                              Duration="0:0:0.5"
-                                             AutoReverse="True"/>
+                                             AutoReverse="True" />
                         </Storyboard>
                     </BeginStoryboard>
                 </DataTrigger.EnterActions>
@@ -131,7 +130,7 @@
                         <Storyboard>
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1.0"
-                                             Duration="0:0:0.1"/>
+                                             Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </DataTrigger.ExitActions>
@@ -195,8 +194,27 @@
                                 TargetNullValue={x:Static localization:AppResources.UnknownDevice}, 
                                 FallbackValue={x:Static localization:AppResources.UnknownDevice}}" />
 
-                        <!-- Address -->
-                        <Label Content="{Binding Address}" />
+
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Address -->
+                            <Label Content="{Binding Address}" Width="100" />
+
+                            <!-- Is Paired? -->
+                            <Label Content="{x:Static localization:AppResources.Paired}"
+                                   Foreground="{StaticResource BrushComplementGreen}">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPaired}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </StackPanel>
+
 
                     </StackPanel>
                 </DataTemplate>
