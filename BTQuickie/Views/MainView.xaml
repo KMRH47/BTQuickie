@@ -83,10 +83,10 @@
                 </ListView.InputBindings>
             </ListView>
 
-            <!-- Spinner -->
-            <fontAwesome:ImageAwesome Style="{StaticResource SpinnerStyle}"
+            <!-- Bluetooth Loading Icon -->
+            <fontAwesome:ImageAwesome Style="{StaticResource BluetoothLoadingStyle}"
                                       Icon="BluetoothB"
-                                      Visibility="{Binding IsBusy, 
+                                      Visibility="{Binding IsBusy,
                                         Converter={StaticResource VisibilityBooleanConverter}}" />
         </Grid>
 

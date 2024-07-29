@@ -4,6 +4,7 @@
                     xmlns:localization="clr-namespace:BTQuickie.Resources.Localization"
                     xmlns:viewModels="clr-namespace:BTQuickie.ViewModels"
                     xmlns:device="clr-namespace:BTQuickie.Models.Device"
+                    xmlns:behaviors="clr-namespace:BTQuickie.Behaviors"
                     x:Class="BTQuickie.Resources.Styles.Views.MainViewResources">
 
     <!-- List View -->
@@ -106,15 +107,36 @@
                 Value="True" />
     </Style>
 
-    <!-- Spinner -->
-    <Style x:Key="SpinnerStyle"
+    <!-- Bluetooth Loading Style -->
+    <Style x:Key="BluetoothLoadingStyle"
            TargetType="fontAwesome:ImageAwesome">
-        <Setter Property="Spin"
-                Value="True" />
         <Setter Property="Foreground"
                 Value="{StaticResource BrushGray800}" />
         <Setter Property="Margin"
                 Value="{StaticResource ThicknessLarge}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="1.0" To="0.3"
+                                             Duration="0:0:0.5"
+                                             AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1.0"
+                                             Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Button -->
