@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using BTQuickie.Models.Device;
@@ -17,7 +18,7 @@ public partial class MainViewModel(
   IApplicationContextProvider applicationContextProvider)
   : ViewModelBase
 {
-  [ObservableProperty] private BluetoothDeviceInfo connectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
+  [ObservableProperty] private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
 
   [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices =
     new ObservableCollection<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
@@ -33,8 +34,7 @@ public partial class MainViewModel(
         return;
       }
 
-      await bluetoothService.ConnectAsync(bluetoothDeviceInfo.Address,
-        bluetoothService.GuidSerialPort());
+      await bluetoothService.ConnectAsync(bluetoothDeviceInfo.Address, bluetoothService.GuidSerialPort());
 
       ConnectedBluetoothDeviceInfo = bluetoothDeviceInfo;
     }
@@ -46,13 +46,20 @@ public partial class MainViewModel(
     }
   }
 
+
   [RelayCommand(CanExecute = nameof(CanDiscoverBluetoothDevices))]
-  private async Task DiscoverBluetoothDevicesAsync() {
+  private async Task DiscoverBluetoothDevicesAsync()
+  {
     IsBusy = true;
-
-    Devices = await Task.Run(bluetoothService.DiscoverDevices);
-
-    IsBusy = false;
+    try
+    {
+      IReadOnlyCollection<BluetoothDeviceInfo> discoveredDevices = await Task.Run(bluetoothService.DiscoverDevices);
+      Devices = [..discoveredDevices, ..bluetoothService.PairedDevices()];
+    }
+    finally
+    {
+      IsBusy = false;
+    }
   }
 
   [RelayCommand]
@@ -62,7 +69,7 @@ public partial class MainViewModel(
     }
 
     bluetoothService.Disconnect();
-    ConnectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
+    ConnectedBluetoothDeviceInfo = default;
   }
 
   [RelayCommand]
