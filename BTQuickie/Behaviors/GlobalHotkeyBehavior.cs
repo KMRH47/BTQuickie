@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using BTQuickie.Helpers;
 
 namespace BTQuickie.Behaviors;
 
@@ -17,13 +18,9 @@ public class GlobalHotkeyBehavior
   private static ModifierKeys _modifierKeys;
 
   public static readonly DependencyProperty RegisterProperty =
-    DependencyProperty.RegisterAttached(
-      "Register",
-      typeof(bool),
-      typeof(GlobalHotkeyBehavior),
-      new PropertyMetadata(
-        false,
-        RegisterPropertyChanged));
+    DependencyPropertyUtils.RegisterAttached<bool, GlobalHotkeyBehavior>(
+      propertyName: "Register",
+      metadata: new PropertyMetadata(false, RegisterPropertyChanged));
 
   [DllImport("User32.dll")]
   private static extern bool RegisterHotKey(

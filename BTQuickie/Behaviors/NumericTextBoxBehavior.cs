@@ -1,17 +1,16 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BTQuickie.Helpers;
 
 namespace BTQuickie.Behaviors;
 
 public class NumericTextBoxBehavior
 {
   public static readonly DependencyProperty IsNumericInputProperty =
-    DependencyProperty.RegisterAttached(
-      "NumericInput",
-      typeof(bool),
-      typeof(NumericTextBoxBehavior),
-      new PropertyMetadata(false, IsNumericInputPropertyChanged));
+    DependencyPropertyUtils.RegisterAttached<bool, NumericTextBoxBehavior>(
+      propertyName: "NumericInput",
+      metadata: new PropertyMetadata(false, IsNumericInputPropertyChanged));
 
   public static bool GetIsNumericInput(Control control) {
     return (bool)control.GetValue(IsNumericInputProperty);

@@ -20,10 +20,9 @@ public partial class TaskbarIconViewModel : ViewModelBase
     UserSettings userSettings = applicationSettingsProvider.UserSettings;
     userSettings.Keymap.CollectionChanged += OnKeymapChanged;
     this.userSettings = userSettings;
-    ;
   }
 
-  public HotkeyInfo ShowBluetoothDevicesHotKey => userSettings.Keymap.First(hotkey => hotkey.Id is 0);
+  public HotkeyInfo ShowBluetoothDevicesHotKey => userSettings.Keymap.First(hotkey => hotkey.Id == 0);
 
   private void OnKeymapChanged(object? sender, NotifyCollectionChangedEventArgs e) {
     if (e.Action is not NotifyCollectionChangedAction.Add) {

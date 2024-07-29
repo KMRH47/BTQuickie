@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using BTQuickie.Extensions;
+using BTQuickie.Helpers;
 using BTQuickie.Models.Hotkey;
 
 namespace BTQuickie.Controls;
@@ -22,19 +23,16 @@ public partial class HotkeySetter
   private const string Separator = " + ";
 
   public static readonly DependencyProperty ProgressBarColorProperty =
-    RegisterDependencyProperty<Color>(nameof(ProgressBarColor));
+    DependencyPropertyUtils.Register<Color, HotkeySetter>(propertyName: nameof(ProgressBarColor));
 
   public static readonly DependencyProperty HotkeyProperty =
-    RegisterDependencyProperty<Hotkey>(nameof(Hotkey));
+    DependencyPropertyUtils.Register<Hotkey, HotkeySetter>(propertyName: nameof(Hotkey));
 
   public static readonly DependencyProperty ModifierKeysProperty =
-    RegisterDependencyProperty<ModifierKeys>(nameof(ModifierKeys));
+    DependencyPropertyUtils.Register<ModifierKeys, HotkeySetter>(propertyName: nameof(ModifierKeys));
 
   public static readonly DependencyProperty KeyProperty =
-    RegisterDependencyProperty<Key>(nameof(Key));
-
-  private static DependencyProperty RegisterDependencyProperty<T>(string propertyName) =>
-    DependencyProperty.Register(propertyName, typeof(T), typeof(HotkeySetter), new FrameworkPropertyMetadata());
+    DependencyPropertyUtils.Register<Key, HotkeySetter>(propertyName: nameof(Key));
 
   private readonly Duration loadDuration = new(TimeSpan.FromSeconds(1));
   private readonly DoubleAnimation progressBarToMaxDoubleAnimation;
@@ -119,7 +117,7 @@ public partial class HotkeySetter
           return;
         }
 
-        HotkeyTextBox.Text += HotkeyTextBox.Text.Length is 0
+        HotkeyTextBox.Text += HotkeyTextBox.Text.Length == 0
           ? realKey
           : $"{Separator}{realKey}";
 
@@ -133,7 +131,7 @@ public partial class HotkeySetter
         modifierKeys = e.ModifierKeys();
         Debug.WriteLine($"Modifiers: {e.ModifierKeys()}");
 
-        HotkeyTextBox.Text = HotkeyTextBox.Text.Length is 0
+        HotkeyTextBox.Text = HotkeyTextBox.Text.Length == 0
           ? realKey
           : $"{realKey}{Separator}{HotkeyTextBox.Text}";
       }
@@ -192,7 +190,7 @@ public partial class HotkeySetter
     Hotkey = new Hotkey(Key.ToString(), modiferKeysFormatted);
     ProgressBar.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, toGreenColorAnimation);
     PopupHotkey.Content = $"'{HotkeyTextBox.Text}'";
-    _ = ShowHotkeyBoundText(cancellationTokenSource.Token);
+    ShowHotkeyBoundText(cancellationTokenSource.Token);
   }
 
   private void StartProgressBar() {

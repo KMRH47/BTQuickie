@@ -2,25 +2,21 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using BTQuickie.Helpers;
 
 namespace BTQuickie.Behaviors;
 
 public class FocusBehavior
 {
   public static readonly DependencyProperty IsFocusedProperty =
-    DependencyProperty.RegisterAttached(
-      "IsFocused",
-      typeof(bool),
-      typeof(FocusBehavior),
-      new PropertyMetadata(false, OnFocusFirstPropertyChanged));
+    DependencyPropertyUtils.RegisterAttached<bool, FocusBehavior>(
+      propertyName: "IsFocused",
+      metadata: new PropertyMetadata(false, OnFocusFirstPropertyChanged));
 
   public static bool GetIsFocused(Control control) {
     return (bool)control.GetValue(IsFocusedProperty);
   }
 
-  /// <summary>
-  ///   Forces focus on this element when its parent window is shown.
-  /// </summary>
   public static void SetIsFocused(Control control, bool value) {
     control.SetValue(IsFocusedProperty, value);
   }
