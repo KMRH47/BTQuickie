@@ -12,7 +12,6 @@ public class StringToLowerConverter : IValueConverter
     }
 
     throw new ArgumentException($"Argument '{nameof(value)}' must be a string.");
-    ;
   }
 
   public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {

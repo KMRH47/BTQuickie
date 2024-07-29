@@ -12,13 +12,13 @@ public class ApplicationContextProvider : IApplicationContextProvider
       ? System.Windows.Application.Current.MainWindow
       : throw new NullReferenceException($"{nameof(MainWindow)} is null.");
 
-  public void Minimize() {
-    MainWindow.WindowState = WindowState.Minimized;
-  }
+  public void Exit() => System.Windows.Application.Current.Shutdown();
 
-  public void Exit() {
-    System.Windows.Application.Current.Shutdown();
-  }
+  public void Minimize() => MainWindow.WindowState = WindowState.Minimized;
+
+  public void HideMainWindow() => MainWindow.Hide();
+
+  public void OpenWindow(string viewModelName) => GetWindowByName(viewModelName).ShowMinimal();
 
   public void ShowMainWindow() {
     Window mainWindow = MainWindow;
@@ -30,19 +30,10 @@ public class ApplicationContextProvider : IApplicationContextProvider
     mainWindow.ShowBottomRightCorner();
   }
 
-  public void HideMainWindow() {
-    MainWindow.Hide();
-  }
-
   public Size GetScaledScreenSize(string viewModelName, float scaleWidthBy, float scaleHeightBy) {
     Window window = GetWindowByName(viewModelName);
     (double scaledWidth, double scaledHeight) = ScreenHelper.GetScaledScreenSize(window, false, true);
     return new Size(scaleWidthBy * scaledWidth, scaleHeightBy * scaledHeight);
-  }
-
-  public void OpenWindow(string viewModelName) {
-    Window window = GetWindowByName(viewModelName);
-    window.ShowMinimal();
   }
 
   private static Window GetWindowByName(string viewModelName) {

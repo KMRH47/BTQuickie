@@ -23,9 +23,7 @@ public class InTheHandBluetoothService : IBluetoothService
 
   public bool Connected => bluetoothClient.Connected;
 
-  public Guid GuidSerialPort() {
-    return BluetoothService.SerialPort;
-  }
+  public Guid GuidSerialPort() => BluetoothService.SerialPort;
 
   public IReadOnlyCollection<BluetoothDeviceInfoLocal> DiscoverDevices() {
     TimeSpan inquiryLength = TimeSpan.FromMilliseconds(userSettings.DiscoveryInfo.DiscoveryTimeMs);
@@ -33,21 +31,16 @@ public class InTheHandBluetoothService : IBluetoothService
     return MapModel(bluetoothClient.DiscoverDevices());
   }
 
-  public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices() {
-    return MapModel(bluetoothClient.PairedDevices);
-  }
+  public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices() => MapModel(bluetoothClient.PairedDevices);
 
-  public void Connect(string address, Guid serviceGuid) {
+  public void Connect(string address, Guid serviceGuid) =>
     bluetoothClient.Connect(BluetoothAddress.Parse(address), serviceGuid);
-  }
 
-  public async Task ConnectAsync(string address, Guid serviceGuid) {
+  public async Task ConnectAsync(string address, Guid serviceGuid) =>
     await Task.Run(() => bluetoothClient.Connect(BluetoothAddress.Parse(address), serviceGuid));
-  }
 
-  public void PairRequest(string address, string pin) {
+  public void PairRequest(string address, string pin) =>
     BluetoothSecurity.PairRequest(BluetoothAddress.Parse(address), pin);
-  }
 
   public void Disconnect() {
     bluetoothClient.Dispose();

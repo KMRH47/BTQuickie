@@ -56,8 +56,7 @@ public partial class HotkeySetter
     textGridFadeToZeroDoubleAnimation = new DoubleAnimation(0, resetDuration);
     textGridFadeToOneDoubleAnimation = new DoubleAnimation(1, resetDuration);
     toGreenColorAnimation = new ColorAnimation(Colors.Green, resetDuration);
-    toDefaultColorAnimation =
-      new ColorAnimation(((SolidColorBrush)ProgressBar.Foreground).Color, resetDuration);
+    toDefaultColorAnimation = new ColorAnimation(((SolidColorBrush)ProgressBar.Foreground).Color, resetDuration);
 
     // Subscribe to events
     HotkeyTextBox.PreviewKeyDown += OnPreviewKeyDown;
@@ -170,10 +169,6 @@ public partial class HotkeySetter
     }
   }
 
-  private void OnHotkeyTextChanged(object sender, TextChangedEventArgs e) {
-    pressedKeys = HotkeyTextBox.Text.Split(Separator);
-  }
-
   private void OnIsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e) {
     ResetProgressBar();
     HotkeyTextBox.Text = string.Empty;
@@ -207,10 +202,6 @@ public partial class HotkeySetter
     ProgressBar.BeginAnimation(RangeBase.ValueProperty, progressBarToZeroDoubleAnimation);
   }
 
-  private void TextGridFadeToZeroDoubleAnimationOnCompleted(object? sender, EventArgs e) {
-    HotkeyBoundTextGrid.Visibility = Visibility.Hidden;
-  }
-
   private async Task ShowHotkeyBoundText(CancellationToken cancellationToken) {
     HotkeyBoundTextGrid.Visibility = Visibility.Visible;
     HotkeyBoundTextGrid.BeginAnimation(OpacityProperty, textGridFadeToOneDoubleAnimation);
@@ -218,13 +209,13 @@ public partial class HotkeySetter
     HotkeyBoundTextGrid.BeginAnimation(OpacityProperty, textGridFadeToZeroDoubleAnimation);
   }
 
-  private void UIElement_OnGotFocus(object sender, RoutedEventArgs e) {
-    HotkeyGuideLabel.Visibility = Visibility.Collapsed;
-  }
+  private void TextGridFadeToZeroDoubleAnimationOnCompleted(object? sender, EventArgs e) => HotkeyBoundTextGrid.Visibility = Visibility.Hidden;
 
-  private void UIElement_OnLostFocus(object sender, RoutedEventArgs e) {
-    HotkeyGuideLabel.Visibility = Visibility.Visible;
-  }
+  private void UIElement_OnGotFocus(object sender, RoutedEventArgs e) => HotkeyGuideLabel.Visibility = Visibility.Collapsed;
+
+  private void UIElement_OnLostFocus(object sender, RoutedEventArgs e) => HotkeyGuideLabel.Visibility = Visibility.Visible;
+
+  private void OnHotkeyTextChanged(object sender, TextChangedEventArgs e) => pressedKeys = HotkeyTextBox.Text.Split(Separator);
 
   protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e) {
     base.OnLostKeyboardFocus(e);

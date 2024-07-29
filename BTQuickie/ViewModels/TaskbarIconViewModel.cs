@@ -33,17 +33,11 @@ public partial class TaskbarIconViewModel : ViewModelBase
   }
 
   [RelayCommand]
-  private void ShowWindow() {
-    applicationContextProvider.ShowMainWindow();
-  }
+  private void ShowWindow() => applicationContextProvider.ShowMainWindow();
 
   [RelayCommand]
-  private void OpenSettings() {
-    applicationContextProvider.OpenWindow(nameof(SettingsViewModel));
-  }
+  private void OpenSettings() => applicationContextProvider.OpenWindow(nameof(SettingsViewModel));
 
   [RelayCommand]
-  private void Exit() {
-    applicationContextProvider.Exit();
-  }
+  private void Exit() => applicationContextProvider.Exit();
 }

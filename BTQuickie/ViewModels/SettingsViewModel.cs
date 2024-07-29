@@ -7,15 +7,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BTQuickie.ViewModels;
 
-public partial class SettingsViewModel : ViewModelBase
+public partial class SettingsViewModel(IApplicationSettingsProvider applicationSettingsProvider) : ViewModelBase
 {
-  private readonly IApplicationSettingsProvider applicationSettingsProvider;
-
   [ObservableProperty] private HotkeyInfo selectedHotkey = HotkeyInfo.Empty;
-
-  public SettingsViewModel(IApplicationSettingsProvider applicationSettingsProvider) {
-    this.applicationSettingsProvider = applicationSettingsProvider;
-  }
 
   public ObservableCollection<HotkeyInfo> Keymap => applicationSettingsProvider.UserSettings.Keymap;
 

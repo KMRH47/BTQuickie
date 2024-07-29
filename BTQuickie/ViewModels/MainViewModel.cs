@@ -12,23 +12,17 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace BTQuickie.ViewModels;
 
-public partial class MainViewModel : ViewModelBase
+public partial class MainViewModel(
+  IBluetoothService bluetoothService,
+  IApplicationContextProvider applicationContextProvider)
+  : ViewModelBase
 {
-  private readonly IApplicationContextProvider applicationContextProvider;
-  private readonly IBluetoothService bluetoothService;
+  [ObservableProperty] private BluetoothDeviceInfo connectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
 
-  [ObservableProperty] private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
-
-  [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices;
+  [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices =
+    new ObservableCollection<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
 
   [ObservableProperty] private BluetoothDeviceInfo selectedBluetoothDeviceInfo;
-
-  public MainViewModel(IBluetoothService bluetoothService, IApplicationContextProvider applicationContextProvider) {
-    this.applicationContextProvider = applicationContextProvider;
-    this.bluetoothService = bluetoothService;
-    connectedBluetoothDeviceInfo = BluetoothDeviceInfo.Empty();
-    devices = new ObservableCollection<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
-  }
 
   [RelayCommand]
   private async Task ConnectAsync(BluetoothDeviceInfo bluetoothDeviceInfo) {
@@ -72,11 +66,7 @@ public partial class MainViewModel : ViewModelBase
   }
 
   [RelayCommand]
-  private void HideWindow() {
-    applicationContextProvider.HideMainWindow();
-  }
+  private void HideWindow() => applicationContextProvider.HideMainWindow();
 
-  private bool CanDiscoverBluetoothDevices() {
-    return !IsBusy;
-  }
+  private bool CanDiscoverBluetoothDevices() => !IsBusy;
 }
