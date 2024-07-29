@@ -40,7 +40,7 @@ public static class ShellLinkHelper
   ///   Attempts to remove  startup shortcut with a name identical to the process name.<br />
   /// </summary>
   /// <remarks>
-  ///   If the shortcut does not exists, no action will be taken.
+  ///   If the shortcut does not exist, no action will be taken.
   /// </remarks>
   public static void RemoveStartupShortcut() {
     if (!StartupShortcutExists()) {

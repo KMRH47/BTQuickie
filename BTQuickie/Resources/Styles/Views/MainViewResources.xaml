@@ -141,7 +141,7 @@
             <!-- Mouse Input Command Bindings -->
             <ContentPresenter.InputBindings>
 
-                <!-- Left Double Click -->
+                <!-- Left Double-Click -->
                 <MouseBinding Gesture="LeftDoubleClick"
                               Command="{Binding 
                                 RelativeSource={RelativeSource 
@@ -149,7 +149,7 @@
                                         Path=DataContext.ConnectCommand}"
                               CommandParameter="{Binding .}" />
 
-                <!-- Right Double Click -->
+                <!-- Right Double-Click -->
                 <MouseBinding Gesture="RightDoubleClick"
                               Command="{Binding 
                                 RelativeSource={RelativeSource 
