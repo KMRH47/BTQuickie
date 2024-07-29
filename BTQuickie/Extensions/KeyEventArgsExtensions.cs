@@ -14,7 +14,7 @@ public static class KeyEventArgsExtensions
   }
 
   /// <summary>
-  ///   Determines if the <see cref="KeyEventArgs.Key">key</see> is a modifier key.
+  ///   Determines whether the <see cref="KeyEventArgs.Key">key</see> is a modifier key.
   /// </summary>
   /// <returns>
   ///   True if the key is a <see cref="System.Windows.Input.ModifierKeys">modifier key</see>
@@ -37,7 +37,7 @@ public static class KeyEventArgsExtensions
   }
 
   /// <summary>
-  ///   Used to determine which modifier are currently pressed.
+  ///   Used to determine which modifier keys are currently pressed.
   /// </summary>
   /// <returns>
   ///   Returns the <see cref="System.Windows.Input.ModifierKeys">modifier keys</see> currently pressed
@@ -66,7 +66,7 @@ public static class KeyEventArgsExtensions
   }
 
   /// <summary>
-  ///   Determines if multiple identical modifier keys are held down simultaneously.
+  ///   Determines whether multiple identical modifier keys are held down simultaneously.
   /// </summary>
   /// <param name="e">KeyEventArgs</param>
   /// <returns>True if e.g. left control and right control are held down simultaneously.</returns>

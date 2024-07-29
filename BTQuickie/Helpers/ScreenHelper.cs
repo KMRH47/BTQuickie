@@ -13,7 +13,7 @@ public static class ScreenHelper
   ///   Gets the screen size in pixels taking DPI scaling into consideration.
   /// </summary>
   /// <param name="window">The window to use as a reference for DPI information.</param>
-  /// <param name="ignoreTaskbar">Whether or not to ignore the taskbar in the calculation.</param>
+  /// <param name="ignoreTaskbar">Whether to ignore the taskbar in the calculation.</param>
   /// <param name="useScreenFromCursorPos">If set to true, uses the screen where the cursor currently resides on.</param>
   /// <returns>
   ///   The size of the screen in pixels after scaling.
