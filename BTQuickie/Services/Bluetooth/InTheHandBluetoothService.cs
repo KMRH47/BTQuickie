@@ -50,8 +50,10 @@ public class InTheHandBluetoothService : IBluetoothService
   private static IReadOnlyCollection<BluetoothDeviceInfoLocal> MapModel(IEnumerable<BluetoothDeviceInfo> devices) {
     return devices.Select(bluetoothDeviceInfo =>
       new BluetoothDeviceInfoLocal(
-        bluetoothDeviceInfo.DeviceName,
-        bluetoothDeviceInfo.DeviceAddress.ToString())).ToList();
+        Name: bluetoothDeviceInfo.DeviceName,
+        Address: bluetoothDeviceInfo.DeviceAddress.ToString(),
+        IsPaired: bluetoothDeviceInfo.Remembered
+      )).ToList();
   }
 
   private BluetoothClient CreateClient() {
