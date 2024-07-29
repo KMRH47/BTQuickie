@@ -18,16 +18,16 @@
 
     <!-- Resources -->
     <Window.Resources>
-        <resources:MainViewResources/>
+        <resources:MainViewResources />
     </Window.Resources>
 
     <!-- Main Grid -->
     <Grid Style="{StaticResource MainGridStyle}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Top Section -->
@@ -36,8 +36,8 @@
                 Converter={StaticResource StringToVisibilityConverter}}">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!-- Connected Bluetooth Device Info  -->
@@ -45,8 +45,8 @@
                     BorderThickness="{StaticResource ThicknessXMicro}"
                     BorderBrush="{StaticResource BrushEmerald500}">
                 <StackPanel>
-                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}"/>
-                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}"/>
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}" />
+                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}" />
                 </StackPanel>
             </Border>
 
@@ -54,7 +54,7 @@
             <Button Grid.Column="1"
                     Style="{StaticResource DisconnectButtonStyle}"
                     Command="{Binding DisconnectCommand}"
-                    Content="{x:Static localization:AppResources.Disconnect}"/>
+                    Content="{x:Static localization:AppResources.Disconnect}" />
         </Grid>
 
         <!-- Middle Section -->
@@ -75,10 +75,10 @@
                     <!-- Enter -->
                     <KeyBinding Key="Enter"
                                 Command="{Binding ConnectCommand}"
-                                CommandParameter="{Binding SelectedBluetoothDeviceInfo}"/>
+                                CommandParameter="{Binding SelectedBluetoothDeviceInfo}" />
                     <!-- Esc -->
                     <KeyBinding Key="Escape"
-                                Command="{Binding HideWindowCommand}"/>
+                                Command="{Binding HideWindowCommand}" />
 
                 </ListView.InputBindings>
             </ListView>
@@ -87,7 +87,7 @@
             <fontAwesome:ImageAwesome Style="{StaticResource SpinnerStyle}"
                                       Icon="BluetoothB"
                                       Visibility="{Binding IsBusy, 
-                                        Converter={StaticResource VisibilityBooleanConverter}}"/>
+                                        Converter={StaticResource VisibilityBooleanConverter}}" />
         </Grid>
 
         <!-- Button (Discover Devices) -->
@@ -96,6 +96,6 @@
                 Height="35"
                 Command="{Binding DiscoverBluetoothDevicesCommand}"
                 Content="{x:Static localization:AppResources.FindBluetoothDevices}"
-                Background="{StaticResource BrushGray700}"/>
+                Background="{StaticResource BrushGray700}" />
     </Grid>
 </Window>

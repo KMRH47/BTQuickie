@@ -12,29 +12,29 @@
     <!-- Label -->
     <Style TargetType="Label">
         <Setter Property="Foreground"
-                Value="{StaticResource  BrushGray50}"/>
+                Value="{StaticResource  BrushGray50}" />
         <Setter Property="VerticalContentAlignment"
-                Value="Center"/>
+                Value="Center" />
         <Setter Property="HorizontalContentAlignment"
-                Value="Center"/>
+                Value="Center" />
     </Style>
 
     <!-- TextBox -->
     <Style TargetType="TextBox">
         <Setter Property="Foreground"
-                Value="{StaticResource  BrushGray50}"/>
+                Value="{StaticResource  BrushGray50}" />
         <Setter Property="VerticalContentAlignment"
-                Value="Center"/>
+                Value="Center" />
         <Setter Property="HorizontalContentAlignment"
-                Value="Center"/> 
+                Value="Center" />
     </Style>
-    
+
     <!-- Separator -->
     <Style TargetType="Separator">
         <Setter Property="Background"
-                Value="{StaticResource  BrushGray500}"/>
+                Value="{StaticResource  BrushGray500}" />
         <Setter Property="Margin"
-                Value="{StaticResource ElementSpacing}"/>
+                Value="{StaticResource ElementSpacing}" />
     </Style>
 
 
@@ -43,7 +43,7 @@
                   DataType="hotkey:HotkeyInfo">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Path=Modifiers}"/>
+                <TextBlock Text="{Binding Path=Modifiers}" />
                 <TextBlock>
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -51,19 +51,19 @@
                                 <DataTrigger Binding="{Binding Modifiers}"
                                              Value="">
                                     <Setter Property="Text"
-                                            Value="{Binding Key}"/>
+                                            Value="{Binding Key}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Modifiers}"
                                              Value="{x:Null}">
                                     <Setter Property="Text"
-                                            Value="{Binding Key}"/>
+                                            Value="{Binding Key}" />
                                 </DataTrigger>
                                 <DataTrigger
                                     Binding="{Binding Modifiers.Length,
                                         Converter={StaticResource GreaterThanZeroConverter}}"
                                     Value="True">
                                     <Setter Property="Text"
-                                            Value="{Binding Key, StringFormat='{}+{0}'}"/>
+                                            Value="{Binding Key, StringFormat='{}+{0}'}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -71,7 +71,7 @@
                 </TextBlock>
             </StackPanel>
 
-            <TextBlock Text="{Binding Path=Description}"/>
+            <TextBlock Text="{Binding Path=Description}" />
         </StackPanel>
     </DataTemplate>
 

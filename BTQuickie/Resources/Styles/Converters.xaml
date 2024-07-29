@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:BTQuickie.Converters">
-    
+
     <converters:BooleanVisibilityConverter x:Key="VisibilityBooleanConverter" />
     <converters:InvertedBooleanVisibilityConverter x:Key="InvertedVisibilityBooleanConverter" />
     <converters:StringVisibilityConverter x:Key="StringToVisibilityConverter" />
@@ -11,5 +11,5 @@
     <converters:PercentDecimalConverter x:Key="PercentDecimalConverter" />
     <converters:StringToLowerConverter x:Key="StringToLowerConverter" />
     <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
-    
+
 </ResourceDictionary>

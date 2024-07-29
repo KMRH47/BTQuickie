@@ -19,7 +19,7 @@
 
     <!-- Resources -->
     <Window.Resources>
-        <resources:SettingsViewResources/>
+        <resources:SettingsViewResources />
     </Window.Resources>
 
     <!-- Content -->
@@ -28,28 +28,28 @@
         <!-- Launch on Startup -->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <!-- "Launch on Startup" -->
             <Label Grid.Column="0"
                    HorizontalAlignment="Left"
-                   Content="{x:Static localization:AppResources.LaunchOnStartup}"/>
+                   Content="{x:Static localization:AppResources.LaunchOnStartup}" />
             <CheckBox Grid.Column="1"
                       IsChecked="{Binding LaunchOnStartup}"
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Right"/>
+                      HorizontalAlignment="Right" />
         </Grid>
 
         <!-- Separator-->
-        <Separator/>
+        <Separator />
 
         <!-- "Bluetooth discovery Timeout (ms)" -->
         <Label HorizontalContentAlignment="Left"
                Content="{Binding 
                         Source={x:Static localization:AppResources.SettingsDiscoveryTime}, 
-                        StringFormat='{}{0} (ms)'}"/>
+                        StringFormat='{}{0} (ms)'}" />
         <!-- Discovery Timeout Input -->
         <TextBox Text="{Binding DiscoveryTimeMs, 
                         UpdateSourceTrigger=PropertyChanged}"
@@ -57,18 +57,18 @@
                  Foreground="Black"
                  MaxLength="4"
                  Margin="{StaticResource ElementSpacing}"
-                 behaviors:NumericTextBoxBehavior.IsNumericInput="True"/>
+                 behaviors:NumericTextBoxBehavior.IsNumericInput="True" />
 
         <!-- Keymap -->
         <!-- "Keymap" -->
         <Label HorizontalContentAlignment="Left"
-               Content="{x:Static localization:AppResources.Keymap}"/>
+               Content="{x:Static localization:AppResources.Keymap}" />
         <!-- Hotkey selector (drop-down) -->
         <ComboBox SelectedIndex="0"
                   SelectedItem="{Binding SelectedHotkey, Mode=TwoWay}"
                   ItemsSource="{Binding Keymap}"
-                  ItemTemplate="{StaticResource KeymapComboBoxTemplate}"/>
+                  ItemTemplate="{StaticResource KeymapComboBoxTemplate}" />
         <!-- Hotkey Setter Control -->
-        <controls:HotkeySetter Hotkey="{Binding BoundHotkey, Mode=OneWayToSource}"/>
+        <controls:HotkeySetter Hotkey="{Binding BoundHotkey, Mode=OneWayToSource}" />
     </StackPanel>
 </Window>

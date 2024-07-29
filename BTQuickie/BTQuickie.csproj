@@ -1,51 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
-        <UseWPF>true</UseWPF>
-        <UseWindowsForms>true</UseWindowsForms>
-        <ApplicationIcon>Resources\Icons\exported_small.ico</ApplicationIcon>
-        <Company>KMRH47</Company>
-        <AssemblyVersion>0.6</AssemblyVersion>
-        <FileVersion>0.6.1</FileVersion>
-        <LangVersion>preview</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>Resources\Icons\exported_small.ico</ApplicationIcon>
+    <Company>KMRH47</Company>
+    <AssemblyVersion>0.6</AssemblyVersion>
+    <FileVersion>0.6.1</FileVersion>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4" />
-      <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-      <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.53" />
-      <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.30" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.5.22301.12" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0-preview.5.22301.12" />
-      <PackageReference Include="securifybv.ShellLink" Version="0.1.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview4"/>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9"/>
+    <PackageReference Include="H.NotifyIcon.Wpf" Version="2.0.53"/>
+    <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.0.30"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.5.22301.12"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0-preview.5.22301.12"/>
+    <PackageReference Include="securifybv.ShellLink" Version="0.1.0"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Update="Resources\Localization\AppResources.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <None Remove="Resources\Settings\appsettings.json" />
-      <EmbeddedResource Include="Resources\Settings\appsettings.json" />
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Localization\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Remove="Resources\Settings\appsettings.json"/>
+    <EmbeddedResource Include="Resources\Settings\appsettings.json"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="Resources\Localization\AppResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AppResources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Localization\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="Resources\Icons\exported_small.ico" />
-    </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\Icons\exported_small.ico"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <Resource Include="Resources\Icons\exported_small.ico" />
-    </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\exported_small.ico"/>
+  </ItemGroup>
 
 </Project>

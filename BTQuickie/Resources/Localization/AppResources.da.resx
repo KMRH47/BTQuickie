@@ -1,50 +1,54 @@
 ﻿<root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>1.3</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <data name="Exit" xml:space="preserve">
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+      PublicKeyToken=b77a5c561934e089
+    </value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+      PublicKeyToken=b77a5c561934e089
+    </value>
+  </resheader>
+  <data name="Exit" xml:space="preserve">
         <value>Afslut</value>
     </data>
-    <data name="FindBluetoothDevices" xml:space="preserve">
+  <data name="FindBluetoothDevices" xml:space="preserve">
         <value>Find Bluetooth enheder</value>
     </data>
-    <data name="Title" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
         <value>BTQuickie</value>
     </data>
-    <data name="UnknownDevice" xml:space="preserve">
+  <data name="UnknownDevice" xml:space="preserve">
         <value>Ukendt enhed</value>
     </data>
-    <data name="Disconnect" xml:space="preserve">
+  <data name="Disconnect" xml:space="preserve">
         <value>Afbryd</value>
     </data>
-    <data name="Settings" xml:space="preserve">
+  <data name="Settings" xml:space="preserve">
         <value>Indstillinger</value>
     </data>
-    <data name="SettingsDiscoveryTime" xml:space="preserve">
+  <data name="SettingsDiscoveryTime" xml:space="preserve">
         <value>Bluetooth søgetid (ms)</value>
     </data>
-    <data name="HotkeySetterTitle" xml:space="preserve">
+  <data name="HotkeySetterTitle" xml:space="preserve">
         <value>Sæt genvejstast</value>
     </data>
-    <data name="Hotkey" xml:space="preserve">
+  <data name="Hotkey" xml:space="preserve">
         <value>Genvejstast</value>
     </data>
-    <data name="HotkeyBound" xml:space="preserve">
+  <data name="HotkeyBound" xml:space="preserve">
         <value>Sat!</value>
     </data>
-    <data name="Keymap" xml:space="preserve">
+  <data name="Keymap" xml:space="preserve">
         <value>Tastaturgenveje</value>
     </data>
-    <data name="LaunchOnStartup" xml:space="preserve">
+  <data name="LaunchOnStartup" xml:space="preserve">
         <value>Kør ved opstart</value>
     </data>
 </root>

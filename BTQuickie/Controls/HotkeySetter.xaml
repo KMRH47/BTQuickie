@@ -17,7 +17,7 @@
             <ProgressBar Name="ProgressBar"
                          IsHitTestVisible="False"
                          Background="{StaticResource BrushGray50}"
-                         Foreground="{StaticResource BrushGray700}"/>
+                         Foreground="{StaticResource BrushGray700}" />
 
             <!-- Hotkey TextBox -->
             <TextBox Name="HotkeyTextBox"
@@ -32,14 +32,14 @@
                      Background="Transparent"
                      Foreground="{StaticResource BrushGray900}"
                      GotFocus="UIElement_OnGotFocus"
-                     LostFocus="UIElement_OnLostFocus"/>
+                     LostFocus="UIElement_OnLostFocus" />
 
             <!-- Hotkey Guide Label -->
             <Label Name="HotkeyGuideLabel"
                    HorizontalContentAlignment="Center"
                    IsHitTestVisible="False"
                    Content="{x:Static localization:AppResources.HotkeySetterTitle}"
-                   Foreground="{StaticResource BrushGray400}"/>
+                   Foreground="{StaticResource BrushGray400}" />
         </Grid>
 
         <!-- Text Grid (Hotkey Bound)-->
@@ -52,23 +52,23 @@
             <StackPanel.Resources>
                 <Style TargetType="Label">
                     <Setter Property="Foreground"
-                            Value="{StaticResource BrushGray50}"/>
+                            Value="{StaticResource BrushGray50}" />
                     <Setter Property="HorizontalContentAlignment"
-                            Value="Center"/>
+                            Value="Center" />
                 </Style>
             </StackPanel.Resources>
 
             <!-- 'Hotkey' -->
-            <Label Content="{x:Static localization:AppResources.Hotkey}"/>
+            <Label Content="{x:Static localization:AppResources.Hotkey}" />
 
             <!-- Actual Hotkey -->
-            <Label Name="PopupHotkey"/>
+            <Label Name="PopupHotkey" />
 
             <!-- 'bound successfully' -->
             <Label
                 Content="{Binding 
                     Source={x:Static localization:AppResources.HotkeyBound},
-                    Converter={StaticResource StringToLowerConverter}, Mode=OneWay}"/>
+                    Converter={StaticResource StringToLowerConverter}, Mode=OneWay}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

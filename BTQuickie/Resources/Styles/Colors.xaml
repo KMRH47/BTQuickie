@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
     <!-- Gray -->
     <Color x:Key="ColorGray50"> #F9FAFB</Color>
     <Color x:Key="ColorGray100">#F3F4F6</Color>
@@ -22,9 +22,9 @@
     <Brush x:Key="BrushGray700">#374151</Brush>
     <Brush x:Key="BrushGray800">#1F2937</Brush>
     <Brush x:Key="BrushGray900">#111827</Brush>
-    
+
     <!-- Emerald Green -->
     <Color x:Key="ColorEmerald500">#10B981</Color>
     <Brush x:Key="BrushEmerald500">#10B981</Brush>
-    
+
 </ResourceDictionary>

@@ -2,5 +2,7 @@
 
 public record struct BluetoothDeviceInfo(string Name, string Address)
 {
-    public static BluetoothDeviceInfo Empty() => new(string.Empty, string.Empty);
+  public static BluetoothDeviceInfo Empty() {
+    return new BluetoothDeviceInfo(string.Empty, string.Empty);
+  }
 }

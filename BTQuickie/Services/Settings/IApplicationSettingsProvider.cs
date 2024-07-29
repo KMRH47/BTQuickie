@@ -4,6 +4,6 @@ namespace BTQuickie.Services.Settings;
 
 public interface IApplicationSettingsProvider
 {
-    UserSettings UserSettings { get; }
-    void WriteUserSettings();
+  UserSettings UserSettings { get; }
+  void WriteUserSettings();
 }

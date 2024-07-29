@@ -11,45 +11,40 @@ namespace BTQuickie.ViewModels;
 
 public partial class TaskbarIconViewModel : ViewModelBase
 {
-    private readonly IApplicationContextProvider applicationContextProvider;
-    private readonly UserSettings userSettings;
+  private readonly IApplicationContextProvider applicationContextProvider;
+  private readonly UserSettings userSettings;
 
-    public TaskbarIconViewModel(IApplicationContextProvider applicationContextProvider,
-                                IApplicationSettingsProvider applicationSettingsProvider)
-    {
-        this.applicationContextProvider = applicationContextProvider;
-        UserSettings userSettings = applicationSettingsProvider.UserSettings;
-        userSettings.Keymap.CollectionChanged += OnKeymapChanged;
-        this.userSettings = userSettings;;
+  public TaskbarIconViewModel(IApplicationContextProvider applicationContextProvider,
+    IApplicationSettingsProvider applicationSettingsProvider) {
+    this.applicationContextProvider = applicationContextProvider;
+    UserSettings userSettings = applicationSettingsProvider.UserSettings;
+    userSettings.Keymap.CollectionChanged += OnKeymapChanged;
+    this.userSettings = userSettings;
+    ;
+  }
+
+  public HotkeyInfo ShowBluetoothDevicesHotKey => userSettings.Keymap.First(hotkey => hotkey.Id is 0);
+
+  private void OnKeymapChanged(object? sender, NotifyCollectionChangedEventArgs e) {
+    if (e.Action is not NotifyCollectionChangedAction.Add) {
+      return;
     }
 
-    public HotkeyInfo ShowBluetoothDevicesHotKey => this.userSettings.Keymap.First(hotkey => hotkey.Id is 0);
+    OnPropertyChanged(nameof(ShowBluetoothDevicesHotKey));
+  }
 
-    private void OnKeymapChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        if (e.Action is not NotifyCollectionChangedAction.Add)
-        {
-            return;
-        }
+  [RelayCommand]
+  private void ShowWindow() {
+    applicationContextProvider.ShowMainWindow();
+  }
 
-        OnPropertyChanged(nameof(ShowBluetoothDevicesHotKey));
-    }
+  [RelayCommand]
+  private void OpenSettings() {
+    applicationContextProvider.OpenWindow(nameof(SettingsViewModel));
+  }
 
-    [RelayCommand]
-    private void ShowWindow()
-    {
-        this.applicationContextProvider.ShowMainWindow();
-    }
-
-    [RelayCommand]
-    private void OpenSettings()
-    {
-        this.applicationContextProvider.OpenWindow(nameof(SettingsViewModel));
-    }
-
-    [RelayCommand]
-    private void Exit()
-    {
-        this.applicationContextProvider.Exit();
-    }
+  [RelayCommand]
+  private void Exit() {
+    applicationContextProvider.Exit();
+  }
 }

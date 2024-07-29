@@ -6,24 +6,21 @@ namespace BTQuickie.Models.Settings;
 
 public class UserSettings
 {
-    private bool launchOnStartup;
-    public ObservableCollection<HotkeyInfo> Keymap { get; init; }
-    public DiscoveryInfo DiscoveryInfo { get; init; }
+  private bool launchOnStartup;
+  public ObservableCollection<HotkeyInfo> Keymap { get; init; }
+  public DiscoveryInfo DiscoveryInfo { get; init; }
 
-    public bool LaunchOnStartup
-    {
-        get => this.launchOnStartup;
-        set
-        {
-            this.launchOnStartup = value;
+  public bool LaunchOnStartup {
+    get => launchOnStartup;
+    set {
+      launchOnStartup = value;
 
-            if (value)
-            {
-                ShellLinkHelper.CreateStartupShortcut();
-                return;
-            }
+      if (value) {
+        ShellLinkHelper.CreateStartupShortcut();
+        return;
+      }
 
-            ShellLinkHelper.RemoveStartupShortcut();
-        }
+      ShellLinkHelper.RemoveStartupShortcut();
     }
+  }
 }

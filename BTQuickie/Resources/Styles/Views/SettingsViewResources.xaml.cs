@@ -2,8 +2,7 @@
 
 public partial class SettingsViewResources
 {
-    public SettingsViewResources()
-    {
-        InitializeComponent();
-    }
+  public SettingsViewResources() {
+    InitializeComponent();
+  }
 }

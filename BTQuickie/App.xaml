@@ -4,18 +4,18 @@
              Startup="OnStartup">
     <Application.Resources>
         <ResourceDictionary>
-            
+
             <!-- Merged Dictionaries-->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Styles/Colors.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/Converters.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/Values.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Converters.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Values.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Tray Icon -->
             <ImageSource x:Key="TrayIconSource">Resources/Icons/exported_small.ico</ImageSource>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

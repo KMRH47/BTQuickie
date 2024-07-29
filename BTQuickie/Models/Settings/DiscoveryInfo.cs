@@ -2,5 +2,5 @@
 
 public class DiscoveryInfo
 {
-    public int DiscoveryTimeMs { get; set; }
+  public int DiscoveryTimeMs { get; set; }
 }

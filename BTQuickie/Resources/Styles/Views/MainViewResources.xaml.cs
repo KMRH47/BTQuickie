@@ -2,8 +2,7 @@
 
 public partial class MainViewResources
 {
-    public MainViewResources()
-    {
-        InitializeComponent();
-    }
+  public MainViewResources() {
+    InitializeComponent();
+  }
 }

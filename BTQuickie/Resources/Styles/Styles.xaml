@@ -5,26 +5,26 @@
     <Style TargetType="Grid"
            x:Key="MainGridStyle">
         <Setter Property="Background"
-                Value="{StaticResource BrushGray600}"/>
+                Value="{StaticResource BrushGray600}" />
     </Style>
 
     <!-- StackPanel -->
     <Style TargetType="StackPanel"
            x:Key="MainStackPanelStyle">
         <Setter Property="Margin"
-                Value="10"/>
+                Value="10" />
     </Style>
 
     <!-- Label -->
     <Style TargetType="Label">
         <Setter Property="Foreground"
-                Value="{StaticResource BrushGray200}"/>
+                Value="{StaticResource BrushGray200}" />
     </Style>
 
     <!-- Button -->
     <Style TargetType="Button">
         <Setter Property="Foreground"
-                Value="{StaticResource BrushGray200}"/>
+                Value="{StaticResource BrushGray200}" />
     </Style>
 
 </ResourceDictionary>

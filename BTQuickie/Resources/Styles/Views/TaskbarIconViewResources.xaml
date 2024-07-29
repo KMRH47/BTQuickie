@@ -10,11 +10,11 @@
     <!-- Context Menu -->
     <ContextMenu x:Key="ContextMenu"
                  d:DataContext="{d:DesignInstance viewModels:TaskbarIconViewModel}">
-        
+
         <!-- Settings -->
         <MenuItem Header="{x:Static localization:AppResources.Settings}"
                   Command="{Binding OpenSettingsCommand}" />
-        
+
         <!-- Exit -->
         <MenuItem Header="{x:Static localization:AppResources.Exit}"
                   Command="{Binding ExitCommand}" />

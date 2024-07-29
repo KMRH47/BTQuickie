@@ -6,53 +6,46 @@ namespace BTQuickie.Behaviors;
 
 public class NumericTextBoxBehavior
 {
-    public static readonly DependencyProperty IsNumericInputProperty =
-        DependencyProperty.RegisterAttached(
-            "NumericInput",
-            typeof(bool),
-            typeof(NumericTextBoxBehavior),
-            new PropertyMetadata(false, IsNumericInputPropertyChanged));
+  public static readonly DependencyProperty IsNumericInputProperty =
+    DependencyProperty.RegisterAttached(
+      "NumericInput",
+      typeof(bool),
+      typeof(NumericTextBoxBehavior),
+      new PropertyMetadata(false, IsNumericInputPropertyChanged));
 
-    public static bool GetIsNumericInput(Control control)
-    {
-        return (bool) control.GetValue(IsNumericInputProperty);
+  public static bool GetIsNumericInput(Control control) {
+    return (bool)control.GetValue(IsNumericInputProperty);
+  }
+
+  /// <summary>
+  ///   Forces focus on this element when its parent window is shown.
+  /// </summary>
+  public static void SetIsNumericInput(Control control, bool value) {
+    control.SetValue(IsNumericInputProperty, value);
+  }
+
+  private static void IsNumericInputPropertyChanged(DependencyObject dependencyObject,
+    DependencyPropertyChangedEventArgs args) {
+    if (dependencyObject is not TextBox textBox) {
+      return;
     }
 
-    /// <summary>
-    /// Forces focus on this element when its parent window is shown.
-    /// </summary>
-    public static void SetIsNumericInput(Control control, bool value)
-    {
-        control.SetValue(IsNumericInputProperty, value);
+    if (args.NewValue is not true) {
+      return;
     }
 
-    private static void IsNumericInputPropertyChanged(DependencyObject dependencyObject,
-        DependencyPropertyChangedEventArgs args)
-    {
-        if (dependencyObject is not TextBox textBox)
-        {
-            return;
-        }
+    textBox.PreviewTextInput += TextBoxOnPreviewTextInput;
+  }
 
-        if (args.NewValue is not true)
-        {
-            return;
-        }
+  private static void TextBoxOnPreviewTextInput(object sender, TextCompositionEventArgs e) {
+    string text = e.Text;
 
-        textBox.PreviewTextInput += TextBoxOnPreviewTextInput;
+    if (text.Length <= 0) {
+      e.Handled = true;
+      return;
     }
 
-    private static void TextBoxOnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        string text = e.Text;
-
-        if (text.Length <= 0)
-        {
-            e.Handled = true;
-            return;
-        }
-
-        bool isNotDigit = !char.IsDigit(text[^1]);
-        e.Handled = isNotDigit;
-    }
+    bool isNotDigit = !char.IsDigit(text[^1]);
+    e.Handled = isNotDigit;
+  }
 }

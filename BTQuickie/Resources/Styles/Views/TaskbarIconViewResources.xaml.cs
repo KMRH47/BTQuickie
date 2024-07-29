@@ -2,8 +2,7 @@
 
 public partial class TaskbarIconViewResources
 {
-    public TaskbarIconViewResources()
-    {
-        InitializeComponent();
-    }
+  public TaskbarIconViewResources() {
+    InitializeComponent();
+  }
 }

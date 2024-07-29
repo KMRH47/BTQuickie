@@ -12,7 +12,7 @@
 
     <!-- Resources -->
     <Window.Resources>
-        <resources:TaskbarIconViewResources/>
+        <resources:TaskbarIconViewResources />
     </Window.Resources>
 
     <!-- Tray Icon -->
@@ -32,7 +32,7 @@
                 Modifiers="{Binding ShowBluetoothDevicesHotKey.Modifiers,
                         Converter={StaticResource StringModifierKeysConverter}, Mode=OneWay}"
                 Command="{Binding ShowWindowCommand}"
-                behaviors:GlobalHotkeyBehavior.Register="True"/>
+                behaviors:GlobalHotkeyBehavior.Register="True" />
 
         </tb:TaskbarIcon.InputBindings>
     </tb:TaskbarIcon>

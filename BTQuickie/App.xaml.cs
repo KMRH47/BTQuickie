@@ -6,59 +6,51 @@ using BTQuickie.ViewModels.Base;
 using BTQuickie.Views;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BTQuickie
+namespace BTQuickie;
+
+public partial class App
 {
-    public partial class App
-    {
-        private readonly IServiceProvider serviceProvider;
-        private readonly IApplicationSettingsProvider applicationSettingsProvider;
+  private readonly IApplicationSettingsProvider applicationSettingsProvider;
+  private readonly IServiceProvider serviceProvider;
 
-        public App()
-        {
-            IServiceProvider serviceProvider = new ServiceCollection()
-                                              .ConfigureServices()
-                                              .ConfigureViewModels()
-                                              .ConfigureViews()
-                                              .BuildServiceProvider();
-            
-            this.applicationSettingsProvider = serviceProvider.GetRequiredService<IApplicationSettingsProvider>();
-            this.serviceProvider = serviceProvider;
-        }
+  public App() {
+    IServiceProvider serviceProvider = new ServiceCollection()
+      .ConfigureServices()
+      .ConfigureViewModels()
+      .ConfigureViews()
+      .BuildServiceProvider();
 
-        protected override void OnDeactivated(EventArgs e)
-        {
-            base.OnDeactivated(e);
-            MainWindow?.Hide();
-            this.applicationSettingsProvider.WriteUserSettings();
-        }
+    applicationSettingsProvider = serviceProvider.GetRequiredService<IApplicationSettingsProvider>();
+    this.serviceProvider = serviceProvider;
+  }
 
-        private void OnStartup(object sender, StartupEventArgs e)
-        {
-            this.applicationSettingsProvider.WriteUserSettings();
-            TaskbarIconView taskbarIconView = this.serviceProvider.GetRequiredService<TaskbarIconView>();
-            SettingsView settingsView = this.serviceProvider.GetRequiredService<SettingsView>();
-            MainWindow = this.serviceProvider.GetRequiredService<MainView>();
-            taskbarIconView.EnsureHandle();
-            settingsView.EnsureHandle();
-            MainWindow.EnsureHandle();
+  protected override void OnDeactivated(EventArgs e) {
+    base.OnDeactivated(e);
+    MainWindow?.Hide();
+    applicationSettingsProvider.WriteUserSettings();
+  }
 
-            foreach (Window window in Current.Windows)
-            {
-                window.Activated += OnWindowActivated;
-            }
-        }
+  private void OnStartup(object sender, StartupEventArgs e) {
+    applicationSettingsProvider.WriteUserSettings();
+    var taskbarIconView = serviceProvider.GetRequiredService<TaskbarIconView>();
+    var settingsView = serviceProvider.GetRequiredService<SettingsView>();
+    MainWindow = serviceProvider.GetRequiredService<MainView>();
+    taskbarIconView.EnsureHandle();
+    settingsView.EnsureHandle();
+    MainWindow.EnsureHandle();
 
-        private static void OnWindowActivated(object? o, EventArgs e)
-        {
-            Window window = (Window) o!;
-            ViewModelBase viewModelBase = (ViewModelBase) window.DataContext;
-            viewModelBase.InitializeAsync();
-        }
+    foreach (Window window in Current.Windows)
+      window.Activated += OnWindowActivated;
+  }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-            this.applicationSettingsProvider.WriteUserSettings();
-        }
-    }
+  private static void OnWindowActivated(object? o, EventArgs e) {
+    var window = (Window)o!;
+    var viewModelBase = (ViewModelBase)window.DataContext;
+    viewModelBase.InitializeAsync();
+  }
+
+  protected override void OnExit(ExitEventArgs e) {
+    base.OnExit(e);
+    applicationSettingsProvider.WriteUserSettings();
+  }
 }
