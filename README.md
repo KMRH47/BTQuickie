@@ -1,6 +1,4 @@
-# Deprecated
-
-Windows 11 now has an intutive UI for connecting to bluetooth devices, so this tool is basically useless.
+Windows 11 now has an intutive UI for connecting to bluetooth devices, so this tool is somewhat useless.
 
 **Original README below**
 
