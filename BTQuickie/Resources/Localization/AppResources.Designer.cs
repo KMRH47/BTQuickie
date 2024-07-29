@@ -132,6 +132,15 @@ namespace BTQuickie.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paired.
+        /// </summary>
+        public static string Paired {
+            get {
+                return ResourceManager.GetString("Paired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {

@@ -48,4 +48,7 @@
   <data name="LaunchOnStartup" xml:space="preserve">
         <value>Kør ved opstart</value>
     </data>
+  <data name="Paired" xml:space="preserve">
+    <value>Parret</value>
+  </data>
 </root>
