@@ -10,7 +10,7 @@
         x:Class="BTQuickie.Views.MainView"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
-        Title="{x:Static localization:AppResources.Title}"
+        Title="BTQuickie"
         ShowInTaskbar="False"
         WindowStartupLocation="Manual"
         Height="500"

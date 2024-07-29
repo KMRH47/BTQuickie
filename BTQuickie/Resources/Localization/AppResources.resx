@@ -29,9 +29,6 @@
   <data name="FindBluetoothDevices" xml:space="preserve">
         <value>Find Bluetooth devices</value>
     </data>
-  <data name="Title" xml:space="preserve">
-        <value>BTQuickie</value>
-    </data>
   <data name="Disconnect" xml:space="preserve">
         <value>Disconnect</value>
     </data>

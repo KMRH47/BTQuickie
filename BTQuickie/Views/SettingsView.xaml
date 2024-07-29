@@ -13,7 +13,7 @@
         Closing="SettingsView_OnClosing"
         Background="{StaticResource BrushGray600}"
         WindowStartupLocation="CenterScreen"
-        Title="{x:Static localization:AppResources.Title}"
+        Title="BTQuickie"
         Height="500"
         Width="300">
 

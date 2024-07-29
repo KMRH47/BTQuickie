@@ -150,15 +150,6 @@ namespace BTQuickie.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BTQuickie.
-        /// </summary>
-        public static string Title {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unknown device.
         /// </summary>
         public static string UnknownDevice {
