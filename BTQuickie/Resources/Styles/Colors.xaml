@@ -27,4 +27,8 @@
     <Color x:Key="ColorEmerald500">#10B981</Color>
     <Brush x:Key="BrushEmerald500">#10B981</Brush>
 
+    <!-- Complement Colors -->
+    <Color x:Key="ColorComplementGreen">#69E072</Color>
+    <Brush x:Key="BrushComplementGreen">#69E072</Brush>
+
 </ResourceDictionary>
