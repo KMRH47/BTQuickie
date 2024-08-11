@@ -52,7 +52,8 @@ public class InTheHandBluetoothService : IBluetoothService
       new BluetoothDeviceInfoLocal(
         Name: bluetoothDeviceInfo.DeviceName,
         Address: bluetoothDeviceInfo.DeviceAddress.ToString(),
-        IsPaired: bluetoothDeviceInfo.Remembered
+        IsPaired: bluetoothDeviceInfo.Remembered,
+        IsConnected: bluetoothDeviceInfo.Connected
       )).ToList();
   }
 
