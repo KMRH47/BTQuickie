@@ -30,5 +30,10 @@
     <!-- Complement Colors -->
     <Color x:Key="ColorComplementGreen">#69E072</Color>
     <Brush x:Key="BrushComplementGreen">#69E072</Brush>
+    <Color x:Key="ColorComplementBlue">#acc2e2</Color>
+    <Brush x:Key="BrushComplementBlue">#acc2e2</Brush>
+    <Color x:Key="ColorComplementRed">#FF0000</Color>
+    <Brush x:Key="BrushComplementRed">#FF0000</Brush>
+
 
 </ResourceDictionary>
