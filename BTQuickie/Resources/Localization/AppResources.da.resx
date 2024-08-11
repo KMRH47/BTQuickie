@@ -51,4 +51,10 @@
   <data name="Paired" xml:space="preserve">
     <value>Parret</value>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Forbundet</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fejl</value>
+  </data>
 </root>
