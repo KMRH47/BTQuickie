@@ -25,40 +25,12 @@
     <Grid Style="{StaticResource MainGridStyle}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Top Section -->
-        <Grid Grid.Row="0"
-              Visibility="{Binding ConnectedBluetoothDeviceInfo.Name,
-                Converter={StaticResource StringToVisibilityConverter}}">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Connected Bluetooth Device Info  -->
-            <Border Grid.Column="0"
-                    BorderThickness="{StaticResource ThicknessXMicro}"
-                    BorderBrush="{StaticResource BrushEmerald500}">
-                <StackPanel>
-                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Name}" />
-                    <Label Content="{Binding ConnectedBluetoothDeviceInfo.Address}" />
-                </StackPanel>
-            </Border>
-
-            <!-- Disconnect Button -->
-            <Button Grid.Column="1"
-                    Style="{StaticResource DisconnectButtonStyle}"
-                    Command="{Binding DisconnectCommand}"
-                    Content="{x:Static localization:AppResources.Disconnect}" />
-        </Grid>
-
-        <!-- Middle Section -->
-        <Grid Grid.Row="1">
+        <!-- Main Section -->
+        <Grid>
 
             <!-- Device List -->
             <ListView Style="{StaticResource ListViewStyle}"
@@ -91,7 +63,7 @@
         </Grid>
 
         <!-- Button (Discover Devices) -->
-        <Button Grid.Row="2"
+        <Button Grid.Row="1"
                 TabIndex="1"
                 Height="35"
                 Command="{Binding DiscoverBluetoothDevicesCommand}"

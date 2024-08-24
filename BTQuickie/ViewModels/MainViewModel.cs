@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
@@ -18,10 +17,7 @@ public partial class MainViewModel(
   IApplicationContextProvider applicationContextProvider)
   : ViewModelBase
 {
-  [ObservableProperty] private BluetoothDeviceInfo connectedBluetoothDeviceInfo;
-
-  [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices =
-    new ObservableCollection<BluetoothDeviceInfo>(bluetoothService.PairedDevices());
+  [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices = bluetoothService.GetPairedDevices();
 
   [ObservableProperty] private BluetoothDeviceInfo selectedBluetoothDeviceInfo;
 
@@ -29,48 +25,36 @@ public partial class MainViewModel(
   private async Task ConnectAsync(BluetoothDeviceInfo bluetoothDeviceInfo) {
     try {
       IsBusy = true;
-
-      if (ConnectedBluetoothDeviceInfo == bluetoothDeviceInfo) {
-        return;
-      }
-
-      await bluetoothService.ConnectAsync(bluetoothDeviceInfo.Address, bluetoothService.GuidSerialPort());
-
-      ConnectedBluetoothDeviceInfo = bluetoothDeviceInfo;
+      await bluetoothService.ConnectAsync(bluetoothDeviceInfo);
+      Devices = [
+        ..Devices.Where(device => device.Address != bluetoothDeviceInfo.Address),
+        bluetoothDeviceInfo with { State = BluetoothConnectionState.Connected }
+      ];
     }
     catch (SocketException e) {
       Debug.WriteLine($"{e.Message}\n{e.StackTrace}");
+      Devices = [
+        ..Devices.Where(device => device.Address != bluetoothDeviceInfo.Address),
+        bluetoothDeviceInfo with { State = BluetoothConnectionState.Error }
+      ];
     }
     finally {
       IsBusy = false;
     }
   }
 
-
   [RelayCommand(CanExecute = nameof(CanDiscoverBluetoothDevices))]
-  private async Task DiscoverBluetoothDevicesAsync()
-  {
+  private async Task DiscoverBluetoothDevicesAsync() {
     IsBusy = true;
-    try
-    {
+    try {
       IReadOnlyCollection<BluetoothDeviceInfo> discoveredDevices = await Task.Run(bluetoothService.DiscoverDevices);
-      Devices = [..discoveredDevices, ..bluetoothService.PairedDevices()];
+      Devices = [..discoveredDevices, ..bluetoothService.GetPairedDevices()];
     }
-    finally
-    {
+    finally {
       IsBusy = false;
     }
   }
 
-  [RelayCommand]
-  private void Disconnect() {
-    if (!bluetoothService.Connected) {
-      return;
-    }
-
-    bluetoothService.Disconnect();
-    ConnectedBluetoothDeviceInfo = default;
-  }
 
   [RelayCommand]
   private void HideWindow() => applicationContextProvider.HideMainWindow();

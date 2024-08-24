@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BluetoothDeviceInfoLocal = BTQuickie.Models.Device.BluetoothDeviceInfo;
+using BTQuickie.Models.Device;
 
 namespace BTQuickie.Services.Bluetooth;
 
 public interface IBluetoothService
 {
   bool Connected { get; }
-  Guid GuidSerialPort();
-  IReadOnlyCollection<BluetoothDeviceInfoLocal> DiscoverDevices();
-  void Connect(string address, Guid serviceGuid);
-  Task ConnectAsync(string address, Guid serviceGuid);
-  void PairRequest(string address, string pin);
-  IEnumerable<BluetoothDeviceInfoLocal> PairedDevices();
+  Task<IReadOnlyCollection<BluetoothDeviceInfo>> DiscoverDevices();
+  Task ConnectAsync(BluetoothDeviceInfo bluetoothDeviceInfo);
+  void PairRequest(BluetoothDeviceInfo bluetoothDeviceInfo, string? pin = null);
+  IReadOnlyCollection<BluetoothDeviceInfo> GetPairedDevices();
   void Disconnect();
 }
