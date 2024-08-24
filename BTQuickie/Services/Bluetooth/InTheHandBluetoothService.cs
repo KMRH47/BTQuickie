@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BTQuickie.Models.Device;
 using BTQuickie.Models.Settings;
 using BTQuickie.Services.Settings;
 using InTheHand.Net;
 using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
+using BluetoothDeviceInfo = InTheHand.Net.Sockets.BluetoothDeviceInfo;
 using BluetoothDeviceInfoLocal = BTQuickie.Models.Device.BluetoothDeviceInfo;
 
 namespace BTQuickie.Services.Bluetooth;
@@ -23,41 +25,73 @@ public class InTheHandBluetoothService : IBluetoothService
 
   public bool Connected => bluetoothClient.Connected;
 
-  public Guid GuidSerialPort() => BluetoothService.SerialPort;
-
-  public IReadOnlyCollection<BluetoothDeviceInfoLocal> DiscoverDevices() {
+  public async Task<IReadOnlyCollection<BluetoothDeviceInfoLocal>> DiscoverDevices() {
     TimeSpan inquiryLength = TimeSpan.FromMilliseconds(userSettings.DiscoveryInfo.DiscoveryTimeMs);
     bluetoothClient.InquiryLength = inquiryLength;
-    return MapModel(bluetoothClient.DiscoverDevices());
+
+    IReadOnlyCollection<BluetoothDeviceInfo>? devices = bluetoothClient.DiscoverDevices();
+    List<BluetoothDeviceInfoLocal> mappedDevices = devices.Select(MapModel).ToList();
+
+    return await Task.FromResult<IReadOnlyCollection<BluetoothDeviceInfoLocal>>(mappedDevices);
   }
 
-  public IEnumerable<BluetoothDeviceInfoLocal> PairedDevices() => MapModel(bluetoothClient.PairedDevices);
+  public IReadOnlyCollection<BluetoothDeviceInfoLocal> GetPairedDevices() =>
+    bluetoothClient.PairedDevices.Select(MapModel).ToList();
 
-  public void Connect(string address, Guid serviceGuid) =>
-    bluetoothClient.Connect(BluetoothAddress.Parse(address), serviceGuid);
+  public async Task ConnectAsync(BluetoothDeviceInfoLocal bluetoothDeviceInfo) {
+    if (bluetoothClient.Connected &&
+        bluetoothClient.Client.RemoteEndPoint?.ToString()?.Split(':')[0] == bluetoothDeviceInfo.Address) {
+      await bluetoothClient.Client.DisconnectAsync(true);
+      bluetoothClient.Close();
+      bluetoothClient = CreateClient();
+      return;
+    }
 
-  public async Task ConnectAsync(string address, Guid serviceGuid) =>
-    await Task.Run(() => bluetoothClient.Connect(BluetoothAddress.Parse(address), serviceGuid));
+    // Manually handle exception propagation since they are consumed inside Task.Run
+    Task task = Task.Run(() => {
+      try {
+        BluetoothDeviceInfo? bluetoothDevice =
+          bluetoothClient.PairedDevices.First(device => device.DeviceAddress.ToString() == bluetoothDeviceInfo.Address);
+        Guid? serviceGuid = bluetoothDevice.InstalledServices?.FirstOrDefault() ?? BluetoothService.SerialPort;
+        bluetoothClient.Connect(BluetoothAddress.Parse(bluetoothDeviceInfo.Address), serviceGuid.Value);
+        return Task.CompletedTask;
+      }
+      catch (Exception e) {
+        return Task.FromException(e);
+      }
+    });
 
-  public void PairRequest(string address, string pin) =>
-    BluetoothSecurity.PairRequest(BluetoothAddress.Parse(address), pin);
+    await task;
+
+    if (task.IsFaulted) {
+      throw task.Exception!;
+    }
+  }
+
+  public void PairRequest(BluetoothDeviceInfoLocal bluetoothDeviceInfo, string? pin = null) =>
+    BluetoothSecurity.PairRequest(BluetoothAddress.Parse(bluetoothDeviceInfo.Address), pin);
 
   public void Disconnect() {
     bluetoothClient.Dispose();
     bluetoothClient = CreateClient();
   }
 
-  private static IReadOnlyCollection<BluetoothDeviceInfoLocal> MapModel(IEnumerable<BluetoothDeviceInfo> devices) {
-    return devices.Select(bluetoothDeviceInfo =>
-      new BluetoothDeviceInfoLocal(
-        Name: bluetoothDeviceInfo.DeviceName,
-        Address: bluetoothDeviceInfo.DeviceAddress.ToString(),
-        IsPaired: bluetoothDeviceInfo.Remembered
-      )).ToList();
-  }
-
   private BluetoothClient CreateClient() {
     float inquiryLengthMs = userSettings.DiscoveryInfo.DiscoveryTimeMs;
     return new BluetoothClient { InquiryLength = TimeSpan.FromMilliseconds(inquiryLengthMs) };
   }
+
+  private static BluetoothDeviceInfoLocal MapModel(BluetoothDeviceInfo device) =>
+    new(
+      Name: device.DeviceName,
+      Address: device.DeviceAddress.ToString(),
+      State: GetState(device)
+    );
+
+  private static BluetoothConnectionState GetState(BluetoothDeviceInfo device) =>
+    device switch {
+      { Connected: true } => BluetoothConnectionState.Connected,
+      { Authenticated: true } => BluetoothConnectionState.Paired,
+      _ => BluetoothConnectionState.Discovered
+    };
 }

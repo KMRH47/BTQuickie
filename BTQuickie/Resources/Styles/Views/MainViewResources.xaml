@@ -87,6 +87,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <!-- List View -->
     <Style x:Key="ListViewStyle"
            TargetType="ListView">
@@ -138,20 +139,6 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Button -->
-    <!-- Disconnect Button -->
-    <Style x:Key="DisconnectButtonStyle"
-           TargetType="Button">
-        <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="Foreground"
-                Value="{StaticResource BrushGray50}" />
-        <Setter Property="Padding"
-                Value="{StaticResource ThicknessMicro}" />
-        <Setter Property="Background"
-                Value="{StaticResource BrushGray600}" />
-    </Style>
-
     <!-- Bluetooth Device Info Template -->
     <DataTemplate x:Key="BluetoothDeviceInfoTemplate"
                   DataType="viewModels:MainViewModel">
@@ -201,21 +188,56 @@
 
                             <!-- Is Paired? -->
                             <Label Content="{x:Static localization:AppResources.Paired}"
-                                   Foreground="{StaticResource BrushComplementGreen}">
+                                   Foreground="{StaticResource BrushComplementBlue}">
                                 <Label.Style>
                                     <Style TargetType="Label">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsPaired}" Value="True">
+                                            <!-- Show when State is Paired -->
+                                            <DataTrigger Binding="{Binding State}"
+                                                         Value="{x:Static device:BluetoothConnectionState.Paired}">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Label.Style>
                             </Label>
+
+                            <!-- Is Connected? -->
+                            <Label Content="{x:Static localization:AppResources.Connected}"
+                                   Foreground="{StaticResource BrushComplementGreen}">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <!-- Show when State is Connected -->
+                                            <DataTrigger Binding="{Binding State}"
+                                                         Value="{x:Static device:BluetoothConnectionState.Connected}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
+                            <!-- Error? -->
+                            <Label Content="{x:Static localization:AppResources.Error}"
+                                   Foreground="{StaticResource BrushComplementRed}">
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <!-- Show when State is Error -->
+                                            <DataTrigger Binding="{Binding State}"
+                                                         Value="{x:Static device:BluetoothConnectionState.Error}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+
                         </StackPanel>
-
-
                     </StackPanel>
                 </DataTemplate>
             </ContentPresenter.ContentTemplate>
