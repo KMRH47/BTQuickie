@@ -36,7 +36,7 @@
             <ListView Style="{StaticResource ListViewStyle}"
                       ItemsSource="{Binding Devices}"
                       ItemTemplate="{StaticResource BluetoothDeviceInfoTemplate}"
-                      SelectedItem="{Binding SelectedBluetoothDeviceInfo}"
+                      SelectedItem="{Binding SelectedBluetoothDevice}"
                       customBehaviors:FocusBehavior.IsFocused="True"
                       Visibility="{Binding IsBusy,
                         Converter={StaticResource InvertedVisibilityBooleanConverter}}">
@@ -47,7 +47,7 @@
                     <!-- Enter -->
                     <KeyBinding Key="Enter"
                                 Command="{Binding ConnectCommand}"
-                                CommandParameter="{Binding SelectedBluetoothDeviceInfo}" />
+                                CommandParameter="{Binding SelectedBluetoothDevice}" />
                     <!-- Esc -->
                     <KeyBinding Key="Escape"
                                 Command="{Binding HideWindowCommand}" />

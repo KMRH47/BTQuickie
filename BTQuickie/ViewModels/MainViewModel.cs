@@ -17,25 +17,25 @@ public partial class MainViewModel(
   IApplicationContextProvider applicationContextProvider)
   : ViewModelBase
 {
-  [ObservableProperty] private IReadOnlyCollection<BluetoothDeviceInfo> devices = bluetoothService.GetPairedDevices();
+  [ObservableProperty] private IReadOnlyCollection<BluetoothDevice> devices = bluetoothService.GetPairedDevices();
 
-  [ObservableProperty] private BluetoothDeviceInfo selectedBluetoothDeviceInfo;
+  [ObservableProperty] private BluetoothDevice selectedBluetoothDevice;
 
   [RelayCommand]
-  private async Task ConnectAsync(BluetoothDeviceInfo bluetoothDeviceInfo) {
+  private async Task ConnectAsync(BluetoothDevice bluetoothDevice) {
     try {
       IsBusy = true;
-      await bluetoothService.ConnectAsync(bluetoothDeviceInfo);
+      await bluetoothService.ConnectAsync(bluetoothDevice);
       Devices = [
-        ..Devices.Where(device => device.Address != bluetoothDeviceInfo.Address),
-        bluetoothDeviceInfo with { State = BluetoothConnectionState.Connected }
+        ..Devices.Where(device => device.Address != bluetoothDevice.Address),
+        bluetoothDevice with { State = BluetoothConnectionState.Connected }
       ];
     }
     catch (SocketException e) {
       Debug.WriteLine($"{e.Message}\n{e.StackTrace}");
       Devices = [
-        ..Devices.Where(device => device.Address != bluetoothDeviceInfo.Address),
-        bluetoothDeviceInfo with { State = BluetoothConnectionState.Error }
+        ..Devices.Where(device => device.Address != bluetoothDevice.Address),
+        bluetoothDevice with { State = BluetoothConnectionState.Error }
       ];
     }
     finally {
@@ -47,7 +47,7 @@ public partial class MainViewModel(
   private async Task DiscoverBluetoothDevicesAsync() {
     IsBusy = true;
     try {
-      IReadOnlyCollection<BluetoothDeviceInfo> discoveredDevices = await Task.Run(bluetoothService.DiscoverDevices);
+      IReadOnlyCollection<BluetoothDevice> discoveredDevices = await Task.Run(bluetoothService.DiscoverDevices);
       Devices = [..discoveredDevices, ..bluetoothService.GetPairedDevices()];
     }
     finally {

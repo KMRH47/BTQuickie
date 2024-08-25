@@ -1,6 +1,6 @@
 ﻿namespace BTQuickie.Models.Device;
 
-public record struct BluetoothDeviceInfo(
+public record struct BluetoothDevice(
   string Name,
   string Address,
   BluetoothConnectionState State

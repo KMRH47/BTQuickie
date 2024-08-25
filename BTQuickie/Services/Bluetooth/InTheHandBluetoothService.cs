@@ -9,7 +9,6 @@ using InTheHand.Net;
 using InTheHand.Net.Bluetooth;
 using InTheHand.Net.Sockets;
 using BluetoothDeviceInfo = InTheHand.Net.Sockets.BluetoothDeviceInfo;
-using BluetoothDeviceInfoLocal = BTQuickie.Models.Device.BluetoothDeviceInfo;
 
 namespace BTQuickie.Services.Bluetooth;
 
@@ -25,20 +24,20 @@ public class InTheHandBluetoothService : IBluetoothService
 
   public bool Connected => bluetoothClient.Connected;
 
-  public async Task<IReadOnlyCollection<BluetoothDeviceInfoLocal>> DiscoverDevices() {
+  public async Task<IReadOnlyCollection<BluetoothDevice>> DiscoverDevices() {
     TimeSpan inquiryLength = TimeSpan.FromMilliseconds(userSettings.DiscoveryInfo.DiscoveryTimeMs);
     bluetoothClient.InquiryLength = inquiryLength;
 
     IReadOnlyCollection<BluetoothDeviceInfo>? devices = bluetoothClient.DiscoverDevices();
-    List<BluetoothDeviceInfoLocal> mappedDevices = devices.Select(MapModel).ToList();
+    List<BluetoothDevice> mappedDevices = devices.Select(MapModel).ToList();
 
-    return await Task.FromResult<IReadOnlyCollection<BluetoothDeviceInfoLocal>>(mappedDevices);
+    return await Task.FromResult<IReadOnlyCollection<BluetoothDevice>>(mappedDevices);
   }
 
-  public IReadOnlyCollection<BluetoothDeviceInfoLocal> GetPairedDevices() =>
+  public IReadOnlyCollection<BluetoothDevice> GetPairedDevices() =>
     bluetoothClient.PairedDevices.Select(MapModel).ToList();
 
-  public async Task ConnectAsync(BluetoothDeviceInfoLocal bluetoothDeviceInfo) {
+  public async Task ConnectAsync(BluetoothDevice bluetoothDeviceInfo) {
     if (bluetoothClient.Connected &&
         bluetoothClient.Client.RemoteEndPoint?.ToString()?.Split(':')[0] == bluetoothDeviceInfo.Address) {
       await bluetoothClient.Client.DisconnectAsync(true);
@@ -68,7 +67,7 @@ public class InTheHandBluetoothService : IBluetoothService
     }
   }
 
-  public void PairRequest(BluetoothDeviceInfoLocal bluetoothDeviceInfo, string? pin = null) =>
+  public void PairRequest(BluetoothDevice bluetoothDeviceInfo, string? pin = null) =>
     BluetoothSecurity.PairRequest(BluetoothAddress.Parse(bluetoothDeviceInfo.Address), pin);
 
   public void Disconnect() {
@@ -81,7 +80,7 @@ public class InTheHandBluetoothService : IBluetoothService
     return new BluetoothClient { InquiryLength = TimeSpan.FromMilliseconds(inquiryLengthMs) };
   }
 
-  private static BluetoothDeviceInfoLocal MapModel(BluetoothDeviceInfo device) =>
+  private static BluetoothDevice MapModel(BluetoothDeviceInfo device) =>
     new(
       Name: device.DeviceName,
       Address: device.DeviceAddress.ToString(),
