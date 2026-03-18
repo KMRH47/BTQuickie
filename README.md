@@ -27,4 +27,4 @@ Built with:
 
 ## License
 
-MIT
+PolyForm Noncommercial 1.0.0
